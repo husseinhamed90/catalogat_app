@@ -15,53 +15,6 @@ class _BrandsProductsScreenState extends State<BrandsProductsScreen> {
 
   late BrandsCubit _brandsCubit;
 
-  final List<Map<String, dynamic>> products = [
-    {
-      "brand": "Nike",
-      "items": []
-    },
-    {
-      "brand": "Adidas",
-      "items": [
-        {
-          "name": "Ultraboost",
-          "image": "https://images.pexels.com/photos/1172064/pexels-photo-1172064.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-          "price": "\$180"
-        },
-        {
-          "name": "Stan Smith",
-          "image": "https://images.pexels.com/photos/1172064/pexels-photo-1172064.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-          "price": "\$85"
-        }
-      ]
-    },
-    {
-      "brand": "Puma",
-      "items": [
-        {
-          "name": "RS-X",
-          "image": "https://images.pexels.com/photos/1172064/pexels-photo-1172064.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-          "price": "\$110"
-        },
-        {
-          "name": "Suede Classic",
-          "image": "https://images.pexels.com/photos/1172064/pexels-photo-1172064.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-          "price": "\$70"
-        },
-        {
-          "name": "Suede Classic",
-          "image": "https://images.pexels.com/photos/1172064/pexels-photo-1172064.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-          "price": "\$70"
-        },
-        {
-          "name": "Suede Classic",
-          "image": "https://images.pexels.com/photos/1172064/pexels-photo-1172064.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-          "price": "\$70"
-        }
-      ]
-    }
-  ];
-
   @override
   void initState() {
     super.initState();
