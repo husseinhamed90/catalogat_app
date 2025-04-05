@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 
 import 'core/routes/router_generator.dart';
 
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations([
