@@ -1,0 +1,15 @@
+export 'theme/theme.dart';
+export 'package:gap/gap.dart';
+export 'package:flutter/material.dart';
+export 'package:equatable/equatable.dart';
+export 'package:flutter_svg/flutter_svg.dart';
+export 'package:flutter_bloc/flutter_bloc.dart';
+export 'package:auto_size_text/auto_size_text.dart';
+export "package:json_annotation/json_annotation.dart";
+export 'package:catalogat_app/core/routes/app_paths.dart';
+export 'package:catalogat_app/core/assets/fonts.gen.dart';
+export 'package:catalogat_app/core/helpers/resource.dart';
+export 'package:catalogat_app/core/assets/assets.gen.dart';
+export 'package:catalogat_app/core/helpers/entity_converter.dart';
+export 'package:catalogat_app/core/constants/arguments_names.dart';
+export 'package:catalogat_app/core/service_locator/service_locator.dart';

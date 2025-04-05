@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "293307301285",
+    "project_id": "catalogat-98c29",
+    "storage_bucket": "catalogat-98c29.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:293307301285:android:308eadf193fd41170a7c4c",
+        "android_client_info": {
+          "package_name": "com.example.catalogat_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAAN-nsrjTlsbcahu39JGA4kqkF-zlI3WE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

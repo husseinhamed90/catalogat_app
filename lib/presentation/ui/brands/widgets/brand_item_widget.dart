@@ -1,0 +1,34 @@
+import 'package:catalogat_app/core/dependencies.dart';
+import 'package:catalogat_app/domain/entities/entities.dart';
+import 'package:catalogat_app/presentation/blocs/blocs.dart';
+
+class BrandItemWidget extends StatelessWidget {
+  final BrandEntity brand;
+
+  const BrandItemWidget({super.key, required this.brand});
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        Navigator.pushNamed(context, Routes.productsList, arguments: {
+          ArgumentsNames.brand: brand,
+          ArgumentsNames.brandsCubit: context.read<BrandsCubit>(),
+        });
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(Dimens.medium),
+        child: Column(
+          children: [
+            CircleAvatar(
+              radius: 40,
+              backgroundImage: NetworkImage(brand.logoUrl ?? ""),
+            ),
+            Gap(10),
+            Text(brand.name ?? "", style: TextStyle(color: AppColors.textColor, fontWeight: FontWeight.w500, fontSize: FontSize.xSmall)),
+          ],
+        ),
+      ),
+    );
+  }
+}

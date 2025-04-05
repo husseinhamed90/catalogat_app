@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="72" height="84" viewBox="0 0 72 84">
+	<path transform="matrix(1 0 0 1 0 0)" d="M64 20L56 20C56 8.96 47.04 0 36 0C24.96 0 16 8.96 16 20L8 20C3.6 20 0 23.6 0 28L0 76C0 80.4 3.6 84 8 84L64 84C68.4 84 72 80.4 72 76L72 28C72 23.6 68.4 20 64 20ZM36 8C42.64 8 48 13.36 48 20L24 20C24 13.36 29.36 8 36 8ZM64 76L8 76L8 28L64 28L64 76ZM36 44C29.36 44 24 38.64 24 32L16 32C16 43.04 24.96 52 36 52C47.04 52 56 43.04 56 32L48 32C48 38.64 42.64 44 36 44Z" fill-rule="nonzero" fill="rgb(229, 231, 235)"/>
+</svg>
