@@ -5,9 +5,7 @@ import 'package:catalogat_app/presentation/ui/brands/widgets/widgets.dart';
 
 class BrandsProductsScreen extends StatefulWidget {
 
-
   const BrandsProductsScreen({super.key});
-
 
   @override
   State<BrandsProductsScreen> createState() => _BrandsProductsScreenState();
