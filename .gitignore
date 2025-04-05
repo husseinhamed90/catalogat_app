@@ -15,16 +15,6 @@
 *.iws
 .idea/
 
-# .env
-*.env
-*.env.dev
-lib/core/config/env.dart
-lib/core/config/env.g.dart
-assets/env/
-local_assets/
-local_assets/environments_copy/
-env/
-
 
 # The .vscode folder contains launch configuration and tasks you configure in
 # VS Code which you may wish to be included in version control, so this line
