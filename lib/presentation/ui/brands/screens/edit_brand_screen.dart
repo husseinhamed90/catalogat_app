@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:catalogat_app/core/constants/app_constants.dart';
 import 'package:catalogat_app/core/services/photo_picker.dart';
+import 'package:catalogat_app/data/models/models.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:catalogat_app/core/dependencies.dart';
 import 'package:catalogat_app/domain/entities/entities.dart';
@@ -63,9 +64,10 @@ class _EditBrandScreenState extends State<EditBrandScreen> {
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
                         final updateBrandSuccess = await widget.brandsCubit.updateBrand(
-                          widget.brand.copyWith(
+                          UpdateBrandParams(
+                            id: widget.brand.id ?? "",
                             name: _brandNameController.text,
-                          ),
+                          )
                         );
                         if (updateBrandSuccess) {
                           widget.brandsCubit.getBrands(false);
@@ -130,45 +132,72 @@ class _EditBrandScreenState extends State<EditBrandScreen> {
                         return false;
                       },
                       builder: (context,state) {
-                        if (state.imageFile != null) {
-                          return ClipRRect(
-                            borderRadius: BorderRadius.circular(90),
-                            child: Image.file(
-                              File(state.imageFile!.path),
-                              fit: BoxFit.cover,
-                              width: 180,
-                              height: 180,
+                        if (state.imageFile == null && widget.brand.logoUrl == null) {
+                          return DottedBorder(
+                            padding: EdgeInsets.zero,
+                            borderType: BorderType.Circle,
+                            dashPattern: [6, 3],
+                            child: CircleAvatar(
+                              radius: 90,
+                              backgroundColor: Colors.transparent,
+                              child: Center(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    SvgPicture.asset(
+                                      Assets.icons.icCamera,
+                                      width: 40,
+                                      height: 40,
+                                    ),
+                                    Gap(Dimens.semiSmall),
+                                    Text(
+                                      "Add brand image",
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: FontSize.xSmall,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ),
                           );
                         }
-                        return DottedBorder(
-                          padding: EdgeInsets.zero,
-                          borderType: BorderType.Circle,
-                          dashPattern: [6, 3],
-                          child: CircleAvatar(
-                            radius: 90,
-                            backgroundColor: Colors.transparent,
-                            child: Center(
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  SvgPicture.asset(
-                                    Assets.icons.icCamera,
-                                    width: 40,
-                                    height: 40,
-                                  ),
-                                  Gap(Dimens.semiSmall),
-                                  Text(
-                                    "Add brand image",
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: FontSize.xSmall,
-                                      fontWeight: FontWeight.w500,
+                        return ClipRRect(
+                          borderRadius: BorderRadius.circular(90),
+                          child: Builder(
+                              builder: (context) {
+                                if (state.imageFile?.path.isNotEmpty ?? false) {
+                                  return CircleAvatar(
+                                    radius: 90,
+                                    backgroundColor: Colors.transparent,
+                                    backgroundImage: FileImage(
+                                      File(state.imageFile!.path),
+                                    ),
+                                  );
+                                }
+                                if(widget.brand.logoUrl != null) {
+                                  return CircleAvatar(
+                                    radius: 90,
+                                    backgroundColor: Colors.transparent,
+                                    backgroundImage: NetworkImage(
+                                      widget.brand.logoUrl ?? "",
+                                    ),
+                                  );
+                                }
+                                return CircleAvatar(
+                                  radius: 90,
+                                  backgroundColor: Colors.transparent,
+                                  child: Center(
+                                    child: SvgPicture.asset(
+                                      Assets.icons.icCamera,
+                                      width: 40,
+                                      height: 40,
                                     ),
                                   ),
-                                ],
-                              ),
-                            ),
+                                );
+                              }
                           ),
                         );
                       }

@@ -47,8 +47,12 @@ dependencies:
   supabase_flutter: ^2.8.4
   firebase_storage: ^12.4.5
   image_picker: ^1.1.2
+  retrofit: ^4.4.2
+  json_annotation: ^4.9.0
+
 
 dev_dependencies:
+  retrofit_generator:
   build_runner:
   flutter_gen_runner:
   flutter_test:

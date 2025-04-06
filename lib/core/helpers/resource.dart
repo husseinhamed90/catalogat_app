@@ -21,7 +21,7 @@ class Resource<T> {
   factory Resource.loading() => Resource<T>._(status: Status.loading);
 
   /// Success state
-  factory Resource.success(T data) => Resource<T>._(status: Status.success, data: data);
+  factory Resource.success(T? data,{String? message}) => Resource<T>._(status: Status.success, data: data, message: message);
 
   /// Failure state
   factory Resource.failure(String message) => Resource<T>._(status: Status.failure, message: message);

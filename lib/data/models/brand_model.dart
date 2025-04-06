@@ -6,13 +6,15 @@ part 'brand_model.g.dart';
 
 @JsonSerializable()
 class BrandModel implements EntityConverter<BrandModel, BrandEntity> {
-  final String id;
+  final String? id;
+  @JsonKey(name: 'brand_name')
   final String name;
+  @JsonKey(name: 'brand_image')
   final String? logoUrl;
   final List<ProductModel> products;
 
   BrandModel({
-    required this.id,
+    this.id,
     required this.name,
     this.logoUrl,
     this.products = const [],

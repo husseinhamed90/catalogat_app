@@ -2,16 +2,16 @@ part of 'brands_cubit.dart';
 
 class BrandsState extends Equatable {
 
-  final Resource<bool> addBrandResource;
-  final Resource<bool> updateBrandResource;
-  final Resource<bool> deleteBrandResource;
-  final Resource<List<BrandEntity>> brandsResource;
+  final XFile? imageFile;
   final BrandEntity? selectedBrand;
+  final Resource<BrandEntity> updateBrandResource;
+  final Resource<BrandEntity> deleteBrandResource;
   final Resource<bool> addProductResource;
   final Resource<bool> updateProductResource;
   final Resource<bool> deleteProductResource;
+  final Resource<List<BrandEntity>> brandsResource;
+  final Resource<BrandEntity> addBrandResource;
   final Resource<List<ProductEntity>> fetchBrandProductsResource;
-  final XFile? imageFile;
 
   const BrandsState({
     this.imageFile,
@@ -43,9 +43,9 @@ class BrandsState extends Equatable {
   BrandsState copyWith({
     Optional<XFile>? imageFile,
     Optional<BrandEntity>? selectedBrand,
-    Resource<bool>? addBrandResource,
-    Resource<bool>? updateBrandResource,
-    Resource<bool>? deleteBrandResource,
+    Resource<BrandEntity>? addBrandResource,
+    Resource<BrandEntity>? updateBrandResource,
+    Resource<BrandEntity>? deleteBrandResource,
     Resource<List<BrandEntity>>? brandsResource,
     Resource<bool>? addProductResource,
     Resource<bool>? updateProductResource,

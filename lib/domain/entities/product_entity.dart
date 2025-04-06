@@ -4,14 +4,16 @@ import 'package:equatable/equatable.dart';
 class ProductEntity extends Equatable {
   final String? id;
   final String? name;
-  final double? price;
+  final double? price1;
+  final double? price2;
   final String? brandId;
   final String? imageUrl;
 
   const ProductEntity({
     this.id,
     this.name,
-    this.price,
+    this.price1,
+    this.price2,
     this.brandId,
     this.imageUrl,
   });
@@ -20,7 +22,8 @@ class ProductEntity extends Equatable {
   List<Object?> get props => [
     id,
     name,
-    price,
+    price1,
+    price2,
     brandId,
     imageUrl,
   ];
@@ -28,14 +31,16 @@ class ProductEntity extends Equatable {
   ProductEntity copyWith({
     String? id,
     String? name,
-    double? price,
+    double? price1,
+    double? price2,
     String? brandId,
     String? imageUrl,
   }) {
     return ProductEntity(
       id: id ?? this.id,
       name: name ?? this.name,
-      price: price ?? this.price,
+      price1: price1 ?? this.price1,
+      price2: price2 ?? this.price2,
       brandId: brandId ?? this.brandId,
       imageUrl: imageUrl ?? this.imageUrl,
     );
@@ -46,7 +51,8 @@ class ProductEntity extends Equatable {
       id: id ?? '',
       name: name ?? '',
       imageUrl: imageUrl,
-      price: price ?? 0.0,
+      price1: price1 ?? 0.0,
+      price2: price2 ?? 0.0,
       brandId: brandId ?? '',
     );
   }

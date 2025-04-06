@@ -2,9 +2,9 @@ import 'dart:io';
 
 import 'package:catalogat_app/core/constants/app_constants.dart';
 import 'package:catalogat_app/core/services/photo_picker.dart';
+import 'package:catalogat_app/data/models/models.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:catalogat_app/core/dependencies.dart';
-import 'package:catalogat_app/domain/entities/entities.dart';
 import 'package:catalogat_app/presentation/blocs/blocs.dart';
 import 'package:catalogat_app/presentation/widgets/widgets.dart';
 import 'package:image_picker/image_picker.dart';
@@ -61,7 +61,7 @@ class _AddBrandScreenState extends State<AddBrandScreen> {
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
                         final addBrandSuccess = await widget.brandsCubit.addBrand(
-                          brand: BrandEntity(
+                          requestModel: AddBrandParams(
                             name: _brandNameController.text,
                           ),
                         );

@@ -1,4 +1,7 @@
+import 'package:catalogat_app/core/constants/app_constants.dart';
+import 'package:catalogat_app/data/sources/supabase_service.dart';
 import 'package:get_it/get_it.dart';
+import 'package:dio/dio.dart';
 import 'package:catalogat_app/domain/use_cases/use_cases.dart';
 import 'package:catalogat_app/presentation/blocs/blocs.dart';
 import 'package:catalogat_app/data/repositories/repositories.dart';
@@ -22,7 +25,7 @@ void setupLocator() {
   ));
 
   /// Repositories
-  sl.registerLazySingleton<BrandsRepo>(() => BrandsRepoImpl());
+  sl.registerLazySingleton<BrandsRepo>(() => BrandsRepoImpl(sl<SupabaseService>()));
   sl.registerLazySingleton<StorageRepo>(() => StorageRepoImpl());
   sl.registerLazySingleton<ProductsRepo>(() => ProductsRepoImpl());
 
@@ -38,4 +41,17 @@ void setupLocator() {
   sl.registerFactory<FetchBrandProductsUseCase>(() => FetchBrandProductsUseCase(sl<ProductsRepo>()));
 
   sl.registerFactory<UploadFileToFirebaseStorageUseCase>(() => UploadFileToFirebaseStorageUseCase(sl<StorageRepo>()));
+
+  sl.registerLazySingleton<Dio>(() => Dio(
+    BaseOptions(
+      connectTimeout: const Duration(seconds: 30),
+      receiveTimeout: const Duration(seconds: 30),
+      headers: {
+        ApiConstants.apikey: AppConstants.supabaseAnonKey,
+      },
+    ),
+  ));
+
+  /// Api services
+  sl.registerLazySingleton<SupabaseService>(() => SupabaseService(sl(),baseUrl: AppConstants.supabaseUrl));
 }
