@@ -32,7 +32,14 @@ class _ProductItemWidgetState extends State<ProductItemWidget> {
                     ),
                     child: ClipRRect(
                         borderRadius: BorderRadius.circular(12),
-                        child: Image.network(widget.item.imageUrl ?? "",fit: BoxFit.cover,)
+                        child: Builder(
+                          builder: (context) {
+                            if(widget.item.imageUrl == null || widget.item.imageUrl!.isEmpty) {
+                              return Image.asset(Assets.images.imgPlaceholder.path, fit: BoxFit.cover);
+                            }
+                            return Image.network(widget.item.imageUrl ?? "",fit: BoxFit.cover,);
+                          }
+                        )
                     ),
                   ),
                 ),
@@ -75,11 +82,11 @@ class _ProductItemWidgetState extends State<ProductItemWidget> {
                         });
                       } else if(value == 2) {
                         final deletedSuccess = await context.read<BrandsCubit>().deleteProduct(productId: widget.item.id ?? "", currentBrandId: widget.item.brandId ?? "");
-                        if(deletedSuccess) {
+                        if(deletedSuccess.$1) {
                           ScaffoldMessenger.of(globalKey.currentContext!).showSnackBar(
                             SnackBar(
                               backgroundColor: Colors.green,
-                              content: Text("Product deleted successfully"),
+                              content: Text(deletedSuccess.$2 ?? "Product deleted successfully"),
                               duration: Duration(seconds: 2),
                             ),
                           );
@@ -88,7 +95,7 @@ class _ProductItemWidgetState extends State<ProductItemWidget> {
                           ScaffoldMessenger.of(globalKey.currentContext!).showSnackBar(
                             SnackBar(
                               backgroundColor: Colors.red,
-                              content: Text("Failed to delete product"),
+                              content: Text(deletedSuccess.$2 ?? "Failed to delete product"),
                               duration: Duration(seconds: 2),
                             ),
                           );

@@ -49,6 +49,7 @@ dependencies:
   image_picker: ^1.1.2
   retrofit: ^4.4.2
   json_annotation: ^4.9.0
+  intl: ^0.20.2
 
 
 dev_dependencies:
@@ -79,6 +80,7 @@ flutter:
 
   assets:
     - assets/icons/
+    - assets/images/
 
   fonts:
     - family: Inter

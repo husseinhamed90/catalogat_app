@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:catalogat_app/core/constants/app_constants.dart';
 import 'package:catalogat_app/core/services/photo_picker.dart';
+import 'package:catalogat_app/data/models/update_product_params.dart';
 import 'package:catalogat_app/domain/entities/brand_entity.dart';
 import 'package:catalogat_app/domain/entities/product_entity.dart';
 import 'package:catalogat_app/presentation/blocs/blocs.dart';
@@ -27,6 +28,12 @@ class _EditProductScreenState extends State<EditProductScreen> {
   final FocusNode _productNameFocusNode = FocusNode();
   final TextEditingController _productNameController = TextEditingController();
 
+  final FocusNode _productPrice1FocusNode = FocusNode();
+  final TextEditingController _productPrice1Controller = TextEditingController();
+
+  final FocusNode _productPrice2FocusNode = FocusNode();
+  final TextEditingController _productPrice2Controller = TextEditingController();
+
   late BrandsCubit _brandsCubit;
 
   late List<BrandEntity> _brands;
@@ -37,6 +44,8 @@ class _EditProductScreenState extends State<EditProductScreen> {
     _brandsCubit = widget.brandsCubit;
     _brandsCubit.resetState();
     _productNameController.text = widget.product.name ?? "";
+    _productPrice1Controller.text = (widget.product.price1?.formatAsCurrency()) ?? "";
+    _productPrice2Controller.text = (widget.product.price2?.formatAsCurrency()) ?? "";
     _brands = widget.brandsCubit.state.brandsResource.data ?? [];
     final brand = _brands.firstWhere((brand) => brand.id == widget.product.brandId,orElse: () => BrandEntity());
     if(brand.id != null) {
@@ -76,26 +85,29 @@ class _EditProductScreenState extends State<EditProductScreen> {
                     onPressed: () async{
                       if (_formKey.currentState!.validate()) {
                         final updateProductSuccess = await _brandsCubit.updateProduct(
-                          product: widget.product.copyWith(
+                          updateProductParams: UpdateProductParams(
+                            id: widget.product.id ?? "",
                             name: _productNameController.text,
-                          ),
+                            brandId: state.selectedBrand?.id ?? "",
+                            imageUrl: widget.product.imageUrl,
+                            price1: double.tryParse(_productPrice1Controller.text.removeNonNumber),
+                            price2: double.tryParse(_productPrice2Controller.text.removeNonNumber),
+                          )
                         );
-                        if(updateProductSuccess) {
+                        if(updateProductSuccess.$1) {
                           _brandsCubit.getBrands(false);
                           ScaffoldMessenger.of(globalKey.currentContext!).showSnackBar(
                             SnackBar(
-                              content: Text("Product Updated Successfully"),
+                              content: Text(updateProductSuccess.$2 ?? "Product updated successfully"),
                               backgroundColor: Colors.green,
                             ),
                           );
-                          if(mounted) {
-                            Navigator.of(globalKey.currentContext!).pop();
-                          }
+                          if(context.mounted) Navigator.of(context).pop();
                         }
                         else{
                           ScaffoldMessenger.of(globalKey.currentContext!).showSnackBar(
                             SnackBar(
-                              content: Text(state.updateBrandResource.message ?? "Error"),
+                              content: Text(updateProductSuccess.$2 ?? "Failed to update product"),
                               backgroundColor: Colors.red,
                             ),
                           );
@@ -124,12 +136,13 @@ class _EditProductScreenState extends State<EditProductScreen> {
             height: double.infinity,
             padding: const EdgeInsets.all(Dimens.large),
             child: Form(
+              autovalidateMode: AutovalidateMode.onUserInteraction,
               key: _formKey,
               child: SingleChildScrollView(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Gap(Dimens.xxLarge),
+                    Gap(Dimens.large),
                     InkWell(
                       borderRadius: BorderRadius.circular(90),
                       onTap: () async {
@@ -147,92 +160,147 @@ class _EditProductScreenState extends State<EditProductScreen> {
                             return false;
                           },
                           builder: (context,state) {
-                            if (state.imageFile != null) {
-                              return ClipRRect(
-                                borderRadius: BorderRadius.circular(90),
-                                child: Image.file(
-                                  File(state.imageFile!.path),
-                                  fit: BoxFit.cover,
-                                  width: 180,
-                                  height: 180,
+                            if (state.imageFile == null && widget.product.imageUrl == null) {
+                              return DottedBorder(
+                                padding: EdgeInsets.zero,
+                                borderType: BorderType.Circle,
+                                dashPattern: [6, 3],
+                                child: CircleAvatar(
+                                  radius: 90,
+                                  backgroundColor: Colors.transparent,
+                                  child: Center(
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        SvgPicture.asset(
+                                          Assets.icons.icCamera,
+                                          width: 40,
+                                          height: 40,
+                                        ),
+                                        Gap(Dimens.semiSmall),
+                                        Text(
+                                          "Add Product image",
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: FontSize.xSmall,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                                 ),
                               );
                             }
-                            return DottedBorder(
-                              padding: EdgeInsets.zero,
-                              borderType: BorderType.Circle,
-                              dashPattern: [6, 3],
-                              child: CircleAvatar(
-                                radius: 90,
-                                backgroundColor: Colors.transparent,
-                                child: Center(
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      SvgPicture.asset(
-                                        Assets.icons.icCamera,
-                                        width: 40,
-                                        height: 40,
-                                      ),
-                                      Gap(Dimens.semiSmall),
-                                      Text(
-                                        "Add product image",
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: FontSize.xSmall,
-                                          fontWeight: FontWeight.w500,
+                            return ClipRRect(
+                              borderRadius: BorderRadius.circular(90),
+                              child: Builder(
+                                  builder: (context) {
+                                    if (state.imageFile?.path.isNotEmpty ?? false) {
+                                      return CircleAvatar(
+                                        radius: 90,
+                                        backgroundColor: Colors.transparent,
+                                        backgroundImage: FileImage(
+                                          File(state.imageFile!.path),
+                                        ),
+                                      );
+                                    }
+                                    if(widget.product.imageUrl != null) {
+                                      return CircleAvatar(
+                                        radius: 90,
+                                        backgroundColor: Colors.transparent,
+                                        backgroundImage: NetworkImage(
+                                          widget.product.imageUrl ?? "",
+                                        ),
+                                      );
+                                    }
+                                    return CircleAvatar(
+                                      radius: 90,
+                                      backgroundColor: Colors.transparent,
+                                      child: Center(
+                                        child: SvgPicture.asset(
+                                          Assets.icons.icCamera,
+                                          width: 40,
+                                          height: 40,
                                         ),
                                       ),
-                                    ],
-                                  ),
-                                ),
+                                    );
+                                  }
                               ),
                             );
                           }
                       ),
                     ),
-                    Gap(Dimens.xxxLarge),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Product Name",
-                          style: TextStyle(
-                            fontSize: FontSize.medium,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black87,
-                          ),
-                        ),
-                        Gap(Dimens.semiSmall),
-                        TextFormField(
+                    Gap(Dimens.large),
+                    BlocBuilder<BrandsCubit, BrandsState>(
+                      buildWhen: (previous, current) {
+                        if(previous.productName != current.productName) return true;
+                        return false;
+                      },
+                      builder: (context, state) {
+                        return TextInputField(
                           focusNode: _productNameFocusNode,
                           controller: _productNameController,
-                          decoration: InputDecoration(
-                            hintText: "Enter product name",
-                            hintStyle: TextStyle(color: Colors.grey.shade400),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(14),
-                              borderSide: BorderSide(color: Colors.grey.shade300),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(14),
-                              borderSide: BorderSide(color: Colors.grey.shade300),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(14),
-                              borderSide: BorderSide(color: AppColors.blue),
-                            ),
-                          ),
+                          hint: "Enter product name",
+                          label: "Product Name",
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return "Product name is required";
                             }
                             return null;
                           },
-                        ),
-                      ],
+                        );
+                      },
                     ),
-                    Gap(Dimens.xxLarge),
+                    Gap(Dimens.large),
+                    BlocBuilder<BrandsCubit, BrandsState>(
+                      buildWhen: (previous, current) {
+                        if(previous.productPrice1 != current.productPrice1) return true;
+                        return false;
+                      },
+                      builder: (context, state) {
+                        return AmountInputField(
+                          focusNode: _productPrice1FocusNode,
+                          controller: _productPrice1Controller,
+                          label: "Product Price",
+                          hint: "Enter product price",
+                          onChanged: (value) {
+                            _brandsCubit.setProductPrice1(value);
+                          },
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Product price is required";
+                            }
+                            return null;
+                          },
+                        );
+                      },
+                    ),
+                    Gap(Dimens.large),
+                    BlocBuilder<BrandsCubit, BrandsState>(
+                      buildWhen: (previous, current) {
+                        if(previous.productPrice2 != current.productPrice2) return true;
+                        return false;
+                      },
+                      builder: (context, state) {
+                        return AmountInputField(
+                          focusNode: _productPrice2FocusNode,
+                          controller: _productPrice2Controller,
+                          label: "Product Price 2",
+                          hint: "Enter product price 2",
+                          onChanged: (value) {
+                            _brandsCubit.setProductPrice2(value);
+                          },
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Product price 2 is required";
+                            }
+                            return null;
+                          },
+                        );
+                      },
+                    ),
+                    Gap(Dimens.large),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -253,14 +321,14 @@ class _EditProductScreenState extends State<EditProductScreen> {
                           builder: (context, state) {
                             return DropdownButtonFormField<BrandEntity>(
                               value: state.selectedBrand,
+                              autovalidateMode: AutovalidateMode.onUserInteraction,
                               validator: (value) {
                                 if (value == null || value.name == null || value.name!.isEmpty) {
                                   return "Product Brand is required";
                                 }
                                 return null;
                               },
-                              hint: Text("Select Brand",
-                                  style: TextStyle(color: Colors.grey.shade400)),
+                              hint: Text("Select Brand", style: TextStyle(color: Colors.grey.shade400)),
                               decoration: InputDecoration(
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(14),

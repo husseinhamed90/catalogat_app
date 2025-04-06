@@ -20,14 +20,13 @@ void setupLocator() {
     sl<AddProductUseCase>(),
     sl<UpdateProductUseCase>(),
     sl<DeleteProductUseCase>(),
-    sl<FetchBrandProductsUseCase>(),
-    sl<UploadFileToFirebaseStorageUseCase>(),
+    sl<UploadFileToFirebaseStorageUseCase>()
   ));
 
   /// Repositories
   sl.registerLazySingleton<BrandsRepo>(() => BrandsRepoImpl(sl<SupabaseService>()));
   sl.registerLazySingleton<StorageRepo>(() => StorageRepoImpl());
-  sl.registerLazySingleton<ProductsRepo>(() => ProductsRepoImpl());
+  sl.registerLazySingleton<ProductsRepo>(() => ProductsRepoImpl(sl<SupabaseService>()));
 
   /// Use Cases
   sl.registerFactory<AddBrandUseCase>(() => AddBrandUseCase(sl<BrandsRepo>()));
@@ -38,7 +37,6 @@ void setupLocator() {
   sl.registerFactory<AddProductUseCase>(() => AddProductUseCase(sl<ProductsRepo>()));
   sl.registerFactory<UpdateProductUseCase>(() => UpdateProductUseCase(sl<ProductsRepo>()));
   sl.registerFactory<DeleteProductUseCase>(() => DeleteProductUseCase(sl<ProductsRepo>()));
-  sl.registerFactory<FetchBrandProductsUseCase>(() => FetchBrandProductsUseCase(sl<ProductsRepo>()));
 
   sl.registerFactory<UploadFileToFirebaseStorageUseCase>(() => UploadFileToFirebaseStorageUseCase(sl<StorageRepo>()));
 

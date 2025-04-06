@@ -5,18 +5,25 @@ part 'product_model.g.dart';
 
 @JsonSerializable()
 class ProductModel implements EntityConverter<ProductModel, ProductEntity> {
-  final String id;
-  final String name;
+  final String? id;
+  @JsonKey(name: 'product_name')
+  final String? name;
+  @JsonKey(name: 'product_image')
   final String? imageUrl;
-  final double price;
-  final String brandId;
+  @JsonKey(name: 'price_1')
+  final double? price1;
+  @JsonKey(name: 'price_2')
+  final double? price2;
+  @JsonKey(name: 'brand_id')
+  final String? brandId;
 
   ProductModel({
-    required this.id,
-    required this.name,
+    this.id,
+    this.name,
+    this.price1,
+    this.price2,
+    this.brandId,
     this.imageUrl,
-    required this.price,
-    required this.brandId,
   });
 
   factory ProductModel.fromJson(Map<String, dynamic> json) =>
@@ -30,7 +37,8 @@ class ProductModel implements EntityConverter<ProductModel, ProductEntity> {
       id: id,
       name: name,
       imageUrl: imageUrl,
-      price: price,
+      price1: price1,
+      price2: price2,
       brandId: brandId,
     );
   }

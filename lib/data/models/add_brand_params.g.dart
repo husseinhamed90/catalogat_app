@@ -9,8 +9,8 @@ part of 'add_brand_params.dart';
 AddBrandParams _$AddBrandParamsFromJson(Map<String, dynamic> json) =>
     AddBrandParams(
       name: json['name'] as String?,
-      logo: json['logo'] as String?,
+      logo: json['image'] as String?,
     );
 
 Map<String, dynamic> _$AddBrandParamsToJson(AddBrandParams instance) =>
-    <String, dynamic>{'name': instance.name, 'logo': instance.logo};
+    <String, dynamic>{'name': instance.name, 'image': instance.logo};

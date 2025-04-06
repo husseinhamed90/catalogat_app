@@ -65,20 +65,20 @@ class _AddBrandScreenState extends State<AddBrandScreen> {
                             name: _brandNameController.text,
                           ),
                         );
-                        if (addBrandSuccess) {
+                        if (addBrandSuccess.$1) {
                           widget.brandsCubit.getBrands(false);
                           ScaffoldMessenger.of(globalKey.currentContext!).showSnackBar(
                             SnackBar(
-                              content: Text("Brand Created Successfully"),
+                              content: Text(addBrandSuccess.$2 ?? "Brand created successfully"),
                               backgroundColor: Colors.green,
                             ),
                           );
-                          if(mounted) Navigator.pop(context);
+                          if(context.mounted) Navigator.pop(context);
                         }
                         else {
                           ScaffoldMessenger.of(globalKey.currentContext!).showSnackBar(
                             SnackBar(
-                              content: Text("Failed to create brand"),
+                              content: Text(addBrandSuccess.$2 ?? "Failed to create brand"),
                               backgroundColor: Colors.red,
                             ),
                           );
@@ -107,6 +107,7 @@ class _AddBrandScreenState extends State<AddBrandScreen> {
             height: double.infinity,
             padding: const EdgeInsets.all(Dimens.large),
             child: Form(
+              autovalidateMode: AutovalidateMode.onUserInteraction,
               key: _formKey,
               child: Column(
                 mainAxisSize: MainAxisSize.min,

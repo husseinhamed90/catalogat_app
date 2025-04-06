@@ -4,10 +4,13 @@ class BrandsState extends Equatable {
 
   final XFile? imageFile;
   final BrandEntity? selectedBrand;
+  final String productName;
+  final String productPrice1;
+  final String productPrice2;
   final Resource<BrandEntity> updateBrandResource;
   final Resource<BrandEntity> deleteBrandResource;
-  final Resource<bool> addProductResource;
-  final Resource<bool> updateProductResource;
+  final Resource<ProductEntity> addProductResource;
+  final Resource<ProductEntity> updateProductResource;
   final Resource<bool> deleteProductResource;
   final Resource<List<BrandEntity>> brandsResource;
   final Resource<BrandEntity> addBrandResource;
@@ -16,6 +19,9 @@ class BrandsState extends Equatable {
   const BrandsState({
     this.imageFile,
     this.selectedBrand,
+    this.productName = '',
+    this.productPrice1 = '',
+    this.productPrice2 = '',
     this.brandsResource = const Resource.initial(),
     this.addBrandResource = const Resource.initial(),
     this.addProductResource = const Resource.initial(),
@@ -31,6 +37,9 @@ class BrandsState extends Equatable {
     imageFile,
     selectedBrand,
     brandsResource,
+    productName,
+    productPrice1,
+    productPrice2,
     addBrandResource,
     updateBrandResource,
     deleteBrandResource,
@@ -41,18 +50,24 @@ class BrandsState extends Equatable {
   ];
 
   BrandsState copyWith({
+    String? productName,
+    String? productPrice1,
+    String? productPrice2,
     Optional<XFile>? imageFile,
     Optional<BrandEntity>? selectedBrand,
     Resource<BrandEntity>? addBrandResource,
     Resource<BrandEntity>? updateBrandResource,
     Resource<BrandEntity>? deleteBrandResource,
     Resource<List<BrandEntity>>? brandsResource,
-    Resource<bool>? addProductResource,
-    Resource<bool>? updateProductResource,
+    Resource<ProductEntity>? addProductResource,
+    Resource<ProductEntity>? updateProductResource,
     Resource<bool>? deleteProductResource,
     Resource<List<ProductEntity>>? fetchBrandProductsResource,
   }) {
     return BrandsState(
+      productName: productName ?? this.productName,
+      productPrice1: productPrice1 ?? this.productPrice1,
+      productPrice2: productPrice2 ?? this.productPrice2,
       imageFile: imageFile != null ? imageFile.value : this.imageFile,
       selectedBrand: selectedBrand != null ? selectedBrand.value : this.selectedBrand,
       brandsResource: brandsResource ?? this.brandsResource,

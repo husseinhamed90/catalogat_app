@@ -27,7 +27,7 @@ class BrandAllProducts extends StatelessWidget {
               if(state.brandsResource.data != null) {
                 final brand = state.brandsResource.data!.firstWhere((element) => element.id == this.brand.id);
                 if(brand.products.isEmpty) {
-                  Navigator.of(context).pop();
+                  if(context.mounted) Navigator.of(context).pop();
                 }
               }
             }
@@ -44,19 +44,39 @@ class BrandAllProducts extends StatelessWidget {
             return SafeArea(
               child: Padding(
                 padding: const EdgeInsets.all(Dimens.medium),
-                child: GridView.builder(
-                  itemCount: brand.products.length,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: Dimens.medium,
-                    crossAxisSpacing: Dimens.medium,
-                    childAspectRatio: 0.7,
-                  ),
-                  itemBuilder: (context, index) {
-                    return ProductItemWidget(
-                      item: brand.products[index],
+                child: Builder(
+                  builder: (context) {
+                    if(brand.products.isEmpty) {
+                      return Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SvgPicture.asset(
+                              Assets.icons.icProduct,
+                              width: 100,
+                              height: 100,
+                            ),
+                            Gap(Dimens.xxLarge),
+                            Text("No products added yet", style: TextStyle(color: AppColors.textColor, fontWeight: FontWeight.w500, fontSize: FontSize.medium)),
+                          ],
+                        ),
+                      );
+                    }
+                    return GridView.builder(
+                      itemCount: brand.products.length,
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: Dimens.medium,
+                        crossAxisSpacing: Dimens.medium,
+                        childAspectRatio: 0.7,
+                      ),
+                      itemBuilder: (context, index) {
+                        return ProductItemWidget(
+                          item: brand.products[index],
+                        );
+                      },
                     );
-                  },
+                  }
                 ),
               ),
             );

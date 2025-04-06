@@ -69,20 +69,20 @@ class _EditBrandScreenState extends State<EditBrandScreen> {
                             name: _brandNameController.text,
                           )
                         );
-                        if (updateBrandSuccess) {
+                        if (updateBrandSuccess.$1) {
                           widget.brandsCubit.getBrands(false);
                           ScaffoldMessenger.of(globalKey.currentContext!).showSnackBar(
                             SnackBar(
-                              content: Text("Brand Updated Successfully"),
+                              content: Text(updateBrandSuccess.$2 ?? "Brand updated successfully"),
                               backgroundColor: Colors.green,
                             ),
                           );
-                          if(mounted) Navigator.pop(context);
+                          if(context.mounted) Navigator.of(context).pop();
                         }
                         else {
                           ScaffoldMessenger.of(globalKey.currentContext!).showSnackBar(
                             SnackBar(
-                              content: Text("Failed to Update brand"),
+                              content: Text(updateBrandSuccess.$2 ?? "Failed to update brand"),
                               backgroundColor: Colors.red,
                             ),
                           );
@@ -111,6 +111,7 @@ class _EditBrandScreenState extends State<EditBrandScreen> {
             height: double.infinity,
             padding: const EdgeInsets.all(Dimens.large),
             child: Form(
+              autovalidateMode: AutovalidateMode.onUserInteraction,
               key: _formKey,
               child: Column(
                 mainAxisSize: MainAxisSize.min,

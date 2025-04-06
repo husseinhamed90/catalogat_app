@@ -23,4 +23,17 @@ abstract class SupabaseService {
   //update_brand
   @POST('update_brand')
   Future<ApiResult<BrandModel>> updateBrand(@Body() UpdateBrandParams brandRequest);
+
+
+  //add_product
+  @POST('add_product')
+  Future<ApiResult<ProductModel>> addProduct(@Body() AddProductParams productRequest);
+
+  //update_product
+  @POST('update_product')
+  Future<ApiResult<ProductModel>> updateProduct(@Body() UpdateProductParams updateProductParams);
+
+  //delete_product
+  @POST('delete_product')
+  Future<ApiResult<ProductModel>> deleteProduct(@Body() DeleteProductParams deleteProductParams);
 }

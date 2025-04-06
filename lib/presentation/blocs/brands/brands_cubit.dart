@@ -1,6 +1,5 @@
 import 'package:catalogat_app/core/dependencies.dart';
-import 'package:catalogat_app/data/models/add_brand_params.dart';
-import 'package:catalogat_app/data/models/update_brand_params.dart';
+import 'package:catalogat_app/data/models/models.dart';
 import 'package:catalogat_app/domain/entities/entities.dart';
 import 'package:catalogat_app/domain/use_cases/use_cases.dart';
 import 'package:image_picker/image_picker.dart';
@@ -8,7 +7,7 @@ import 'package:image_picker/image_picker.dart';
 part 'brands_state.dart';
 
 class BrandsCubit extends Cubit<BrandsState> {
-  BrandsCubit(this._addBrandUseCase, this._deleteBrandUseCase, this._updateBrandUseCase, this._fetchBrandsUseCase, this._addProductUseCase, this._updateProductUseCase, this._deleteProductUseCase, this._fetchBrandProductsUseCase, this._uploadFileToFirebaseStorageUseCase) : super(BrandsState());
+  BrandsCubit(this._addBrandUseCase, this._deleteBrandUseCase, this._updateBrandUseCase, this._fetchBrandsUseCase, this._addProductUseCase, this._updateProductUseCase, this._deleteProductUseCase, this._uploadFileToFirebaseStorageUseCase) : super(BrandsState());
 
   final AddBrandUseCase _addBrandUseCase;
   final DeleteBrandUseCase _deleteBrandUseCase;
@@ -17,7 +16,6 @@ class BrandsCubit extends Cubit<BrandsState> {
   final AddProductUseCase _addProductUseCase;
   final UpdateProductUseCase _updateProductUseCase;
   final DeleteProductUseCase _deleteProductUseCase;
-  final FetchBrandProductsUseCase _fetchBrandProductsUseCase;
   final UploadFileToFirebaseStorageUseCase _uploadFileToFirebaseStorageUseCase;
 
 
@@ -27,7 +25,7 @@ class BrandsCubit extends Cubit<BrandsState> {
     emit(state.copyWith(brandsResource: resource));
   }
 
-  Future<bool> addBrand({required AddBrandParams requestModel}) async {
+  Future<(bool,String?)> addBrand({required AddBrandParams requestModel}) async {
     emit(state.copyWith(addBrandResource: Resource.loading()));
     if (state.imageFile != null) {
       final Resource<String>? uploadFileResource = await _uploadFileToFirebaseStorageUseCase(
@@ -39,10 +37,10 @@ class BrandsCubit extends Cubit<BrandsState> {
     }
     final resource = await _addBrandUseCase(requestModel);
     emit(state.copyWith(addBrandResource: resource));
-    return resource.isSuccess;
+    return (resource.isSuccess, resource.message);
   }
 
-  Future<bool> updateBrand(UpdateBrandParams updateBrandParams) async {
+  Future<(bool,String?)> updateBrand(UpdateBrandParams updateBrandParams) async {
     emit(state.copyWith(updateBrandResource: Resource.loading()));
     if (state.imageFile != null) {
       final Resource<String>? uploadFileResource = await _uploadFileToFirebaseStorageUseCase(
@@ -54,17 +52,17 @@ class BrandsCubit extends Cubit<BrandsState> {
     }
     final resource = await _updateBrandUseCase(updateBrandParams);
     emit(state.copyWith(updateBrandResource: resource));
-    return resource.isSuccess;
+    return (resource.isSuccess, resource.message);
   }
 
-  Future<void> deleteBrand(String brandId) async {
+  Future<(bool,String?)> deleteBrand(String brandId) async {
     final brands = state.brandsResource.data;
     final updatedBrands = brands?.where((brand) => brand.id != brandId).toList();
     emit(state.copyWith(
         deleteBrandResource: Resource.loading(),
         brandsResource: Resource.success(updatedBrands ?? []),
     ));
-    final resource = await _deleteBrandUseCase.call(brandId);
+    final resource = await _deleteBrandUseCase(brandId);
     if (resource.isSuccess) {
       emit(state.copyWith(deleteBrandResource: resource));
     } else {
@@ -73,6 +71,7 @@ class BrandsCubit extends Cubit<BrandsState> {
           brandsResource: Resource.success(brands ?? []),
       ));
     }
+    return (resource.isSuccess, resource.message ?? "Failed to delete brand");
   }
 
   void setFileImage(XFile? file) {
@@ -83,29 +82,37 @@ class BrandsCubit extends Cubit<BrandsState> {
     emit(state.copyWith(selectedBrand: Optional(currentBrand)));
   }
 
-  Future<bool> addProduct({required ProductEntity product}) async {
+  Future<(bool,String)> addProduct({required AddProductParams addProductParams}) async {
     emit(state.copyWith(addProductResource: Resource.loading()));
     if (state.imageFile != null) {
       final Resource<String>? uploadFileResource = await _uploadFileToFirebaseStorageUseCase(
         state.imageFile?.path ?? "",
       );
       if (uploadFileResource != null && uploadFileResource.isSuccess) {
-        product = product.copyWith(imageUrl: uploadFileResource.data);
+        addProductParams = addProductParams.copyWith(productImage: uploadFileResource.data);
       }
     }
-    final Resource<bool> addProductResource = await _addProductUseCase(product);
+    final Resource<ProductEntity> addProductResource = await _addProductUseCase(addProductParams);
     emit(state.copyWith(addProductResource: addProductResource));
-    return addProductResource.isSuccess;
+    return (addProductResource.isSuccess, addProductResource.message ?? "Failed to add product");
   }
 
-  Future<bool> updateProduct({required ProductEntity product}) async {
+  Future<(bool,String?)> updateProduct({required UpdateProductParams updateProductParams}) async {
     emit(state.copyWith(updateProductResource: Resource.loading()));
-    final Resource<bool> updateProductResource = await _updateProductUseCase(product);
+    if (state.imageFile != null) {
+      final Resource<String>? uploadFileResource = await _uploadFileToFirebaseStorageUseCase(
+        state.imageFile?.path ?? "",
+      );
+      if (uploadFileResource != null && uploadFileResource.isSuccess) {
+        updateProductParams = updateProductParams.copyWith(imageUrl: uploadFileResource.data);
+      }
+    }
+    final Resource<ProductEntity> updateProductResource = await _updateProductUseCase(updateProductParams);
     emit(state.copyWith(updateProductResource: updateProductResource));
-    return updateProductResource.isSuccess;
+    return (updateProductResource.isSuccess, updateProductResource.message);
   }
 
-  Future<bool> deleteProduct({required String productId,required String currentBrandId}) async {
+  Future<(bool,String?)> deleteProduct({required String productId,required String currentBrandId}) async {
     final brands = state.brandsResource.data;
     final updatedBrands = brands?.map((brand) {
       if (brand.id == currentBrandId) {
@@ -117,20 +124,14 @@ class BrandsCubit extends Cubit<BrandsState> {
         deleteProductResource: Resource.success(true),
         brandsResource: Resource.success(updatedBrands ?? []),
     ));
-    final Resource<bool> deleteProductResource = await _deleteProductUseCase(productId,currentBrandId);
+    final Resource<bool> deleteProductResource = await _deleteProductUseCase(productId);
     if(!deleteProductResource.isSuccess) {
       emit(state.copyWith(
         deleteProductResource: Resource.failure(deleteProductResource.message ?? ""),
         brandsResource: Resource.success(brands ?? []),
       ));
     }
-    return deleteProductResource.isSuccess;
-  }
-
-  void fetchBrandProducts({required String brandId}) async {
-    emit(state.copyWith(fetchBrandProductsResource: Resource.loading()));
-    final Resource<List<ProductEntity>> fetchBrandProductsResource = await _fetchBrandProductsUseCase(brandId);
-    emit(state.copyWith(fetchBrandProductsResource: fetchBrandProductsResource));
+    return (deleteProductResource.isSuccess, deleteProductResource.message);
   }
 
   void resetState() {
@@ -138,5 +139,17 @@ class BrandsCubit extends Cubit<BrandsState> {
       imageFile: Optional(null),
       selectedBrand: Optional(null),
     ));
+  }
+
+  void setProductName(String name) {
+    emit(state.copyWith(productName: name));
+  }
+
+  void setProductPrice1(String price) {
+    emit(state.copyWith(productPrice1: price));
+  }
+
+  void setProductPrice2(String price) {
+    emit(state.copyWith(productPrice2: price));
   }
 }

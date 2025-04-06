@@ -1,3 +1,4 @@
+import 'package:catalogat_app/core/constants/app_constants.dart';
 import 'package:catalogat_app/presentation/blocs/blocs.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:catalogat_app/core/dependencies.dart';
@@ -19,6 +20,7 @@ class BrandsListWidget extends StatelessWidget {
         child: BlocBuilder<BrandsCubit, BrandsState>(
           buildWhen: (previous, current) {
             if(previous.brandsResource != current.brandsResource) return true;
+            if(previous.deleteBrandResource != current.deleteBrandResource) return true;
             return false;
           },
           builder: (context, state) {
@@ -85,14 +87,32 @@ class BrandsListWidget extends StatelessWidget {
                                 child: Text("Delete", style: TextStyle(color: AppColors.textColor)),
                               ),
                             ],
-                            onSelected: (value) {
+                            onSelected: (value) async{
                               if(value == 1) {
                                 Navigator.of(context).pushNamed(Routes.editBrand, arguments: {
                                   ArgumentsNames.brand: brand,
                                   ArgumentsNames.brandsCubit: brandsCubit,
                                 });
                               } else if(value == 2) {
-                                brandsCubit.deleteBrand(brand.id ?? "");
+                                final deletedSuccess = await brandsCubit.deleteBrand(brand.id ?? "");
+                                if(deletedSuccess.$1) {
+                                  ScaffoldMessenger.of(globalKey.currentContext!).showSnackBar(
+                                    SnackBar(
+                                      backgroundColor: Colors.green,
+                                      content: Text(deletedSuccess.$2 ?? "Brand deleted successfully"),
+                                      duration: Duration(seconds: 3),
+                                    ),
+                                  );
+                                }
+                                else{
+                                  ScaffoldMessenger.of(globalKey.currentContext!).showSnackBar(
+                                    SnackBar(
+                                      backgroundColor: Colors.red,
+                                      content: Text(deletedSuccess.$2 ?? "Failed to delete brand"),
+                                      duration: Duration(seconds: 4),
+                                    ),
+                                  );
+                                }
                               }
                             },
                           ),

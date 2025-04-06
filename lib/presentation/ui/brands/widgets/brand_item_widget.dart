@@ -22,7 +22,9 @@ class BrandItemWidget extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: 40,
-              backgroundImage: NetworkImage(brand.logoUrl ?? ""),
+              backgroundImage: brand.logoUrl != null
+                  ? NetworkImage(brand.logoUrl ?? "")
+                  : AssetImage(Assets.images.imgPlaceholder.path),
             ),
             Gap(10),
             Text(brand.name ?? "", style: TextStyle(color: AppColors.textColor, fontWeight: FontWeight.w500, fontSize: FontSize.xSmall)),

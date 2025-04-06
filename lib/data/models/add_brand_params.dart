@@ -5,6 +5,7 @@ part 'add_brand_params.g.dart';
 @JsonSerializable()
 class AddBrandParams {
   String? name;
+  @JsonKey(name: 'image')
   String? logo;
 
   AddBrandParams({this.name, this.logo});

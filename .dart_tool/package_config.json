@@ -530,6 +530,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "intl",
+      "rootUri": "file:///Users/macbook/.pub-cache/hosted/pub.dev/intl-0.20.2",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
+    },
+    {
       "name": "io",
       "rootUri": "file:///Users/macbook/.pub-cache/hosted/pub.dev/io-1.0.5",
       "packageUri": "lib/",
@@ -1106,7 +1112,7 @@
       "languageVersion": "3.7"
     }
   ],
-  "generated": "2025-04-06T16:36:55.919024Z",
+  "generated": "2025-04-06T23:34:19.654735Z",
   "generator": "pub",
   "generatorVersion": "3.7.2",
   "flutterRoot": "file:///Users/macbook/Desktop/flutter",

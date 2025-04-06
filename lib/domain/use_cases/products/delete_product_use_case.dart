@@ -6,7 +6,7 @@ class DeleteProductUseCase {
 
   DeleteProductUseCase(this._productsRepository);
 
-  Future<Resource<bool>> call(String productId,String brandId) async {
-    return await _productsRepository.deleteProduct(productId,brandId);
+  Future<Resource<bool>> call(String productId) async {
+    return await _productsRepository.deleteProduct(productId);
   }
 }

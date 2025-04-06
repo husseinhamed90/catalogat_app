@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:catalogat_app/core/constants/app_constants.dart';
 import 'package:catalogat_app/core/services/photo_picker.dart';
-import 'package:catalogat_app/domain/entities/brand_entity.dart';
-import 'package:catalogat_app/domain/entities/product_entity.dart';
+import 'package:catalogat_app/data/models/models.dart';
+import 'package:catalogat_app/domain/entities/entities.dart';
 import 'package:catalogat_app/presentation/blocs/blocs.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:catalogat_app/core/dependencies.dart';
@@ -25,6 +25,12 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
 
   final FocusNode _productNameFocusNode = FocusNode();
   final TextEditingController _productNameController = TextEditingController();
+
+  final FocusNode _productPrice1FocusNode = FocusNode();
+  final TextEditingController _productPrice1Controller = TextEditingController();
+
+  final FocusNode _productPrice2FocusNode = FocusNode();
+  final TextEditingController _productPrice2Controller = TextEditingController();
 
   late BrandsCubit _brandsCubit;
   late List<BrandEntity> _brands;
@@ -69,27 +75,27 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
                     onPressed: () async{
                       if (_formKey.currentState!.validate()) {
                         final addProductSuccess = await _brandsCubit.addProduct(
-                          product: ProductEntity(
+                          addProductParams: AddProductParams(
                             name: _productNameController.text,
                             brandId: state.selectedBrand?.id,
+                            price1: double.tryParse(_productPrice1Controller.text.removeNonNumber),
+                            price2: double.tryParse(_productPrice2Controller.text.removeNonNumber),
                           ),
                         );
-                        if(addProductSuccess) {
+                        if(addProductSuccess.$1) {
                           _brandsCubit.getBrands(false);
                           ScaffoldMessenger.of(globalKey.currentContext!).showSnackBar(
                             SnackBar(
-                              content: Text("Product Created Successfully"),
+                              content: Text(state.addProductResource.message ?? "Success"),
                               backgroundColor: Colors.green,
                             ),
                           );
-                          if(mounted) {
-                            Navigator.of(globalKey.currentContext!).pop();
-                          }
+                          if(context.mounted) Navigator.of(context).pop();
                         }
                         else{
                           ScaffoldMessenger.of(globalKey.currentContext!).showSnackBar(
                             SnackBar(
-                              content: Text(state.addProductResource.message ?? "Error"),
+                              content: Text(state.addProductResource.message ?? "Failed to create product"),
                               backgroundColor: Colors.red,
                             ),
                           );
@@ -97,14 +103,14 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
                       }
                     },
                     child: Builder(
-                      builder: (context) {
-                        if (state.addProductResource.isLoading) {
-                          return CircularProgressIndicator(
-                            color: Colors.white,
-                          );
+                        builder: (context) {
+                          if (state.addProductResource.isLoading) {
+                            return CircularProgressIndicator(
+                              color: Colors.white,
+                            );
+                          }
+                          return Text("Create Product", style: TextStyle(fontSize: FontSize.medium, color: Colors.white));
                         }
-                        return Text("Create Product", style: TextStyle(fontSize: FontSize.medium, color: Colors.white));
-                      }
                     ),
                   );
                 },
@@ -135,7 +141,7 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
                         }
                       },
                       child: BlocBuilder<BrandsCubit,BrandsState>(
-                        bloc: _brandsCubit,
+                          bloc: _brandsCubit,
                           buildWhen: (prevState, currentState) {
                             if (prevState.imageFile != currentState.imageFile) return true;
                             return false;
@@ -185,48 +191,79 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
                           }
                       ),
                     ),
-                    Gap(Dimens.xxxLarge),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Product Name",
-                          style: TextStyle(
-                            fontSize: FontSize.medium,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black87,
-                          ),
-                        ),
-                        Gap(Dimens.semiSmall),
-                        TextFormField(
-                          focusNode: _productNameFocusNode,
+                    Gap(Dimens.large),
+                    BlocBuilder<BrandsCubit, BrandsState>(
+                      buildWhen: (previous, current) {
+                        if(previous.productName != current.productName) return true;
+                        return false;
+                      },
+                      builder: (context, state) {
+                        return TextInputField(
                           controller: _productNameController,
-                          decoration: InputDecoration(
-                            hintText: "Enter product name",
-                            hintStyle: TextStyle(color: Colors.grey.shade400),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(14),
-                              borderSide: BorderSide(color: Colors.grey.shade300),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(14),
-                              borderSide: BorderSide(color: Colors.grey.shade300),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(14),
-                              borderSide: BorderSide(color: AppColors.blue),
-                            ),
-                          ),
+                          focusNode: _productNameFocusNode,
+                          label: "Product Name",
+                          onChanged: (value) {
+                            _brandsCubit.setProductName(value);
+                          },
+                          hint: "Enter product name",
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return "Product name is required";
                             }
                             return null;
                           },
-                        ),
-                      ],
+                        );
+                      },
                     ),
-                    Gap(Dimens.xxLarge),
+                    Gap(Dimens.large),
+                    BlocBuilder<BrandsCubit, BrandsState>(
+                      buildWhen: (previous, current) {
+                        if(previous.productPrice1 != current.productPrice1) return true;
+                        return false;
+                      },
+                      builder: (context, state) {
+                        return AmountInputField(
+                          focusNode: _productPrice1FocusNode,
+                          controller: _productPrice1Controller,
+                          label: "Product Price",
+                          hint: "Enter product price",
+                          onChanged: (value) {
+                            _brandsCubit.setProductPrice1(value);
+                          },
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Product price is required";
+                            }
+                            return null;
+                          },
+                        );
+                      },
+                    ),
+                    Gap(Dimens.large),
+                    BlocBuilder<BrandsCubit, BrandsState>(
+                      buildWhen: (previous, current) {
+                        if(previous.productPrice2 != current.productPrice2) return true;
+                        return false;
+                      },
+                      builder: (context, state) {
+                        return AmountInputField(
+                          focusNode: _productPrice2FocusNode,
+                          controller: _productPrice2Controller,
+                          label: "Product Price 2",
+                          hint: "Enter product price 2",
+                          onChanged: (value) {
+                            _brandsCubit.setProductPrice2(value);
+                          },
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Product price 2 is required";
+                            }
+                            return null;
+                          },
+                        );
+                      },
+                    ),
+                    Gap(Dimens.large),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -246,6 +283,7 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
                           },
                           builder: (context, state) {
                             return DropdownButtonFormField<BrandEntity>(
+                              autovalidateMode: AutovalidateMode.onUserInteraction,
                               value: state.selectedBrand,
                               validator: (value) {
                                 if (value == null || value.name == null || value.name!.isEmpty) {
@@ -253,8 +291,7 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
                                 }
                                 return null;
                               },
-                              hint: Text("Select Brand",
-                                  style: TextStyle(color: Colors.grey.shade400)),
+                              hint: Text("Select Brand", style: TextStyle(color: Colors.grey.shade400)),
                               decoration: InputDecoration(
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(14),
@@ -276,7 +313,7 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
                                 child: Text(brand.name ?? ""),
                               )).toList(),
                               onChanged: (value) {
-                               _brandsCubit.selectedBrand(value);
+                                _brandsCubit.selectedBrand(value);
                               },
                             );
                           },
