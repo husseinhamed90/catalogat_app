@@ -283,6 +283,7 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
                           },
                           builder: (context, state) {
                             return DropdownButtonFormField<BrandEntity>(
+                              isExpanded: true,
                               autovalidateMode: AutovalidateMode.onUserInteraction,
                               value: state.selectedBrand,
                               validator: (value) {
@@ -291,7 +292,7 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
                                 }
                                 return null;
                               },
-                              hint: Text("Select Brand", style: TextStyle(color: Colors.grey.shade400)),
+                              hint: AutoSizeText("Select Brand", style: TextStyle(color: Colors.grey.shade400),overflow: TextOverflow.ellipsis,),
                               decoration: InputDecoration(
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(14),
@@ -310,7 +311,10 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
                               ),
                               items: _brands.map((brand) => DropdownMenuItem<BrandEntity>(
                                 value: brand,
-                                child: Text(brand.name ?? ""),
+                                child: Text(
+                                  overflow: TextOverflow.ellipsis,
+                                  "${brand.name}",
+                                ),
                               )).toList(),
                               onChanged: (value) {
                                 _brandsCubit.selectedBrand(value);

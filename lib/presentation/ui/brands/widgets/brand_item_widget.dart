@@ -16,7 +16,9 @@ class BrandItemWidget extends StatelessWidget {
           ArgumentsNames.brandsCubit: context.read<BrandsCubit>(),
         });
       },
-      child: Padding(
+      child: Container(
+        width: 112,
+        color: Colors.white,
         padding: const EdgeInsets.all(Dimens.medium),
         child: Column(
           children: [
@@ -27,7 +29,13 @@ class BrandItemWidget extends StatelessWidget {
                   : AssetImage(Assets.images.imgPlaceholder.path),
             ),
             Gap(10),
-            Text(brand.name ?? "", style: TextStyle(color: AppColors.textColor, fontWeight: FontWeight.w500, fontSize: FontSize.xSmall)),
+            Expanded(
+              child: Text(
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.center,
+                  brand.name ?? "",
+                  style: TextStyle(color: AppColors.textColor, fontWeight: FontWeight.w500, fontSize: FontSize.xSmall)),
+            ),
           ],
         ),
       ),

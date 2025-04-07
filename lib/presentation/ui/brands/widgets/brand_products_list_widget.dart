@@ -28,9 +28,13 @@ class BrandProductsListWidget extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: Dimens.medium),
                   child: Row(
                     children: [
-                      Text(brand.name ?? "", style: TextStyle(color: AppColors.textColor, fontWeight: FontWeight.bold, fontSize: FontSize.xMedium)),
+                      Expanded(child: Text(
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          brand.name ?? "",
+                          style: TextStyle(color: AppColors.textColor, fontWeight: FontWeight.bold, fontSize: FontSize.xMedium))),
                       if(products.isNotEmpty)...[
-                        Spacer(),
+                        Gap(Dimens.large),
                         InkWell(
                             onTap: () {
                               Navigator.of(context).pushNamed(Routes.productsList, arguments: {
@@ -45,10 +49,11 @@ class BrandProductsListWidget extends StatelessWidget {
                     ],
                   ),
                 ),
+                Gap(Dimens.semiSmall),
                 Builder(builder: (context) {
                   if(products.isNotEmpty) {
                     return SizedBox(
-                      height: 245,
+                      height: 265,
                       child: ListView.builder(
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,

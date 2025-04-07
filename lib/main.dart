@@ -1,5 +1,7 @@
+import 'package:catalogat_app/core/config/app_config.dart';
 import 'package:catalogat_app/core/dependencies.dart';
 import 'package:catalogat_app/core/constants/app_constants.dart';
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter/services.dart';
 
 import 'core/routes/router_generator.dart';
@@ -12,7 +14,15 @@ Future<void> main() async {
     DeviceOrientation.portraitDown
   ]);
   setupLocator();
-  runApp(const MyApp());
+  runApp(
+    DevicePreview(
+      enabled: AppConfig.devicePreview,
+      tools: const [
+        ...DevicePreview.defaultTools,
+      ],
+      builder: (context) => const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

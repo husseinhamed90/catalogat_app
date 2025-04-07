@@ -236,6 +236,18 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "device_frame",
+      "rootUri": "file:///Users/macbook/.pub-cache/hosted/pub.dev/device_frame-1.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.4"
+    },
+    {
+      "name": "device_preview",
+      "rootUri": "file:///Users/macbook/.pub-cache/hosted/pub.dev/device_preview-1.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
+    },
+    {
       "name": "dio",
       "rootUri": "file:///Users/macbook/.pub-cache/hosted/pub.dev/dio-5.8.0+1",
       "packageUri": "lib/",
@@ -362,6 +374,12 @@
       "languageVersion": "3.5"
     },
     {
+      "name": "flutter_localizations",
+      "rootUri": "file:///Users/macbook/Desktop/flutter/packages/flutter_localizations",
+      "packageUri": "lib/",
+      "languageVersion": "3.7"
+    },
+    {
       "name": "flutter_plugin_android_lifecycle",
       "rootUri": "file:///Users/macbook/.pub-cache/hosted/pub.dev/flutter_plugin_android_lifecycle-2.0.27",
       "packageUri": "lib/",
@@ -384,6 +402,12 @@
       "rootUri": "file:///Users/macbook/Desktop/flutter/packages/flutter_web_plugins",
       "packageUri": "lib/",
       "languageVersion": "3.7"
+    },
+    {
+      "name": "freezed_annotation",
+      "rootUri": "file:///Users/macbook/.pub-cache/hosted/pub.dev/freezed_annotation-2.4.4",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
     },
     {
       "name": "frontend_server_client",
@@ -513,9 +537,9 @@
     },
     {
       "name": "intl",
-      "rootUri": "file:///Users/macbook/.pub-cache/hosted/pub.dev/intl-0.20.2",
+      "rootUri": "file:///Users/macbook/.pub-cache/hosted/pub.dev/intl-0.19.0",
       "packageUri": "lib/",
-      "languageVersion": "3.3"
+      "languageVersion": "3.0"
     },
     {
       "name": "io",
@@ -1094,7 +1118,7 @@
       "languageVersion": "3.7"
     }
   ],
-  "generated": "2025-04-07T00:06:03.502444Z",
+  "generated": "2025-04-07T23:24:18.854871Z",
   "generator": "pub",
   "generatorVersion": "3.7.2",
   "flutterRoot": "file:///Users/macbook/Desktop/flutter",
