@@ -1,4 +1,5 @@
 import 'package:catalogat_app/core/dependencies.dart';
+import 'package:flutter/services.dart';
 
 class AmountInputField extends StatelessWidget {
   final String label;
@@ -37,6 +38,7 @@ class AmountInputField extends StatelessWidget {
         TextFormField(
           autovalidateMode: AutovalidateMode.onUserInteraction,
           focusNode: focusNode,
+
           keyboardType: TextInputType.number,
           controller: controller,
           decoration: InputDecoration(
@@ -55,6 +57,10 @@ class AmountInputField extends StatelessWidget {
               borderSide: BorderSide(color: AppColors.blue),
             ),
           ),
+          inputFormatters: [
+            FilteringTextInputFormatter.allow(RegExp(r'[\u0660-\u06690-9]')),
+            LengthLimitingTextInputFormatter(14),
+          ],
           validator: validator,
           onChanged: (v) {
             final String value = v.convertDigitsLangToEnglish;

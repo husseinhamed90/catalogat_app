@@ -7,4 +7,4 @@ export 'products/add_product_use_case.dart';
 export 'products/delete_product_use_case.dart';
 export 'products/update_product_use_case.dart';
 
-export 'upload_file_to_firebase_storage_use_case.dart';
+export 'upload_file_to_storage_use_case.dart';

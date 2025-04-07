@@ -20,7 +20,7 @@ void setupLocator() {
     sl<AddProductUseCase>(),
     sl<UpdateProductUseCase>(),
     sl<DeleteProductUseCase>(),
-    sl<UploadFileToFirebaseStorageUseCase>()
+    sl<UploadFileToStorageUseCase>()
   ));
 
   /// Repositories
@@ -38,7 +38,7 @@ void setupLocator() {
   sl.registerFactory<UpdateProductUseCase>(() => UpdateProductUseCase(sl<ProductsRepo>()));
   sl.registerFactory<DeleteProductUseCase>(() => DeleteProductUseCase(sl<ProductsRepo>()));
 
-  sl.registerFactory<UploadFileToFirebaseStorageUseCase>(() => UploadFileToFirebaseStorageUseCase(sl<StorageRepo>()));
+  sl.registerFactory<UploadFileToStorageUseCase>(() => UploadFileToStorageUseCase(sl<StorageRepo>()));
 
   sl.registerLazySingleton<Dio>(() => Dio(
     BaseOptions(

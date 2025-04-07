@@ -1,6 +1,5 @@
 import 'package:catalogat_app/core/dependencies.dart';
 import 'package:catalogat_app/core/constants/app_constants.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
 
 import 'core/routes/router_generator.dart';
@@ -12,7 +11,6 @@ Future<void> main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown
   ]);
-  await Firebase.initializeApp();
   setupLocator();
   runApp(const MyApp());
 }
