@@ -86,7 +86,7 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
                           _brandsCubit.getBrands(false);
                           ScaffoldMessenger.of(globalKey.currentContext!).showSnackBar(
                             SnackBar(
-                              content: Text(state.addProductResource.message ?? "Success"),
+                              content: Text(addProductSuccess.$2),
                               backgroundColor: Colors.green,
                             ),
                           );
@@ -95,13 +95,14 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
                         else{
                           ScaffoldMessenger.of(globalKey.currentContext!).showSnackBar(
                             SnackBar(
-                              content: Text(state.addProductResource.message ?? "Failed to create product"),
+                              content: Text(addProductSuccess.$2),
                               backgroundColor: Colors.red,
                             ),
                           );
                         }
                       }
                     },
+                    // براند ٤
                     child: Builder(
                         builder: (context) {
                           if (state.addProductResource.isLoading) {
@@ -226,7 +227,7 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
                           focusNode: _productPrice1FocusNode,
                           controller: _productPrice1Controller,
                           label: context.l10n.label_price1,
-                          hint: context.l10n.label_price1,
+                          hint: context.l10n.label_price1Hint,
                           onChanged: (value) {
                             _brandsCubit.setProductPrice1(value);
                           },
@@ -250,7 +251,7 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
                           focusNode: _productPrice2FocusNode,
                           controller: _productPrice2Controller,
                           label: context.l10n.label_price2,
-                          hint: context.l10n.label_price2,
+                          hint: context.l10n.label_price2Hint,
                           onChanged: (value) {
                             _brandsCubit.setProductPrice2(value);
                           },

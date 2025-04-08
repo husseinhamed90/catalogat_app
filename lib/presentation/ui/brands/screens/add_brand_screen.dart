@@ -181,7 +181,7 @@ class _AddBrandScreenState extends State<AddBrandScreen> {
                         label: context.l10n.label_brandName,
                         focusNode: _brandNameFocusNode,
                         controller: _brandNameController,
-                        hint: context.l10n.label_brandName,
+                        hint: context.l10n.label_brandNameHint,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return context.l10n.error_requiredField;
