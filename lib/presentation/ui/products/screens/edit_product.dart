@@ -121,7 +121,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                             color: Colors.white,
                           );
                         }
-                        return Text("Update Product", style: TextStyle(fontSize: FontSize.medium, color: Colors.white));
+                        return Text(context.l10n.action_editProduct, style: TextStyle(fontSize: FontSize.medium, color: Colors.white));
                       }
                     ),
                   );
@@ -130,7 +130,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
             ),
           ),
           backgroundColor: AppColors.background,
-          appBar: PrimaryAppBar(title: "Update Product", color: AppColors.background,),
+          appBar: PrimaryAppBar(title: context.l10n.title_edit_product_screen, color: AppColors.background,),
           body: Container(
             width: double.infinity,
             height: double.infinity,
@@ -179,7 +179,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                         ),
                                         Gap(Dimens.semiSmall),
                                         Text(
-                                          "Add Product image",
+                                          context.l10n.label_addProductImage,
                                           style: TextStyle(
                                             color: Colors.black,
                                             fontSize: FontSize.xSmall,
@@ -241,11 +241,11 @@ class _EditProductScreenState extends State<EditProductScreen> {
                         return TextInputField(
                           focusNode: _productNameFocusNode,
                           controller: _productNameController,
-                          hint: "Enter product name",
-                          label: "Product Name",
+                          hint: context.l10n.label_productNameHint,
+                          label: context.l10n.label_productName,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return "Product name is required";
+                              return context.l10n.error_requiredField;
                             }
                             return null;
                           },
@@ -262,14 +262,14 @@ class _EditProductScreenState extends State<EditProductScreen> {
                         return AmountInputField(
                           focusNode: _productPrice1FocusNode,
                           controller: _productPrice1Controller,
-                          label: "Product Price",
-                          hint: "Enter product price",
+                          label: context.l10n.label_price1,
+                          hint: context.l10n.label_price1Hint,
                           onChanged: (value) {
                             _brandsCubit.setProductPrice1(value);
                           },
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return "Product price is required";
+                              return context.l10n.error_requiredField;
                             }
                             return null;
                           },
@@ -286,14 +286,14 @@ class _EditProductScreenState extends State<EditProductScreen> {
                         return AmountInputField(
                           focusNode: _productPrice2FocusNode,
                           controller: _productPrice2Controller,
-                          label: "Product Price 2",
-                          hint: "Enter product price 2",
+                          label: context.l10n.label_price2,
+                          hint: context.l10n.label_price2Hint,
                           onChanged: (value) {
                             _brandsCubit.setProductPrice2(value);
                           },
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return "Product price 2 is required";
+                              return context.l10n.error_requiredField;
                             }
                             return null;
                           },
@@ -305,7 +305,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Product Brand",
+                          context.l10n.label_selectBrand,
                           style: TextStyle(
                             fontSize: FontSize.medium,
                             fontWeight: FontWeight.w600,
@@ -324,11 +324,11 @@ class _EditProductScreenState extends State<EditProductScreen> {
                               autovalidateMode: AutovalidateMode.onUserInteraction,
                               validator: (value) {
                                 if (value == null || value.name == null || value.name!.isEmpty) {
-                                  return "Product Brand is required";
+                                  return context.l10n.error_requiredField;
                                 }
                                 return null;
                               },
-                              hint: Text("Select Brand", style: TextStyle(color: Colors.grey.shade400)),
+                              hint: Text(context.l10n.label_selectBrandHint, style: TextStyle(color: Colors.grey.shade400)),
                               decoration: InputDecoration(
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(14),

@@ -3,6 +3,7 @@ import 'package:catalogat_app/core/dependencies.dart';
 import 'package:catalogat_app/core/constants/app_constants.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'core/routes/router_generator.dart';
 
@@ -31,7 +32,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      locale: Locale(AppConstants.arabicLanguageCode),
       navigatorKey: globalKey,
+      localizationsDelegates: [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: [
+        Locale(AppConstants.englishLanguageCode), // English
+        Locale(AppConstants.arabicLanguageCode), // Spanish
+      ],
       theme: ThemeData(
         appBarTheme: AppBarTheme(
           elevation: 0,

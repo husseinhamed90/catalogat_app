@@ -57,7 +57,7 @@ class BrandAllProducts extends StatelessWidget {
                               height: 100,
                             ),
                             Gap(Dimens.xxLarge),
-                            Text("No products added yet", style: TextStyle(color: AppColors.textColor, fontWeight: FontWeight.w500, fontSize: FontSize.medium)),
+                            Text(context.l10n.empty_product_list, style: TextStyle(color: AppColors.textColor, fontWeight: FontWeight.w500, fontSize: FontSize.medium)),
                           ],
                         ),
                       );

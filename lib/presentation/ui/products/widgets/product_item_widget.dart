@@ -70,7 +70,8 @@ class _ProductItemWidgetState extends State<ProductItemWidget> {
                             child: FittedBox(
                               child: Text(
                                   maxLines: 1,
-                                  "Price 1 : ${(widget.item.price1 ?? 0.0).formatAsCurrency()} EGP", style: TextStyle(color: AppColors.textColor, fontWeight: FontWeight.w600, fontSize: FontSize.xSmall)),
+                                  context.l10n.price_1_value((widget.item.price1 ?? 0.0).formatAsCurrency())
+                              )
                             ),
                           ),
                           Gap(5),
@@ -79,7 +80,8 @@ class _ProductItemWidgetState extends State<ProductItemWidget> {
                             child: FittedBox(
                               child: Text(
                                   maxLines: 1,
-                                  "Price 2 : ${(widget.item.price2 ?? 0.0).formatAsCurrency()} EGP", style: TextStyle(color: AppColors.textColor, fontWeight: FontWeight.w600, fontSize: FontSize.xSmall)),
+                                  context.l10n.price_2_value((widget.item.price2 ?? 0.0).formatAsCurrency())
+                              )
                             ),
                           ),
                           Gap(15),
@@ -89,9 +91,9 @@ class _ProductItemWidgetState extends State<ProductItemWidget> {
                   )
                 ],
               ),
-              Positioned(
+              PositionedDirectional(
                   top: 8,
-                  right: 8,
+                  end: 8,
                   child: CircleAvatar(
                     radius: 12,
                     backgroundColor: Color(0xffF3F4F6),
@@ -101,11 +103,11 @@ class _ProductItemWidgetState extends State<ProductItemWidget> {
                       itemBuilder: (context) => [
                         PopupMenuItem(
                           value: 1,
-                          child: Text("Edit", style: TextStyle(color: AppColors.textColor)),
+                          child: Text(context.l10n.action_edit, style: TextStyle(color: AppColors.textColor)),
                         ),
                         PopupMenuItem(
                           value: 2,
-                          child: Text("Delete", style: TextStyle(color: AppColors.textColor)),
+                          child: Text(context.l10n.action_delete, style: TextStyle(color: AppColors.textColor)),
                         ),
                       ],
                       onSelected: (value) async {

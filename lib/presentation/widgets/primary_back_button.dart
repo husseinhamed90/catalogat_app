@@ -18,11 +18,14 @@ class _PrimaryBackButtonState extends State<PrimaryBackButton> {
       onTap: widget.onBackButtonPressed ?? () {
         if (context.mounted) Navigator.of(context).pop();
       },
-      child: SvgPicture.asset(
-        Assets.icons.icLeftArrow,
-        color: widget.backButtonColor,
-        height: 24,
-        width: 24,
+      child: RotatedBox(
+        child: SvgPicture.asset(
+          Assets.icons.icLeftArrow,
+          color: widget.backButtonColor,
+          height: 24,
+          width: 24,
+        ),
+        quarterTurns: context.isRtl ? 2 : 0,
       ),
     );
   }

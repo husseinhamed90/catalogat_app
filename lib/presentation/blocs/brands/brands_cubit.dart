@@ -131,6 +131,7 @@ class BrandsCubit extends Cubit<BrandsState> {
         brandsResource: Resource.success(brands ?? []),
       ));
     }
+    print("deleteProductResource.message ${deleteProductResource.message}");
     return (deleteProductResource.isSuccess, deleteProductResource.message);
   }
 

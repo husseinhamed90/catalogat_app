@@ -42,7 +42,7 @@ class AmountInputField extends StatelessWidget {
           keyboardType: TextInputType.number,
           controller: controller,
           decoration: InputDecoration(
-            hintText: "Enter product price",
+            hintText: hint,
             hintStyle: TextStyle(color: Colors.grey.shade400),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(14),

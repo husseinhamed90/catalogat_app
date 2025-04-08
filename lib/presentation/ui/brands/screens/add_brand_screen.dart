@@ -92,7 +92,7 @@ class _AddBrandScreenState extends State<AddBrandScreen> {
                             color: Colors.white,
                           );
                         }
-                        return Text("Create brand", style: TextStyle(fontSize: FontSize.medium, color: Colors.white));
+                        return Text(context.l10n.action_addBrand, style: TextStyle(fontSize: FontSize.medium, color: Colors.white));
                       }
                     ),
                   );
@@ -101,7 +101,7 @@ class _AddBrandScreenState extends State<AddBrandScreen> {
             ),
           ),
           backgroundColor: AppColors.background,
-          appBar: PrimaryAppBar(title: "Add Brand", color: AppColors.background),
+          appBar: PrimaryAppBar(title: context.l10n.title_add_brand_screen, color: AppColors.background),
           body: Container(
             width: double.infinity,
             height: double.infinity,
@@ -158,7 +158,7 @@ class _AddBrandScreenState extends State<AddBrandScreen> {
                                   ),
                                   Gap(Dimens.semiSmall),
                                   Text(
-                                    "Add brand image",
+                                    context.l10n.label_addBrandImage,
                                     style: TextStyle(
                                       color: Colors.black,
                                       fontSize: FontSize.xSmall,
@@ -177,37 +177,14 @@ class _AddBrandScreenState extends State<AddBrandScreen> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        "Brand Name",
-                        style: TextStyle(
-                          fontSize: FontSize.medium,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black87,
-                        ),
-                      ),
-                      Gap(Dimens.semiSmall),
-                      TextFormField(
+                      TextInputField(
+                        label: context.l10n.label_brandName,
                         focusNode: _brandNameFocusNode,
                         controller: _brandNameController,
-                        decoration: InputDecoration(
-                          hintText: "Enter brand name",
-                          hintStyle: TextStyle(color: Colors.grey.shade400),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(14),
-                            borderSide: BorderSide(color: Colors.grey.shade300),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(14),
-                            borderSide: BorderSide(color: Colors.grey.shade300),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(14),
-                            borderSide: BorderSide(color: AppColors.blue),
-                          ),
-                        ),
+                        hint: context.l10n.label_brandName,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return "Brand name is required";
+                            return context.l10n.error_requiredField;
                           }
                           return null;
                         },

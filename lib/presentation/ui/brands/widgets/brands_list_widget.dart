@@ -14,7 +14,7 @@ class BrandsListWidget extends StatelessWidget {
     return BlocProvider.value(
       value: brandsCubit,
       child: Container(
-        height: 142,
+        height: 144,
         width: double.infinity,
         color: Colors.white,
         child: BlocBuilder<BrandsCubit, BrandsState>(
@@ -58,7 +58,7 @@ class BrandsListWidget extends StatelessWidget {
                             ),
                           ),
                           SizedBox(height: 10),
-                          Text("Add Brand", style: TextStyle(color: AppColors.blue, fontWeight: FontWeight.w500, fontSize: FontSize.xSmall)),
+                          AutoSizeText(context.l10n.add_brand, style: TextStyle(color: AppColors.blue, fontWeight: FontWeight.w500, fontSize: FontSize.xSmall)),
                         ],
                       ),
                     ),
@@ -68,9 +68,9 @@ class BrandsListWidget extends StatelessWidget {
                 final child = Stack(
                   children: [
                     BrandItemWidget(brand: brand),
-                    Positioned(
+                    PositionedDirectional(
                         top: 14,
-                        right: 14,
+                        end: 14,
                         child: CircleAvatar(
                           radius: 12,
                           backgroundColor: Color(0xffF3F4F6),
@@ -80,11 +80,11 @@ class BrandsListWidget extends StatelessWidget {
                             itemBuilder: (context) => [
                               PopupMenuItem(
                                 value: 1,
-                                child: Text("Edit", style: TextStyle(color: AppColors.textColor)),
+                                child: Text(context.l10n.action_edit, style: TextStyle(color: AppColors.textColor)),
                               ),
                               PopupMenuItem(
                                 value: 2,
-                                child: Text("Delete", style: TextStyle(color: AppColors.textColor)),
+                                child: Text(context.l10n.action_delete, style: TextStyle(color: AppColors.textColor)),
                               ),
                             ],
                             onSelected: (value) async{

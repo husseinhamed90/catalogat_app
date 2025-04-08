@@ -35,7 +35,7 @@ class _BrandsProductsScreenState extends State<BrandsProductsScreen> {
               fontWeight: FontWeight.bold,
               fontSize: FontSize.extraLarge
           ),
-          title: "Brands & Products",
+          title: context.l10n.title_brandsAndProducts,
           color: Color(0xffFFFFFB),
         ),
         floatingActionButton: BlocBuilder<BrandsCubit,BrandsState>(
@@ -51,7 +51,7 @@ class _BrandsProductsScreenState extends State<BrandsProductsScreen> {
                       ArgumentsNames.brandsCubit: _brandsCubit,
                     });
                   },
-                  backgroundColor: AppColors.blue,
+                  backgroundColor: Colors.black,
                   child: Icon(Icons.add, color: Colors.white),
                 );
               }
@@ -90,7 +90,7 @@ class _BrandsProductsScreenState extends State<BrandsProductsScreen> {
                                 ),
                                 Gap(Dimens.extraLarge),
                                 AutoSizeText(
-                                  "No Brands Yet",
+                                  context.l10n.empty_brand_list,
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       fontWeight: FontWeight.w700,
@@ -100,7 +100,7 @@ class _BrandsProductsScreenState extends State<BrandsProductsScreen> {
                                 Gap(Dimens.medium),
                                 AutoSizeText(
                                   textAlign: TextAlign.center,
-                                  "Start To Add Your First Brand",
+                                  context.l10n.label_addFirstBrand,
                                   style: TextStyle(
                                       fontWeight: FontWeight.w400,
                                       color: Color(0xff666666),

@@ -25,7 +25,7 @@ class ProductsRepoImpl implements ProductsRepo {
     try {
       final apiResponse = await _supabaseService.deleteProduct(DeleteProductParams(productId: productId));
       if(apiResponse.toResource().isSuccess) {
-        return Resource.success(true);
+        return Resource.success(true,message: apiResponse.toResource().message);
       }
       return Resource.failure(apiResponse.toResource().message ?? "Failed to delete product");
     } catch (e) {

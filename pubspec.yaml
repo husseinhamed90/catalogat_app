@@ -48,8 +48,10 @@ dependencies:
   image_picker: ^1.1.2
   retrofit: ^4.4.2
   json_annotation: ^4.9.0
-  intl:
+  intl: any
   device_preview:
+  flutter_localizations:
+      sdk: flutter
 
 dev_dependencies:
   retrofit_generator:
@@ -71,7 +73,7 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
-
+  generate: true # Add this line
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
@@ -82,16 +84,16 @@ flutter:
     - assets/images/
 
   fonts:
-    - family: Inter
+    - family: Tajawal
       fonts:
-        - asset: assets/fonts/Inter-Regular.otf
-        - asset: assets/fonts/Inter-Medium.otf
+        - asset: assets/fonts/Tajawal-Regular.ttf
+        - asset: assets/fonts/Tajawal-Medium.ttf
           weight: 500
-        - asset: assets/fonts/Inter-SemiBold.otf
+        - asset: assets/fonts/Tajawal-Bold.ttf
           weight: 600
-        - asset: assets/fonts/Inter-Bold.otf
+        - asset: assets/fonts/Tajawal-ExtraBold.ttf
           weight: 700
-        - asset: assets/fonts/Inter-Black.otf
+        - asset: assets/fonts/Tajawal-Black.ttf
           weight: 900
 
   # To add assets to your application, add an assets section, like this:

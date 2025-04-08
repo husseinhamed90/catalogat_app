@@ -42,7 +42,7 @@ class BrandProductsListWidget extends StatelessWidget {
                                 ArgumentsNames.brandsCubit: context.read<BrandsCubit>(),
                               });
                             },
-                            child: Text("View All", style: TextStyle(color: AppColors.blue, fontWeight: FontWeight.w500, fontSize: FontSize.xSmall))),
+                            child: Text(context.l10n.action_viewAll, style: TextStyle(color: AppColors.blue, fontWeight: FontWeight.w500, fontSize: FontSize.xSmall))),
                         Gap(7),
                         Icon(Icons.arrow_forward_ios, color: AppColors.blue, size: Dimens.xSmall),
                       ]
@@ -60,7 +60,10 @@ class BrandProductsListWidget extends StatelessWidget {
                         itemCount: products.length,
                         itemBuilder: (context, index) {
                           final item = products[index];
-                          return ProductItemWidget(item: item);
+                          return Padding(
+                            padding: EdgeInsetsDirectional.only(start: index == 0 ? Dimens.small : 0, end: Dimens.small),
+                            child: ProductItemWidget(item: item),
+                          );
                         },
                       ),
                     );
@@ -85,13 +88,14 @@ class BrandProductsListWidget extends StatelessWidget {
                               height: 50,
                             ),
                             Gap(Dimens.small),
-                            Text("No products yet", style: TextStyle(color: AppColors.textColor, fontWeight: FontWeight.w500, fontSize: FontSize.medium)),
+                            Text(context.l10n.empty_product_list, style: TextStyle(color: AppColors.textColor, fontWeight: FontWeight.w500, fontSize: FontSize.medium)),
                           ],
                         ),
                       ),
                     ),
                   );
                 }),
+                Gap(Dimens.small),
               ],
             ),
           ),

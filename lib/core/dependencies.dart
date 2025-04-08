@@ -10,6 +10,7 @@ export 'package:catalogat_app/core/routes/app_paths.dart';
 export 'package:catalogat_app/core/assets/fonts.gen.dart';
 export 'package:catalogat_app/core/helpers/resource.dart';
 export 'package:catalogat_app/core/assets/assets.gen.dart';
+export 'package:flutter_gen/gen_l10n/app_localizations.dart';
 export 'package:catalogat_app/core/extensions/extensions.dart';
 export 'package:catalogat_app/core/helpers/entity_converter.dart';
 export 'package:catalogat_app/core/constants/arguments_names.dart';
