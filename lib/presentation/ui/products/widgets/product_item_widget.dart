@@ -20,9 +20,6 @@ class _ProductItemWidgetState extends State<ProductItemWidget> {
       padding: EdgeInsets.only(bottom: Dimens.verticalSemiSmall),
       child: Card(
         color: Colors.white,
-        // shape: RoundedRectangleBorder(
-        //   borderRadius: BorderRadius.circular(12),
-        // ),
         elevation: 1,
         margin: EdgeInsets.zero,
         child: SizedBox(
@@ -91,7 +88,7 @@ class _ProductItemWidgetState extends State<ProductItemWidget> {
                                 ),
                               ),
                             ),
-                            Gap(5.h),
+                            Gap(15.h),
                             Container(
                               width: double.infinity,
                               padding: EdgeInsets.symmetric(horizontal: 8.w),
@@ -99,11 +96,21 @@ class _ProductItemWidgetState extends State<ProductItemWidget> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   FittedBox(
-                                      child: Text(
-                                        style: TextStyle(color: AppColors.textColor, fontWeight: FontWeight.w400, fontSize: FontSize.xSmall),
-                                          maxLines: 1,
-                                          context.l10n.price_1_value((widget.item.price1 ?? 0.0).formatAsCurrency())
-                                      )
+                                    child: Text.rich(
+                                       TextSpan(
+                                          children: [
+                                            TextSpan(
+                                              text: context.l10n.price_1_value,
+                                              style: TextStyle(color: AppColors.textColor, fontWeight: FontWeight.w400, fontSize: FontSize.xSmall),
+                                            ),
+                                            TextSpan(
+                                              text: "${widget.item.price1?.formatAsCurrency() ?? ""} ج.م ",
+                                              style: TextStyle(color: Colors.red, fontWeight: FontWeight.w400, fontSize: FontSize.xSmall),
+                                            ),
+                                          ],
+                                        ),
+                                       maxLines: 1,
+                                    ),
                                   ),
                                   Gap(5.h),
                                   FittedBox(

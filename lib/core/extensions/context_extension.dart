@@ -15,6 +15,7 @@ extension ContextExtension on BuildContext {
 
   AppLocalizations get l10n => AppLocalizations.of(this)!;
 
+  Locale get arabicLocale => const Locale(AppConstants.arabicLanguageCode);
   /// is arabic
   bool get isRtl => currentLocale.languageCode == AppConstants.arabicLanguageCode;
 }

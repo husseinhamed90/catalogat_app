@@ -56,7 +56,7 @@ class BrandProductsListWidget extends StatelessWidget {
                 Builder(builder: (context) {
                   if(products.isNotEmpty) {
                     return SizedBox(
-                      height: 320.h,
+                      height: 330.h,
                       child: ListView.builder(
                         shrinkWrap: true,
                         padding: EdgeInsets.symmetric(horizontal: Dimens.horizontalSemiSmall),
