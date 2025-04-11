@@ -88,7 +88,7 @@ class _BrandsProductsScreenState extends State<BrandsProductsScreen> {
                                   radius: 100,
                                   child: SvgPicture.asset(Assets.icons.icHome),
                                 ),
-                                Gap(Dimens.extraLarge),
+                                Gap(Dimens.verticalExtraLarge),
                                 AutoSizeText(
                                   context.l10n.empty_brand_list,
                                   textAlign: TextAlign.center,
@@ -97,7 +97,7 @@ class _BrandsProductsScreenState extends State<BrandsProductsScreen> {
                                       fontSize: FontSize.extraLarge
                                   ),
                                 ),
-                                Gap(Dimens.medium),
+                                Gap(Dimens.verticalMedium),
                                 AutoSizeText(
                                   textAlign: TextAlign.center,
                                   context.l10n.label_addFirstBrand,
@@ -107,7 +107,7 @@ class _BrandsProductsScreenState extends State<BrandsProductsScreen> {
                                       fontSize: FontSize.medium
                                   ),
                                 ),
-                                Gap(Dimens.xxxLarge),
+                                Gap(Dimens.verticalXXXLarge),
 
                               ],
                             ),

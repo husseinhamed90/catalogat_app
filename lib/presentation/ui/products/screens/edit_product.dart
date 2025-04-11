@@ -7,10 +7,9 @@ import 'package:catalogat_app/domain/entities/brand_entity.dart';
 import 'package:catalogat_app/domain/entities/product_entity.dart';
 import 'package:catalogat_app/presentation/blocs/blocs.dart';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:catalogat_app/core/dependencies.dart';
 import 'package:catalogat_app/presentation/widgets/widgets.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:image_picker/image_picker.dart';
 
 class EditProductScreen extends StatefulWidget {
   const EditProductScreen({super.key, required this.brandsCubit, required this.product});
@@ -69,7 +68,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
         child: Scaffold(
           resizeToAvoidBottomInset: true,
           bottomNavigationBar: Padding(
-            padding: const EdgeInsets.all(Dimens.large),
+            padding: EdgeInsets.all(Dimens.verticalLarge),
             child: SizedBox(
               width: double.infinity,
               child: BlocBuilder<BrandsCubit, BrandsState>(
@@ -140,7 +139,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
           body: Container(
             width: double.infinity,
             height: double.infinity,
-            padding: const EdgeInsets.all(Dimens.large),
+            padding: EdgeInsets.all(Dimens.verticalLarge),
             child: Form(
               autovalidateMode: AutovalidateMode.onUserInteraction,
               key: _formKey,
@@ -148,7 +147,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Gap(Dimens.large),
+                    Gap(Dimens.verticalLarge),
                     InkWell(
                       borderRadius: BorderRadius.circular(90),
                       onTap: () async {
@@ -180,10 +179,10 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                       children: [
                                         SvgPicture.asset(
                                           Assets.icons.icCamera,
-                                          width: 40.w,
-                                          height: 40.w,
+                                          width: 40,
+                                          height: 40,
                                         ),
-                                        Gap(Dimens.semiSmall),
+                                        Gap(Dimens.verticalSemiSmall),
                                         Text(
                                           context.l10n.label_addProductImage,
                                           style: TextStyle(
@@ -226,8 +225,8 @@ class _EditProductScreenState extends State<EditProductScreen> {
                                       child: Center(
                                         child: SvgPicture.asset(
                                           Assets.icons.icCamera,
-                                          width: 40.w,
-                                          height: 40.w,
+                                          width: 40,
+                                          height: 40,
                                         ),
                                       ),
                                     );
@@ -237,7 +236,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                           }
                       ),
                     ),
-                    Gap(Dimens.large),
+                    Gap(Dimens.verticalLarge),
                     BlocBuilder<BrandsCubit, BrandsState>(
                       buildWhen: (previous, current) {
                         if(previous.productName != current.productName) return true;
@@ -245,6 +244,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                       },
                       builder: (context, state) {
                         return TextInputField(
+                          maxLines: 3,
                           focusNode: _productNameFocusNode,
                           controller: _productNameController,
                           hint: context.l10n.label_productNameHint,
@@ -258,7 +258,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                         );
                       },
                     ),
-                    Gap(Dimens.large),
+                    Gap(Dimens.verticalLarge),
                     BlocBuilder<BrandsCubit, BrandsState>(
                       buildWhen: (previous, current) {
                         if(previous.productCode != current.productCode) return true;
@@ -282,7 +282,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                         );
                       },
                     ),
-                    Gap(Dimens.large),
+                    Gap(Dimens.verticalLarge),
                     BlocBuilder<BrandsCubit, BrandsState>(
                       buildWhen: (previous, current) {
                         if(previous.productPrice1 != current.productPrice1) return true;
@@ -306,7 +306,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                         );
                       },
                     ),
-                    Gap(Dimens.large),
+                    Gap(Dimens.verticalLarge),
                     BlocBuilder<BrandsCubit, BrandsState>(
                       buildWhen: (previous, current) {
                         if(previous.productPrice2 != current.productPrice2) return true;
@@ -330,7 +330,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                         );
                       },
                     ),
-                    Gap(Dimens.large),
+                    Gap(Dimens.verticalLarge),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -342,7 +342,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                             color: Colors.black87,
                           ),
                         ),
-                        Gap(Dimens.semiSmall),
+                        Gap(Dimens.verticalSemiSmall),
                         BlocBuilder<BrandsCubit, BrandsState>(
                           buildWhen: (previous, current) {
                             if(previous.selectedBrand != current.selectedBrand) return true;

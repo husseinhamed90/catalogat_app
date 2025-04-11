@@ -34,7 +34,7 @@ class AmountInputField extends StatelessWidget {
             color: Colors.black87,
           ),
         ),
-        Gap(Dimens.semiSmall),
+        Gap(Dimens.verticalSemiSmall),
         TextFormField(
           autovalidateMode: AutovalidateMode.onUserInteraction,
           focusNode: focusNode,

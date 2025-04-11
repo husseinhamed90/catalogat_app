@@ -1,9 +1,9 @@
 import 'package:catalogat_app/core/dependencies.dart';
-import 'package:catalogat_app/domain/entities/entities.dart';
-import 'package:catalogat_app/presentation/blocs/brands/brands_cubit.dart';
-import 'package:catalogat_app/presentation/ui/products/widgets/product_item_widget.dart';
-import 'package:catalogat_app/presentation/widgets/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:catalogat_app/domain/entities/entities.dart';
+import 'package:catalogat_app/presentation/blocs/blocs.dart';
+import 'package:catalogat_app/presentation/widgets/widgets.dart';
+import 'package:catalogat_app/presentation/ui/products/widgets/widgets.dart';
 
 class BrandAllProducts extends StatelessWidget {
   const BrandAllProducts({super.key, required this.brand, required this.brandsCubit});
@@ -43,8 +43,8 @@ class BrandAllProducts extends StatelessWidget {
             }
             final brand = (state.brandsResource.data ?? []).firstWhere((element) => element.id == this.brand.id);
             return SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.all(Dimens.semiSmall),
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: Dimens.horizontalSemiSmall),
                 child: Builder(
                   builder: (context) {
                     if(brand.products.isEmpty) {
@@ -57,7 +57,7 @@ class BrandAllProducts extends StatelessWidget {
                               width: 100.w,
                               height: 100.w,
                             ),
-                            Gap(Dimens.xxLarge),
+                            Gap(Dimens.verticalXXLarge),
                             Text(context.l10n.empty_product_list, style: TextStyle(color: AppColors.textColor, fontWeight: FontWeight.w500, fontSize: FontSize.medium)),
                           ],
                         ),
@@ -69,8 +69,7 @@ class BrandAllProducts extends StatelessWidget {
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
                         mainAxisExtent: 320.h,
-                        mainAxisSpacing: Dimens.semiSmall,
-                        crossAxisSpacing: 3.w,
+                        crossAxisSpacing: 4.w,
                       ),
                       itemBuilder: (context, index) {
                         return ProductItemWidget(

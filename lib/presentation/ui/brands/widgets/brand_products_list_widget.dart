@@ -1,8 +1,8 @@
+import 'package:catalogat_app/core/dependencies.dart';
 import 'package:catalogat_app/domain/entities/entities.dart';
 import 'package:catalogat_app/presentation/blocs/blocs.dart';
-import 'package:catalogat_app/core/dependencies.dart';
-import 'package:catalogat_app/presentation/ui/products/widgets/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:catalogat_app/presentation/ui/products/widgets/widgets.dart';
 
 class BrandProductsListWidget extends StatelessWidget {
   final List<BrandEntity> brands;
@@ -19,24 +19,25 @@ class BrandProductsListWidget extends StatelessWidget {
         final brand = brands[index];
         final products = brand.products;
         return Padding(
-          padding: const EdgeInsets.only(bottom: Dimens.xxxLarge),
+          padding: EdgeInsets.only(bottom: Dimens.verticalXXLarge),
           child: Container(
-            padding: const EdgeInsets.only(top: Dimens.medium),
+            padding: EdgeInsets.only(top: Dimens.verticalMedium),
             color: Colors.white,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: Dimens.medium),
+                  padding: EdgeInsets.symmetric(horizontal: Dimens.horizontalMedium),
                   child: Row(
                     children: [
                       Expanded(child: Text(
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           brand.name ?? "",
-                          style: TextStyle(color: AppColors.textColor, fontWeight: FontWeight.bold, fontSize: FontSize.xMedium))),
+                          style: TextStyle(color: AppColors.textColor, fontWeight: FontWeight.bold, fontSize: FontSize.xMedium))
+                      ),
                       if(products.isNotEmpty)...[
-                        Gap(Dimens.large),
+                        Gap(Dimens.horizontalLarge),
                         InkWell(
                             onTap: () {
                               Navigator.of(context).pushNamed(Routes.productsList, arguments: {
@@ -45,25 +46,31 @@ class BrandProductsListWidget extends StatelessWidget {
                               });
                             },
                             child: Text(context.l10n.action_viewAll, style: TextStyle(color: AppColors.blue, fontWeight: FontWeight.w500, fontSize: FontSize.xSmall))),
-                        Gap(7),
-                        Icon(Icons.arrow_forward_ios, color: AppColors.blue, size: Dimens.xSmall),
+                        Gap(7.h),
+                        Icon(Icons.arrow_forward_ios, color: AppColors.blue, size: Dimens.verticalXSmall),
                       ]
                     ],
                   ),
                 ),
-                Gap(Dimens.semiSmall),
+                Gap(Dimens.verticalSemiSmall),
                 Builder(builder: (context) {
                   if(products.isNotEmpty) {
                     return SizedBox(
                       height: 320.h,
                       child: ListView.builder(
                         shrinkWrap: true,
-                        padding: EdgeInsets.zero,
+                        padding: EdgeInsets.symmetric(horizontal: Dimens.horizontalSemiSmall),
                         scrollDirection: Axis.horizontal,
                         itemCount: products.length,
                         itemBuilder: (context, index) {
                           final item = products[index];
-                          return ProductItemWidget(item: item);
+                          return Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              ProductItemWidget(item: item),
+                              if(index != products.length - 1) Gap(4.w),
+                            ],
+                          );
                         },
                       ),
                     );
@@ -77,7 +84,7 @@ class BrandProductsListWidget extends StatelessWidget {
                     child: Container(
                       height: 150.h,
                       width: double.infinity,
-                      padding: const EdgeInsets.all(Dimens.medium),
+                      padding: EdgeInsets.all(Dimens.verticalMedium),
                       child: Center(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -87,7 +94,7 @@ class BrandProductsListWidget extends StatelessWidget {
                               width: 50.w,
                               height: 50.h,
                             ),
-                            Gap(Dimens.small),
+                            Gap(Dimens.verticalSmall),
                             Text(context.l10n.empty_product_list, style: TextStyle(color: AppColors.textColor, fontWeight: FontWeight.w500, fontSize: FontSize.medium)),
                           ],
                         ),
@@ -95,7 +102,6 @@ class BrandProductsListWidget extends StatelessWidget {
                     ),
                   );
                 }),
-                Gap(Dimens.small),
               ],
             ),
           ),

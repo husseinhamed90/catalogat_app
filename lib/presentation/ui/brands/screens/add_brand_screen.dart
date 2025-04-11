@@ -7,7 +7,6 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:catalogat_app/core/dependencies.dart';
 import 'package:catalogat_app/presentation/blocs/blocs.dart';
 import 'package:catalogat_app/presentation/widgets/widgets.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AddBrandScreen extends StatefulWidget {
@@ -42,7 +41,7 @@ class _AddBrandScreenState extends State<AddBrandScreen> {
         },
         child: Scaffold(
           bottomNavigationBar: Padding(
-            padding: const EdgeInsets.all(Dimens.large),
+            padding: EdgeInsets.all(Dimens.verticalLarge),
             child: SizedBox(
               width: double.infinity,
               child: BlocBuilder<BrandsCubit, BrandsState>(
@@ -106,14 +105,14 @@ class _AddBrandScreenState extends State<AddBrandScreen> {
           body: Container(
             width: double.infinity,
             height: double.infinity,
-            padding: const EdgeInsets.all(Dimens.large),
+            padding: EdgeInsets.all(Dimens.verticalLarge),
             child: Form(
               autovalidateMode: AutovalidateMode.onUserInteraction,
               key: _formKey,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Gap(Dimens.xxLarge),
+                  Gap(Dimens.verticalXXLarge),
                   InkWell(
                     borderRadius: BorderRadius.circular(90),
                     onTap: () async {
@@ -157,7 +156,7 @@ class _AddBrandScreenState extends State<AddBrandScreen> {
                                     width: 40,
                                     height: 40,
                                   ),
-                                  Gap(Dimens.semiSmall),
+                                  Gap(Dimens.verticalSemiSmall),
                                   Text(
                                     context.l10n.label_addBrandImage,
                                     style: TextStyle(
@@ -174,7 +173,7 @@ class _AddBrandScreenState extends State<AddBrandScreen> {
                       }
                     ),
                   ),
-                  Gap(Dimens.xxxLarge),
+                  Gap(Dimens.verticalXXLarge),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

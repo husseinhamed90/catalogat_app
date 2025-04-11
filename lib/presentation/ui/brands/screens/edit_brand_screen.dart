@@ -8,7 +8,6 @@ import 'package:catalogat_app/core/dependencies.dart';
 import 'package:catalogat_app/domain/entities/entities.dart';
 import 'package:catalogat_app/presentation/blocs/blocs.dart';
 import 'package:catalogat_app/presentation/widgets/widgets.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 
 class EditBrandScreen extends StatefulWidget {
@@ -45,7 +44,7 @@ class _EditBrandScreenState extends State<EditBrandScreen> {
         },
         child: Scaffold(
           bottomNavigationBar: Padding(
-            padding: const EdgeInsets.all(Dimens.large),
+            padding: EdgeInsets.all(Dimens.verticalLarge),
             child: SizedBox(
               width: double.infinity,
               child: BlocBuilder<BrandsCubit, BrandsState>(
@@ -110,14 +109,14 @@ class _EditBrandScreenState extends State<EditBrandScreen> {
           body: Container(
             width: double.infinity,
             height: double.infinity,
-            padding: const EdgeInsets.all(Dimens.large),
+            padding: EdgeInsets.all(Dimens.verticalLarge),
             child: Form(
               autovalidateMode: AutovalidateMode.onUserInteraction,
               key: _formKey,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Gap(Dimens.xxLarge),
+                  Gap(Dimens.verticalXXLarge),
                   InkWell(
                     borderRadius: BorderRadius.circular(90),
                     onTap: () async {
@@ -148,10 +147,10 @@ class _EditBrandScreenState extends State<EditBrandScreen> {
                                   children: [
                                     SvgPicture.asset(
                                       Assets.icons.icCamera,
-                                      width: 40.w,
-                                      height: 40.w,
+                                      width: 40,
+                                      height: 40,
                                     ),
-                                    Gap(Dimens.semiSmall),
+                                    Gap(Dimens.verticalSemiSmall),
                                     Text(
                                       context.l10n.label_addBrandImage,
                                       style: TextStyle(
@@ -194,8 +193,8 @@ class _EditBrandScreenState extends State<EditBrandScreen> {
                                   child: Center(
                                     child: SvgPicture.asset(
                                       Assets.icons.icCamera,
-                                      width: 40.w,
-                                      height: 40.w,
+                                      width: 40,
+                                      height: 40,
                                     ),
                                   ),
                                 );
@@ -205,7 +204,7 @@ class _EditBrandScreenState extends State<EditBrandScreen> {
                       }
                     ),
                   ),
-                  Gap(Dimens.xxxLarge),
+                  Gap(Dimens.verticalXXXLarge),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

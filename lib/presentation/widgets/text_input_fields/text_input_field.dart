@@ -3,6 +3,7 @@ import 'package:catalogat_app/core/dependencies.dart';
 class TextInputField extends StatelessWidget {
   final String label;
   final String hint;
+  final int? maxLines;
   final TextEditingController controller;
   final FocusNode focusNode;
   final bool isRequired;
@@ -11,6 +12,7 @@ class TextInputField extends StatelessWidget {
 
   const TextInputField({
     super.key,
+    this.maxLines,
     required this.label,
     required this.focusNode,
     required this.hint,
@@ -33,8 +35,9 @@ class TextInputField extends StatelessWidget {
             color: Colors.black87,
           ),
         ),
-        Gap(Dimens.semiSmall),
+        Gap(Dimens.verticalSemiSmall),
         TextFormField(
+          maxLines: maxLines,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           focusNode: focusNode,
           controller: controller,

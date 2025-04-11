@@ -43,7 +43,7 @@ class PrimaryAppBar extends StatelessWidget implements PreferredSizeWidget {
     final List<Widget> leadingContent = [];
 
     if (showBackButton) {
-      leadingContent.add(Gap(Dimens.small));
+      leadingContent.add(Gap(Dimens.horizontalSmall));
       leadingContent.add(PrimaryBackButton(
         backButtonColor: backButtonColor,
         onBackButtonPressed: onBackButtonPressed,

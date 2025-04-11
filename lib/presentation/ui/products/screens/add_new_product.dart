@@ -8,7 +8,6 @@ import 'package:catalogat_app/presentation/blocs/blocs.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:catalogat_app/core/dependencies.dart';
 import 'package:catalogat_app/presentation/widgets/widgets.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AddNewProductScreen extends StatefulWidget {
@@ -58,7 +57,7 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
         child: Scaffold(
           resizeToAvoidBottomInset: true,
           bottomNavigationBar: Padding(
-            padding: const EdgeInsets.all(Dimens.large),
+            padding: EdgeInsets.all(Dimens.verticalLarge),
             child: SizedBox(
               width: double.infinity,
               child: BlocBuilder<BrandsCubit, BrandsState>(
@@ -107,7 +106,6 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
                         }
                       }
                     },
-                    // براند ٤
                     child: Builder(
                         builder: (context) {
                           if (state.addProductResource.isLoading) {
@@ -128,14 +126,14 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
           body: Container(
             width: double.infinity,
             height: double.infinity,
-            padding: const EdgeInsets.all(Dimens.large),
+            padding: EdgeInsets.all(Dimens.verticalLarge),
             child: Form(
               key: _formKey,
               child: SingleChildScrollView(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Gap(Dimens.xxLarge),
+                    Gap(Dimens.verticalXXLarge),
                     InkWell(
                       borderRadius: BorderRadius.circular(90),
                       onTap: () async {
@@ -177,10 +175,10 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
                                     children: [
                                       SvgPicture.asset(
                                         Assets.icons.icCamera,
-                                        width: 40.w,
-                                        height: 40.w,
+                                        width: 40,
+                                        height: 40,
                                       ),
-                                      Gap(Dimens.semiSmall),
+                                      Gap(Dimens.verticalSemiSmall),
                                       Text(
                                         context.l10n.label_addProductImage,
                                         style: TextStyle(
@@ -197,7 +195,7 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
                           }
                       ),
                     ),
-                    Gap(Dimens.large),
+                    Gap(Dimens.verticalLarge),
                     BlocBuilder<BrandsCubit, BrandsState>(
                       buildWhen: (previous, current) {
                         if(previous.productName != current.productName) return true;
@@ -205,6 +203,7 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
                       },
                       builder: (context, state) {
                         return TextInputField(
+                          maxLines: 3,
                           controller: _productNameController,
                           focusNode: _productNameFocusNode,
                           label: context.l10n.label_productName,
@@ -221,7 +220,7 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
                         );
                       },
                     ),
-                    Gap(Dimens.large),
+                    Gap(Dimens.verticalLarge),
                     BlocBuilder<BrandsCubit, BrandsState>(
                       buildWhen: (previous, current) {
                         if(previous.productCode != current.productCode) return true;
@@ -245,7 +244,7 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
                         );
                       },
                     ),
-                    Gap(Dimens.large),
+                    Gap(Dimens.verticalLarge),
                     BlocBuilder<BrandsCubit, BrandsState>(
                       buildWhen: (previous, current) {
                         if(previous.productPrice1 != current.productPrice1) return true;
@@ -269,7 +268,7 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
                         );
                       },
                     ),
-                    Gap(Dimens.large),
+                    Gap(Dimens.verticalLarge),
                     BlocBuilder<BrandsCubit, BrandsState>(
                       buildWhen: (previous, current) {
                         if(previous.productPrice2 != current.productPrice2) return true;
@@ -293,7 +292,7 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
                         );
                       },
                     ),
-                    Gap(Dimens.large),
+                    Gap(Dimens.verticalLarge),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -305,7 +304,7 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
                             color: Colors.black87,
                           ),
                         ),
-                        Gap(Dimens.semiSmall),
+                        Gap(Dimens.verticalSemiSmall),
                         BlocBuilder<BrandsCubit, BrandsState>(
                           buildWhen: (previous, current) {
                             if(previous.selectedBrand != current.selectedBrand) return true;

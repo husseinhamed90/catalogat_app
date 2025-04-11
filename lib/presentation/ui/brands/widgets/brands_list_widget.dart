@@ -15,7 +15,7 @@ class BrandsListWidget extends StatelessWidget {
     return BlocProvider.value(
       value: brandsCubit,
       child: Container(
-        height: 144.h,
+        height: 115.h,
         width: double.infinity,
         color: Colors.white,
         child: BlocBuilder<BrandsCubit, BrandsState>(
@@ -41,8 +41,9 @@ class BrandsListWidget extends StatelessWidget {
                         ArgumentsNames.brandsCubit: brandsCubit,
                       });
                     },
-                    child: Padding(
-                      padding: const EdgeInsets.all(Dimens.medium),
+                    child: Container(
+                      padding: EdgeInsetsDirectional.only(start: Dimens.horizontalMedium),
+                      color: Colors.white,
                       child: Column(
                         children: [
                           Center(
@@ -68,10 +69,9 @@ class BrandsListWidget extends StatelessWidget {
                 final brand = brands[index - 1];
                 final child = Stack(
                   children: [
-                    BrandItemWidget(brand: brand),
+                    BrandItemWidget(brand: brand, isLastItem: index == brands.length),
                     PositionedDirectional(
-                        top: 14,
-                        end: 14,
+                        end: index == brands.length ? 14 : 0,
                         child: CircleAvatar(
                           radius: 12,
                           backgroundColor: Color(0xffF3F4F6),
