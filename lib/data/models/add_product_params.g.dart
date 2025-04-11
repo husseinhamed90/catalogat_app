@@ -13,6 +13,7 @@ AddProductParams _$AddProductParamsFromJson(Map<String, dynamic> json) =>
       brandId: json['brand_id'] as String?,
       price1: (json['price_1'] as num?)?.toDouble(),
       price2: (json['price_2'] as num?)?.toDouble(),
+      productCode: json['product_code'] as String?,
     );
 
 Map<String, dynamic> _$AddProductParamsToJson(AddProductParams instance) =>
@@ -22,4 +23,5 @@ Map<String, dynamic> _$AddProductParamsToJson(AddProductParams instance) =>
       'brand_id': instance.brandId,
       'price_1': instance.price1,
       'price_2': instance.price2,
+      'product_code': instance.productCode,
     };

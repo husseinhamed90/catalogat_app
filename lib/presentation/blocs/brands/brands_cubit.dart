@@ -153,4 +153,8 @@ class BrandsCubit extends Cubit<BrandsState> {
   void setProductPrice2(String price) {
     emit(state.copyWith(productPrice2: price));
   }
+
+  void setProductCode(String value) {
+    emit(state.copyWith(productCode: value));
+  }
 }

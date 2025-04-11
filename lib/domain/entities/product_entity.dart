@@ -1,4 +1,3 @@
-import 'package:catalogat_app/data/models/models.dart';
 import 'package:equatable/equatable.dart';
 
 class ProductEntity extends Equatable {
@@ -8,6 +7,7 @@ class ProductEntity extends Equatable {
   final double? price2;
   final String? brandId;
   final String? imageUrl;
+  final String? productCode;
 
   const ProductEntity({
     this.id,
@@ -16,6 +16,7 @@ class ProductEntity extends Equatable {
     this.price2,
     this.brandId,
     this.imageUrl,
+    this.productCode,
   });
 
   @override
@@ -26,6 +27,7 @@ class ProductEntity extends Equatable {
     price2,
     brandId,
     imageUrl,
+    productCode,
   ];
 
   ProductEntity copyWith({
@@ -35,6 +37,7 @@ class ProductEntity extends Equatable {
     double? price2,
     String? brandId,
     String? imageUrl,
+    String? productCode,
   }) {
     return ProductEntity(
       id: id ?? this.id,
@@ -43,17 +46,7 @@ class ProductEntity extends Equatable {
       price2: price2 ?? this.price2,
       brandId: brandId ?? this.brandId,
       imageUrl: imageUrl ?? this.imageUrl,
-    );
-  }
-
-  ProductModel get toModel {
-    return ProductModel(
-      id: id ?? '',
-      name: name ?? '',
-      imageUrl: imageUrl,
-      price1: price1 ?? 0.0,
-      price2: price2 ?? 0.0,
-      brandId: brandId ?? '',
+      productCode: productCode ?? this.productCode,
     );
   }
 }

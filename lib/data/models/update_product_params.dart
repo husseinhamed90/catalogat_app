@@ -17,6 +17,8 @@ class UpdateProductParams {
   final double? price2;
   @JsonKey(name: 'new_brand_id')
   final String? brandId;
+  @JsonKey(name: 'new_product_code')
+  final String? productCode;
 
   UpdateProductParams({
     required this.id,
@@ -25,6 +27,7 @@ class UpdateProductParams {
     this.price1,
     this.price2,
     this.brandId,
+    this.productCode,
   });
 
 
@@ -37,6 +40,7 @@ class UpdateProductParams {
     double? price1,
     double? price2,
     String? brandId,
+    String? productCode,
   }) {
     return UpdateProductParams(
       id: id ?? this.id,
@@ -45,6 +49,7 @@ class UpdateProductParams {
       price1: price1 ?? this.price1,
       price2: price2 ?? this.price2,
       brandId: brandId ?? this.brandId,
+      productCode: productCode ?? this.productCode,
     );
   }
 }

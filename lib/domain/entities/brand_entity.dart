@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:catalogat_app/data/models/brand_model.dart';
 import 'package:catalogat_app/domain/entities/entities.dart';
 
 class BrandEntity extends Equatable {
@@ -17,15 +16,6 @@ class BrandEntity extends Equatable {
 
   @override
   List<Object?> get props => [id, name, logoUrl, products];
-
-  BrandModel get toModel {
-    return BrandModel(
-      id: id ?? '',
-      name: name ?? '',
-      logoUrl: logoUrl,
-      products: products.map((product) => product.toModel).toList(),
-    );
-  }
 
   BrandEntity copyWith({
     String? id,

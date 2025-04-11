@@ -16,6 +16,8 @@ class ProductModel implements EntityConverter<ProductModel, ProductEntity> {
   final double? price2;
   @JsonKey(name: 'brand_id')
   final String? brandId;
+  @JsonKey(name: 'product_code')
+  final String? productCode;
 
   ProductModel({
     this.id,
@@ -24,6 +26,7 @@ class ProductModel implements EntityConverter<ProductModel, ProductEntity> {
     this.price2,
     this.brandId,
     this.imageUrl,
+    this.productCode,
   });
 
   factory ProductModel.fromJson(Map<String, dynamic> json) =>
@@ -40,6 +43,7 @@ class ProductModel implements EntityConverter<ProductModel, ProductEntity> {
       price1: price1,
       price2: price2,
       brandId: brandId,
+      productCode: productCode,
     );
   }
 }

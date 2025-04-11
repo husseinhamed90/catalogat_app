@@ -6,6 +6,7 @@ class BrandsState extends Equatable {
   final BrandEntity? selectedBrand;
   final String productName;
   final String productPrice1;
+  final String productCode;
   final String productPrice2;
   final Resource<BrandEntity> updateBrandResource;
   final Resource<BrandEntity> deleteBrandResource;
@@ -20,6 +21,7 @@ class BrandsState extends Equatable {
     this.imageFile,
     this.selectedBrand,
     this.productName = '',
+    this.productCode = '',
     this.productPrice1 = '',
     this.productPrice2 = '',
     this.brandsResource = const Resource.initial(),
@@ -39,6 +41,7 @@ class BrandsState extends Equatable {
     brandsResource,
     productName,
     productPrice1,
+    productCode,
     productPrice2,
     addBrandResource,
     updateBrandResource,
@@ -51,6 +54,7 @@ class BrandsState extends Equatable {
 
   BrandsState copyWith({
     String? productName,
+    String? productCode,
     String? productPrice1,
     String? productPrice2,
     Optional<XFile>? imageFile,
@@ -65,6 +69,7 @@ class BrandsState extends Equatable {
     Resource<List<ProductEntity>>? fetchBrandProductsResource,
   }) {
     return BrandsState(
+      productCode: productCode ?? this.productCode,
       productName: productName ?? this.productName,
       productPrice1: productPrice1 ?? this.productPrice1,
       productPrice2: productPrice2 ?? this.productPrice2,

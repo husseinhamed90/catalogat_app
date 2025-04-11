@@ -7,6 +7,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:catalogat_app/core/dependencies.dart';
 import 'package:catalogat_app/presentation/blocs/blocs.dart';
 import 'package:catalogat_app/presentation/widgets/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AddBrandScreen extends StatefulWidget {

@@ -2,6 +2,7 @@ import 'package:catalogat_app/core/constants/app_constants.dart';
 import 'package:catalogat_app/core/dependencies.dart';
 import 'package:catalogat_app/domain/entities/entities.dart';
 import 'package:catalogat_app/presentation/blocs/blocs.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProductItemWidget extends StatefulWidget {
   final ProductEntity item;
@@ -22,7 +23,7 @@ class _ProductItemWidgetState extends State<ProductItemWidget> {
       ),
       elevation: 1,
       child: SizedBox(
-        width: 190,
+        width: (MediaQuery.of(context).size.width / 2) - 8.w,
         child: Stack(
             children: [
               Column(
@@ -30,7 +31,7 @@ class _ProductItemWidgetState extends State<ProductItemWidget> {
                 children: [
                   Container(
                     width: double.infinity,
-                    height: 140,
+                    height: 140.h,
                     decoration: BoxDecoration(
                       color: Colors.white,
                     ),
@@ -46,45 +47,61 @@ class _ProductItemWidgetState extends State<ProductItemWidget> {
                         )
                     ),
                   ),
-                  Gap(8),
+                  Gap(8.h),
                   Expanded(
                     child: SizedBox(
                       width: double.infinity,
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Expanded(
                             child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 8),
-                              child: Text(
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  widget.item.name ?? "",
-                                  style: TextStyle(color: AppColors.textColor, fontWeight: FontWeight.w500, fontSize: FontSize.xSmall)
+                              padding: EdgeInsets.symmetric(horizontal: 8.w),
+                              child: Column(
+                                children: [
+                                  Text(
+                                      textAlign: TextAlign.center,
+                                      maxLines: 3,
+                                      overflow: TextOverflow.ellipsis,
+                                      widget.item.name ?? "",
+                                      style: TextStyle(color: AppColors.textColor, fontWeight: FontWeight.w500, fontSize: FontSize.xSmall)
+                                  ),
+                                  Gap(5.h),
+                                  FittedBox(
+                                      child: Text(
+                                          maxLines: 1,
+                                          style: TextStyle(color: AppColors.textColor, fontWeight: FontWeight.w600, fontSize: FontSize.xSmall),
+                                          widget.item.productCode ?? "",
+                                      )
+                                  )
+                                ],
                               ),
                             ),
                           ),
                           Gap(5),
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8),
-                            child: FittedBox(
-                              child: Text(
-                                  maxLines: 1,
-                                  context.l10n.price_1_value((widget.item.price1 ?? 0.0).formatAsCurrency())
-                              )
+                            padding: EdgeInsets.symmetric(horizontal: 8.w),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                FittedBox(
+                                    child: Text(
+                                      style: TextStyle(color: AppColors.textColor, fontWeight: FontWeight.w400, fontSize: FontSize.xSmall),
+                                        maxLines: 1,
+                                        context.l10n.price_1_value((widget.item.price1 ?? 0.0).formatAsCurrency())
+                                    )
+                                ),
+                                Gap(5.h),
+                                FittedBox(
+                                    child: Text(
+                                        style: TextStyle(color: AppColors.textColor, fontWeight: FontWeight.w400, fontSize: FontSize.xSmall),
+                                        maxLines: 1,
+                                        context.l10n.price_2_value((widget.item.price2 ?? 0.0).formatAsCurrency())
+                                    )
+                                )
+                              ],
                             ),
                           ),
-                          Gap(5),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8),
-                            child: FittedBox(
-                              child: Text(
-                                  maxLines: 1,
-                                  context.l10n.price_2_value((widget.item.price2 ?? 0.0).formatAsCurrency())
-                              )
-                            ),
-                          ),
-                          Gap(15),
+                          Gap(15.h),
                         ],
                       ),
                     ),

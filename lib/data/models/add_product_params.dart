@@ -14,6 +14,8 @@ class AddProductParams {
   double? price1;
   @JsonKey(name: 'price_2')
   double? price2;
+  @JsonKey(name: 'product_code')
+  String? productCode;
 
   AddProductParams({
     this.name,
@@ -21,6 +23,7 @@ class AddProductParams {
     this.brandId,
     this.price1,
     this.price2,
+    this.productCode,
   });
 
   factory AddProductParams.fromJson(Map<String, dynamic> json) =>
@@ -34,6 +37,7 @@ class AddProductParams {
     double? price1,
     double? price2,
     String? productImage,
+    String? productCode,
   }) {
     return AddProductParams(
       name: name ?? this.name,
@@ -41,6 +45,7 @@ class AddProductParams {
       brandId: brandId ?? this.brandId,
       price1: price1 ?? this.price1,
       price2: price2 ?? this.price2,
+      productCode: productCode ?? this.productCode,
     );
   }
 }

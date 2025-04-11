@@ -3,6 +3,7 @@ import 'package:catalogat_app/presentation/blocs/blocs.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:catalogat_app/core/dependencies.dart';
 import 'package:catalogat_app/presentation/ui/brands/widgets/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BrandsListWidget extends StatelessWidget {
   final BrandsCubit brandsCubit;
@@ -14,7 +15,7 @@ class BrandsListWidget extends StatelessWidget {
     return BlocProvider.value(
       value: brandsCubit,
       child: Container(
-        height: 144,
+        height: 144.h,
         width: double.infinity,
         color: Colors.white,
         child: BlocBuilder<BrandsCubit, BrandsState>(
@@ -51,13 +52,13 @@ class BrandsListWidget extends StatelessWidget {
                               dashPattern: [6, 3],
                               color: AppColors.blue,
                               child: CircleAvatar(
-                                radius: 40,
+                                radius: 40.r,
                                 backgroundColor: Colors.transparent,
                                 child: Icon(Icons.add, color: AppColors.blue, size: 30),
                               ),
                             ),
                           ),
-                          SizedBox(height: 10),
+                          SizedBox(height: 10.h),
                           AutoSizeText(context.l10n.add_brand, style: TextStyle(color: AppColors.blue, fontWeight: FontWeight.w500, fontSize: FontSize.xSmall)),
                         ],
                       ),

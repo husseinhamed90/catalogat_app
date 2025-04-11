@@ -8,6 +8,7 @@ import 'package:catalogat_app/presentation/blocs/blocs.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:catalogat_app/core/dependencies.dart';
 import 'package:catalogat_app/presentation/widgets/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AddNewProductScreen extends StatefulWidget {
@@ -31,6 +32,9 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
 
   final FocusNode _productPrice2FocusNode = FocusNode();
   final TextEditingController _productPrice2Controller = TextEditingController();
+
+  final FocusNode _productCodeFocusNode = FocusNode();
+  final TextEditingController _productCodeController = TextEditingController();
 
   late BrandsCubit _brandsCubit;
   late List<BrandEntity> _brands;
@@ -78,6 +82,7 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
                           addProductParams: AddProductParams(
                             name: _productNameController.text,
                             brandId: state.selectedBrand?.id,
+                            productCode: _productCodeController.text,
                             price1: double.tryParse(_productPrice1Controller.text.removeNonNumber),
                             price2: double.tryParse(_productPrice2Controller.text.removeNonNumber),
                           ),
@@ -172,8 +177,8 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
                                     children: [
                                       SvgPicture.asset(
                                         Assets.icons.icCamera,
-                                        width: 40,
-                                        height: 40,
+                                        width: 40.w,
+                                        height: 40.w,
                                       ),
                                       Gap(Dimens.semiSmall),
                                       Text(
@@ -207,6 +212,30 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
                             _brandsCubit.setProductName(value);
                           },
                           hint: context.l10n.label_productNameHint,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return context.l10n.error_requiredField;
+                            }
+                            return null;
+                          },
+                        );
+                      },
+                    ),
+                    Gap(Dimens.large),
+                    BlocBuilder<BrandsCubit, BrandsState>(
+                      buildWhen: (previous, current) {
+                        if(previous.productCode != current.productCode) return true;
+                        return false;
+                      },
+                      builder: (context, state) {
+                        return TextInputField(
+                          controller: _productCodeController,
+                          focusNode: _productCodeFocusNode,
+                          label: context.l10n.label_productCode,
+                          onChanged: (value) {
+                            _brandsCubit.setProductCode(value);
+                          },
+                          hint: context.l10n.label_productCodeHint,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return context.l10n.error_requiredField;

@@ -450,6 +450,13 @@
             </list>
           </value>
         </entry>
+        <entry key="flutter_screenutil">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_screenutil-5.9.3/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="flutter_svg">
           <value>
             <list>
@@ -1362,6 +1369,7 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_gen_runner-5.10.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_lints-5.0.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_plugin_android_lifecycle-2.0.27/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_screenutil-5.9.3/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/flutter_svg-2.0.17/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/freezed_annotation-2.4.4/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/frontend_server_client-4.0.0/lib" />

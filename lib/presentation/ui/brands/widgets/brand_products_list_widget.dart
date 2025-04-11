@@ -2,6 +2,7 @@ import 'package:catalogat_app/domain/entities/entities.dart';
 import 'package:catalogat_app/presentation/blocs/blocs.dart';
 import 'package:catalogat_app/core/dependencies.dart';
 import 'package:catalogat_app/presentation/ui/products/widgets/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BrandProductsListWidget extends StatelessWidget {
   final List<BrandEntity> brands;
@@ -13,6 +14,7 @@ class BrandProductsListWidget extends StatelessWidget {
     return ListView.builder(
       shrinkWrap: true,
       itemCount: brands.length,
+      padding: EdgeInsets.zero,
       itemBuilder: (context, index) {
         final brand = brands[index];
         final products = brand.products;
@@ -53,17 +55,15 @@ class BrandProductsListWidget extends StatelessWidget {
                 Builder(builder: (context) {
                   if(products.isNotEmpty) {
                     return SizedBox(
-                      height: 265,
+                      height: 320.h,
                       child: ListView.builder(
                         shrinkWrap: true,
+                        padding: EdgeInsets.zero,
                         scrollDirection: Axis.horizontal,
                         itemCount: products.length,
                         itemBuilder: (context, index) {
                           final item = products[index];
-                          return Padding(
-                            padding: EdgeInsetsDirectional.only(start: index == 0 ? Dimens.small : 0, end: Dimens.small),
-                            child: ProductItemWidget(item: item),
-                          );
+                          return ProductItemWidget(item: item);
                         },
                       ),
                     );
@@ -75,7 +75,7 @@ class BrandProductsListWidget extends StatelessWidget {
                       });
                     },
                     child: Container(
-                      height: 150,
+                      height: 150.h,
                       width: double.infinity,
                       padding: const EdgeInsets.all(Dimens.medium),
                       child: Center(
@@ -84,8 +84,8 @@ class BrandProductsListWidget extends StatelessWidget {
                           children: [
                             SvgPicture.asset(
                               Assets.icons.icProduct,
-                              width: 50,
-                              height: 50,
+                              width: 50.w,
+                              height: 50.h,
                             ),
                             Gap(Dimens.small),
                             Text(context.l10n.empty_product_list, style: TextStyle(color: AppColors.textColor, fontWeight: FontWeight.w500, fontSize: FontSize.medium)),

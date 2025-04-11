@@ -52,6 +52,7 @@ dependencies:
   device_preview:
   flutter_localizations:
       sdk: flutter
+  flutter_screenutil: ^5.9.3
 
 dev_dependencies:
   retrofit_generator:

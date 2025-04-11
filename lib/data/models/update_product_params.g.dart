@@ -14,6 +14,7 @@ UpdateProductParams _$UpdateProductParamsFromJson(Map<String, dynamic> json) =>
       price1: (json['new_price_1'] as num?)?.toDouble(),
       price2: (json['new_price_2'] as num?)?.toDouble(),
       brandId: json['new_brand_id'] as String?,
+      productCode: json['new_product_code'] as String?,
     );
 
 Map<String, dynamic> _$UpdateProductParamsToJson(
@@ -25,4 +26,5 @@ Map<String, dynamic> _$UpdateProductParamsToJson(
   'new_price_1': instance.price1,
   'new_price_2': instance.price2,
   'new_brand_id': instance.brandId,
+  'new_product_code': instance.productCode,
 };

@@ -4,6 +4,7 @@ import 'package:catalogat_app/core/constants/app_constants.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'core/routes/router_generator.dart';
 
@@ -31,29 +32,37 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      locale: Locale(AppConstants.arabicLanguageCode),
-      navigatorKey: globalKey,
-      localizationsDelegates: [
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: [
-        Locale(AppConstants.englishLanguageCode), // English
-        Locale(AppConstants.arabicLanguageCode), // Spanish
-      ],
-      theme: ThemeData(
-        appBarTheme: AppBarTheme(
-          elevation: 0,
-          scrolledUnderElevation: 0,
-        ),
-        fontFamily: AppConstants.fontFamilyName,
-      ),
-      initialRoute: Routes.home,
-      onGenerateRoute: RouterGenerator.generateRoute,
-      debugShowCheckedModeBanner: false,
+    return ScreenUtilInit(
+      designSize: const Size(360, 844),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      // Use builder only if you need to use library outside ScreenUtilInit context
+      builder: (_ , child) {
+        return MaterialApp(
+          locale: Locale(AppConstants.arabicLanguageCode),
+          navigatorKey: globalKey,
+          localizationsDelegates: [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: [
+            Locale(AppConstants.englishLanguageCode), // English
+            Locale(AppConstants.arabicLanguageCode), // Spanish
+          ],
+          theme: ThemeData(
+            appBarTheme: AppBarTheme(
+              elevation: 0,
+              scrolledUnderElevation: 0,
+            ),
+            fontFamily: AppConstants.fontFamilyName,
+          ),
+          initialRoute: Routes.home,
+          onGenerateRoute: RouterGenerator.generateRoute,
+          debugShowCheckedModeBanner: false,
+        );
+      },
     );
   }
 }

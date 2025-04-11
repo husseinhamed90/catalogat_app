@@ -8,6 +8,7 @@ import 'package:catalogat_app/core/dependencies.dart';
 import 'package:catalogat_app/domain/entities/entities.dart';
 import 'package:catalogat_app/presentation/blocs/blocs.dart';
 import 'package:catalogat_app/presentation/widgets/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 
 class EditBrandScreen extends StatefulWidget {
@@ -147,8 +148,8 @@ class _EditBrandScreenState extends State<EditBrandScreen> {
                                   children: [
                                     SvgPicture.asset(
                                       Assets.icons.icCamera,
-                                      width: 40,
-                                      height: 40,
+                                      width: 40.w,
+                                      height: 40.w,
                                     ),
                                     Gap(Dimens.semiSmall),
                                     Text(
@@ -193,8 +194,8 @@ class _EditBrandScreenState extends State<EditBrandScreen> {
                                   child: Center(
                                     child: SvgPicture.asset(
                                       Assets.icons.icCamera,
-                                      width: 40,
-                                      height: 40,
+                                      width: 40.w,
+                                      height: 40.w,
                                     ),
                                   ),
                                 );

@@ -30,5 +30,7 @@
   "title_edit_product_screen": "Edit Product",
   "price_1_value": "Price 1 : {price} EGP",
   "price_2_value": "Price 2 : {price} EGP",
-  "action_addBrand": "Create Brand"
+  "action_addBrand": "Create Brand",
+  "label_productCode": "Product Code",
+  "label_productCodeHint": "Enter product code"
 }

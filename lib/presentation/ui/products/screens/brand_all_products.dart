@@ -3,6 +3,7 @@ import 'package:catalogat_app/domain/entities/entities.dart';
 import 'package:catalogat_app/presentation/blocs/brands/brands_cubit.dart';
 import 'package:catalogat_app/presentation/ui/products/widgets/product_item_widget.dart';
 import 'package:catalogat_app/presentation/widgets/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BrandAllProducts extends StatelessWidget {
   const BrandAllProducts({super.key, required this.brand, required this.brandsCubit});
@@ -43,7 +44,7 @@ class BrandAllProducts extends StatelessWidget {
             final brand = (state.brandsResource.data ?? []).firstWhere((element) => element.id == this.brand.id);
             return SafeArea(
               child: Padding(
-                padding: const EdgeInsets.all(Dimens.medium),
+                padding: const EdgeInsets.all(Dimens.semiSmall),
                 child: Builder(
                   builder: (context) {
                     if(brand.products.isEmpty) {
@@ -53,8 +54,8 @@ class BrandAllProducts extends StatelessWidget {
                           children: [
                             SvgPicture.asset(
                               Assets.icons.icProduct,
-                              width: 100,
-                              height: 100,
+                              width: 100.w,
+                              height: 100.w,
                             ),
                             Gap(Dimens.xxLarge),
                             Text(context.l10n.empty_product_list, style: TextStyle(color: AppColors.textColor, fontWeight: FontWeight.w500, fontSize: FontSize.medium)),
@@ -63,12 +64,13 @@ class BrandAllProducts extends StatelessWidget {
                       );
                     }
                     return GridView.builder(
+                      padding: EdgeInsets.zero,
                       itemCount: brand.products.length,
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
-                        mainAxisSpacing: Dimens.medium,
-                        crossAxisSpacing: Dimens.medium,
-                        childAspectRatio: 0.7,
+                        mainAxisExtent: 320.h,
+                        mainAxisSpacing: Dimens.semiSmall,
+                        crossAxisSpacing: 3.w,
                       ),
                       itemBuilder: (context, index) {
                         return ProductItemWidget(
