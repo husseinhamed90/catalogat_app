@@ -8,33 +8,39 @@ class RouterGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     final args = settings.arguments;
     switch (settings.name) {
-      case AppPaths.home:
+      case Routes.home:
         return MaterialPageRoute(builder: (_) => BrandsProductsScreen());
-      case AppPaths.addBrand:
+      case Routes.addBrand:
         return MaterialPageRoute(builder: (_) => AddBrandScreen(
           brandsCubit: (args as Map<String, dynamic>)[ArgumentsNames.brandsCubit] as BrandsCubit,
         ));
-      case AppPaths.editBrand:
+      case Routes.editBrand:
         return MaterialPageRoute(builder: (_) => EditBrandScreen(
           brand: (args as Map<String, dynamic>)[ArgumentsNames.brand] as BrandEntity,
           brandsCubit: (args)[ArgumentsNames.brandsCubit] as BrandsCubit,
         ));
-      case AppPaths.editProduct:
+      case Routes.editProduct:
         return MaterialPageRoute(builder: (_) => EditProductScreen(
           product: (args as Map<String, dynamic>)[ArgumentsNames.product] as ProductEntity,
           brandsCubit: (args)[ArgumentsNames.brandsCubit] as BrandsCubit,
         ));
-      case AppPaths.addProduct:
+      case Routes.addProduct:
         return MaterialPageRoute(
             builder: (_) => AddNewProductScreen(
               brandsCubit: (args as Map<String, dynamic>)[ArgumentsNames.brandsCubit] as BrandsCubit,
             )
         );
-      case AppPaths.productsList:
+      case Routes.productsList:
         return MaterialPageRoute(
             builder: (_) => BrandAllProducts(
               brand: (args as Map<String, dynamic>)[ArgumentsNames.brand] as BrandEntity,
               brandsCubit: (args)[ArgumentsNames.brandsCubit] as BrandsCubit,
+            )
+        );
+      case Routes.shopping:
+        return MaterialPageRoute(
+            builder: (_) => ShoppingScreen(
+              product: (args as Map<String, dynamic>)[ArgumentsNames.product] as ProductEntity,
             )
         );
 

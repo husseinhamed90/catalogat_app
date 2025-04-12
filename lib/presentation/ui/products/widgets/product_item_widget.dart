@@ -46,7 +46,7 @@ class _ProductItemWidgetState extends State<ProductItemWidget> {
                               if(widget.item.imageUrl == null || widget.item.imageUrl!.isEmpty) {
                                 return Image.asset(Assets.images.imgPlaceholder.path, fit: BoxFit.cover);
                               }
-                              return Image.network(widget.item.imageUrl ?? "",fit: BoxFit.cover,);
+                              return Image.network(widget.item.imageUrl ?? "",fit: BoxFit.contain,);
                             }
                           )
                       ),
@@ -104,7 +104,7 @@ class _ProductItemWidgetState extends State<ProductItemWidget> {
                                               style: TextStyle(color: AppColors.textColor, fontWeight: FontWeight.w400, fontSize: FontSize.xSmall),
                                             ),
                                             TextSpan(
-                                              text: "${widget.item.price1?.formatAsCurrency() ?? ""} ج.م ",
+                                              text: "${widget.item.price1?.formatAsCurrency() ?? ""} ${context.l10n.currency} ",
                                               style: TextStyle(color: Colors.red, fontWeight: FontWeight.w400, fontSize: FontSize.xSmall),
                                             ),
                                           ],
@@ -148,6 +148,10 @@ class _ProductItemWidgetState extends State<ProductItemWidget> {
                             value: 2,
                             child: Text(context.l10n.action_delete, style: TextStyle(color: AppColors.textColor)),
                           ),
+                          PopupMenuItem(
+                            value: 3,
+                            child: Text(context.l10n.action_shopping, style: TextStyle(color: AppColors.textColor)),
+                          ),
                         ],
                         onSelected: (value) async {
                           if(value == 1) {
@@ -155,7 +159,8 @@ class _ProductItemWidgetState extends State<ProductItemWidget> {
                               ArgumentsNames.product: widget.item,
                               ArgumentsNames.brandsCubit: context.read<BrandsCubit>(),
                             });
-                          } else if(value == 2) {
+                          }
+                          else if(value == 2) {
                             final deletedSuccess = await context.read<BrandsCubit>().deleteProduct(productId: widget.item.id ?? "", currentBrandId: widget.item.brandId ?? "");
                             if(deletedSuccess.$1) {
                               ScaffoldMessenger.of(globalKey.currentContext!).showSnackBar(
@@ -175,6 +180,11 @@ class _ProductItemWidgetState extends State<ProductItemWidget> {
                                 ),
                               );
                             }
+                          }
+                          else if(value == 3) {
+                            Navigator.pushNamed(context, Routes.shopping, arguments: {
+                              ArgumentsNames.product: widget.item,
+                            });
                           }
                         },
                       ),

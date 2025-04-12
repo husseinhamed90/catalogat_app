@@ -32,5 +32,11 @@
   "price_2_value": "سعر الجملة : {price} ج.م",
   "action_addBrand": "إضافة براند",
   "label_productCode": "كود المنتج",
-  "label_productCodeHint": "أدخل كود المنتج"
+  "label_productCodeHint": "أدخل كود المنتج",
+  "action_shopping": "تسوق",
+  "title_shopping_screen": "حجز المنتج",
+  "currency": "ج.م",
+  "label_totalPrice": "السعر الكلي",
+  "action_bookProduct": "حجز المنتج",
+  "label_quantity": "الكمية"
 }

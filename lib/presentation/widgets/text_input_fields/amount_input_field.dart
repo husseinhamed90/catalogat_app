@@ -2,7 +2,7 @@ import 'package:catalogat_app/core/dependencies.dart';
 import 'package:flutter/services.dart';
 
 class AmountInputField extends StatelessWidget {
-  final String label;
+  final String? label;
   final String hint;
   final TextEditingController controller;
   final FocusNode focusNode;
@@ -12,7 +12,7 @@ class AmountInputField extends StatelessWidget {
 
   const AmountInputField({
     super.key,
-    required this.label,
+    this.label,
     required this.hint,
     required this.controller,
     this.isRequired = false,
@@ -26,19 +26,20 @@ class AmountInputField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          label + (isRequired ? ' *' : ''),
-          style: TextStyle(
-            fontSize: FontSize.medium,
-            fontWeight: FontWeight.w600,
-            color: Colors.black87,
+        if(label != null && label!.isNotEmpty)...[
+          Text(
+            label! + (isRequired ? ' *' : ''),
+            style: TextStyle(
+              fontSize: FontSize.medium,
+              fontWeight: FontWeight.w600,
+              color: Colors.black87,
+            ),
           ),
-        ),
-        Gap(Dimens.verticalSemiSmall),
+          Gap(Dimens.verticalSemiSmall),
+        ],
         TextFormField(
           autovalidateMode: AutovalidateMode.onUserInteraction,
           focusNode: focusNode,
-
           keyboardType: TextInputType.number,
           controller: controller,
           decoration: InputDecoration(

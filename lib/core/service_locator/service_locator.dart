@@ -23,6 +23,8 @@ void setupLocator() {
     sl<UploadFileToStorageUseCase>()
   ));
 
+  sl.registerFactory<ShoppingCubit>(() => ShoppingCubit());
+
   /// Repositories
   sl.registerLazySingleton<BrandsRepo>(() => BrandsRepoImpl(sl<SupabaseService>()));
   sl.registerLazySingleton<StorageRepo>(() => StorageRepoImpl());

@@ -32,5 +32,11 @@
   "price_2_value": "Price 2 : {price} EGP",
   "action_addBrand": "Create Brand",
   "label_productCode": "Product Code",
-  "label_productCodeHint": "Enter product code"
+  "label_productCodeHint": "Enter product code",
+  "action_shopping": "Shopping",
+  "title_shopping_screen": "Product Booking",
+  "currency": "EGP",
+  "label_totalPrice": "Total Price",
+  "action_bookProduct": "Book Product",
+  "label_quantity": "Quantity"
 }

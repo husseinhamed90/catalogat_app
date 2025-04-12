@@ -1,3 +1,3 @@
 class AppConfig {
-  static const bool devicePreview = true;
+  static const bool devicePreview = false;
 }
