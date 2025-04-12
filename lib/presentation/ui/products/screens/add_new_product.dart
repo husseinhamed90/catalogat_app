@@ -311,43 +311,20 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
                             return false;
                           },
                           builder: (context, state) {
-                            return DropdownButtonFormField<BrandEntity>(
-                              isExpanded: true,
-                              autovalidateMode: AutovalidateMode.onUserInteraction,
-                              value: state.selectedBrand,
+                            return PrimaryDropDown(
+                              selectedItem: state.selectedBrand,
+                              items: _brands,
+                              hintText: context.l10n.label_selectBrandHint,
+                              onChanged: (value) {
+                                _brandsCubit.selectedBrand(value);
+                              },
                               validator: (value) {
                                 if (value == null || value.name == null || value.name!.isEmpty) {
                                   return context.l10n.error_requiredField;
                                 }
                                 return null;
                               },
-                              hint: AutoSizeText(context.l10n.label_selectBrandHint, style: TextStyle(color: Colors.grey.shade400),overflow: TextOverflow.ellipsis,),
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(14),
-                                  borderSide: BorderSide(
-                                      color: Colors.grey.shade300),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(14),
-                                  borderSide: BorderSide(
-                                      color: Colors.grey.shade300),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(14),
-                                  borderSide: BorderSide(color: AppColors.blue),
-                                ),
-                              ),
-                              items: _brands.map((brand) => DropdownMenuItem<BrandEntity>(
-                                value: brand,
-                                child: Text(
-                                  overflow: TextOverflow.ellipsis,
-                                  "${brand.name}",
-                                ),
-                              )).toList(),
-                              onChanged: (value) {
-                                _brandsCubit.selectedBrand(value);
-                              },
+                              displayValue: (BrandEntity item) => item.name ?? "",
                             );
                           },
                         ),

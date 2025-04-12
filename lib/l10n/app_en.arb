@@ -44,5 +44,15 @@
   "message_quantityZero": "Quantity must be greater than zero",
   "message_reportGenerated": "Report generated successfully",
   "message_reportFailed": "Report generation failed",
-  "message_noOrders": "No orders available yet"
+  "message_noOrders": "No orders available yet",
+  "tab_name_existingCustomer": "Existing Customer",
+  "tab_name_newCustomer": "New Customer",
+  "label_companyName": "Company Name",
+  "label_selectCustomer": "Select Customer",
+  "label_enterCustomerName": "Enter Customer Name",
+  "action_createOrder": "Create New Order",
+  "action_generateCustomerOrdersReport": "Generate Customer Orders Report",
+  "action_viewAllOrders": "View All Orders",
+  "error_selectCustomer": "Please select a customer",
+  "error_enterCustomerName": "Please enter customer name"
 }

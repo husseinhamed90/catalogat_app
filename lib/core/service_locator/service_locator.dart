@@ -29,6 +29,8 @@ void setupLocator() {
     sl<GenerateOrdersReportUseCase>(),
   ));
 
+  sl.registerFactory<OrderCubit>(() => OrderCubit(sl<FetchCustomerUseCase>()));
+
   /// Repositories
   sl.registerLazySingleton<BrandsRepo>(() => BrandsRepoImpl(sl<SupabaseService>()));
   sl.registerLazySingleton<StorageRepo>(() => StorageRepoImpl());
@@ -49,7 +51,7 @@ void setupLocator() {
   sl.registerFactory<FetchOrdersUseCase>(() => FetchOrdersUseCase(sl<OrdersRepository>()));
   sl.registerFactory<CreateOrderUseCase>(() => CreateOrderUseCase(sl<OrdersRepository>()));
   sl.registerFactory<GenerateOrdersReportUseCase>(() => GenerateOrdersReportUseCase(sl<FetchOrdersUseCase>()));
-
+  sl.registerFactory<FetchCustomerUseCase>(() => FetchCustomerUseCase());
   sl.registerLazySingleton<Dio>(() => Dio(
     BaseOptions(
       connectTimeout: const Duration(seconds: 30),

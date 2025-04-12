@@ -1,7 +1,7 @@
 import 'package:catalogat_app/core/dependencies.dart';
 
 class TextInputField extends StatelessWidget {
-  final String label;
+  final String? label;
   final String hint;
   final int? maxLines;
   final TextEditingController controller;
@@ -13,7 +13,7 @@ class TextInputField extends StatelessWidget {
   const TextInputField({
     super.key,
     this.maxLines,
-    required this.label,
+    this.label,
     required this.focusNode,
     required this.hint,
     required this.controller,
@@ -27,15 +27,17 @@ class TextInputField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          label + (isRequired ? ' *' : ''),
-          style: TextStyle(
-            fontSize: FontSize.medium,
-            fontWeight: FontWeight.w600,
-            color: Colors.black87,
+        if(label != null && label!.isNotEmpty)...[
+          Text(
+            label! + (isRequired ? ' *' : ''),
+            style: TextStyle(
+              fontSize: FontSize.medium,
+              fontWeight: FontWeight.w600,
+              color: Colors.black87,
+            ),
           ),
-        ),
-        Gap(Dimens.verticalSemiSmall),
+          Gap(Dimens.verticalSemiSmall),
+        ],
         TextFormField(
           maxLines: maxLines,
           autovalidateMode: AutovalidateMode.onUserInteraction,

@@ -25,6 +25,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_camera.svg
   String get icCamera => 'assets/icons/ic_camera.svg';
 
+  /// File path: assets/icons/ic_document.svg
+  String get icDocument => 'assets/icons/ic_document.svg';
+
   /// File path: assets/icons/ic_generate_pdf.svg
   String get icGeneratePdf => 'assets/icons/ic_generate_pdf.svg';
 
@@ -34,15 +37,20 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_left_arrow.svg
   String get icLeftArrow => 'assets/icons/ic_left_arrow.svg';
 
+  /// File path: assets/icons/ic_menu_list.svg
+  String get icMenuList => 'assets/icons/ic_menu_list.svg';
+
   /// File path: assets/icons/ic_product.svg
   String get icProduct => 'assets/icons/ic_product.svg';
 
   /// List of all assets
   List<String> get values => [
     icCamera,
+    icDocument,
     icGeneratePdf,
     icHome,
     icLeftArrow,
+    icMenuList,
     icProduct,
   ];
 }

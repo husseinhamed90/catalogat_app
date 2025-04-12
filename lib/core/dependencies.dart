@@ -6,7 +6,7 @@ export 'package:flutter_svg/flutter_svg.dart';
 export 'package:flutter_bloc/flutter_bloc.dart';
 export 'package:auto_size_text/auto_size_text.dart';
 export "package:json_annotation/json_annotation.dart";
-export 'package:catalogat_app/core/routes/app_paths.dart';
+export 'package:catalogat_app/core/routes/app_routes.dart';
 export 'package:catalogat_app/core/assets/fonts.gen.dart';
 export 'package:catalogat_app/core/helpers/resource.dart';
 export 'package:catalogat_app/core/assets/assets.gen.dart';

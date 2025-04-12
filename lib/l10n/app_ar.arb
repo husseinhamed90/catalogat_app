@@ -44,5 +44,15 @@
   "message_quantityZero": "الكمية يجب أن تكون أكبر من 0",
   "message_reportGenerated": "تم إنشاء التقرير بنجاح",
   "message_reportFailed" : "فشل إنشاء التقرير",
-  "message_noOrders": "لا توجد طلبات حتي الآن"
+  "message_noOrders": "لا توجد طلبات حتي الآن",
+  "tab_name_existingCustomer": "عميل موجود",
+  "tab_name_newCustomer": "عميل جديد",
+  "label_companyName": "اسم الشركة",
+  "label_selectCustomer": "اختر عميل",
+  "label_enterCustomerName": "أدخل اسم العميل",
+  "action_createOrder": "إنشاء طلب جديد",
+  "action_generateCustomerOrdersReport": "إنشاء تقرير طلبات للعميل",
+  "action_viewAllOrders": "عرض جميع الطلبات",
+  "error_selectCustomer": "الرجاء اختيار عميل",
+  "error_enterCustomerName": "الرجاء إدخال اسم العميل الجديد"
 }

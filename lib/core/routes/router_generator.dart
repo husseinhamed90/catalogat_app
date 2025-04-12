@@ -9,6 +9,8 @@ class RouterGenerator {
     final args = settings.arguments;
     switch (settings.name) {
       case Routes.home:
+        return MaterialPageRoute(builder: (_) => CreateOrderScreen());
+      case Routes.brandsAndProducts:
         return MaterialPageRoute(builder: (_) => BrandsProductsScreen());
       case Routes.addBrand:
         return MaterialPageRoute(builder: (_) => AddBrandScreen(
@@ -43,7 +45,10 @@ class RouterGenerator {
               product: (args as Map<String, dynamic>)[ArgumentsNames.product] as ProductEntity,
             )
         );
-
+      case Routes.orders:
+        return MaterialPageRoute(
+            builder: (_) => OrdersScreen()
+        );
       default:
         return _errorRoute();
     }
