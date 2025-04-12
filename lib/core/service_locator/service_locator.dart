@@ -23,13 +23,17 @@ void setupLocator() {
     sl<UploadFileToStorageUseCase>()
   ));
 
-  sl.registerFactory<ShoppingCubit>(() => ShoppingCubit());
+  sl.registerFactory<ShoppingCubit>(() => ShoppingCubit(
+    sl<CreateOrderUseCase>(),
+    sl<FetchOrdersUseCase>(),
+    sl<GenerateOrdersReportUseCase>(),
+  ));
 
   /// Repositories
   sl.registerLazySingleton<BrandsRepo>(() => BrandsRepoImpl(sl<SupabaseService>()));
   sl.registerLazySingleton<StorageRepo>(() => StorageRepoImpl());
   sl.registerLazySingleton<ProductsRepo>(() => ProductsRepoImpl(sl<SupabaseService>()));
-
+  sl.registerLazySingleton<OrdersRepository>(() => OrdersRepositoryImpl(sl<SupabaseService>()));
   /// Use Cases
   sl.registerFactory<AddBrandUseCase>(() => AddBrandUseCase(sl<BrandsRepo>()));
   sl.registerFactory<UpdateBrandUseCase>(() => UpdateBrandUseCase(sl<BrandsRepo>()));
@@ -41,6 +45,10 @@ void setupLocator() {
   sl.registerFactory<DeleteProductUseCase>(() => DeleteProductUseCase(sl<ProductsRepo>()));
 
   sl.registerFactory<UploadFileToStorageUseCase>(() => UploadFileToStorageUseCase(sl<StorageRepo>()));
+
+  sl.registerFactory<FetchOrdersUseCase>(() => FetchOrdersUseCase(sl<OrdersRepository>()));
+  sl.registerFactory<CreateOrderUseCase>(() => CreateOrderUseCase(sl<OrdersRepository>()));
+  sl.registerFactory<GenerateOrdersReportUseCase>(() => GenerateOrdersReportUseCase(sl<FetchOrdersUseCase>()));
 
   sl.registerLazySingleton<Dio>(() => Dio(
     BaseOptions(

@@ -1,3 +1,4 @@
+import 'package:catalogat_app/core/constants/app_constants.dart';
 import 'package:catalogat_app/core/dependencies.dart';
 import 'package:catalogat_app/domain/entities/entities.dart';
 import 'package:catalogat_app/presentation/blocs/blocs.dart';
@@ -36,11 +37,45 @@ class _ShoppingScreenState extends State<ShoppingScreen> {
           bottomNavigationBar: Container(
             color: Colors.white,
             padding: EdgeInsets.symmetric(horizontal: Dimens.horizontalMedium, vertical: Dimens.verticalMedium),
-            child: PrimaryButton(
-              title: context.l10n.action_bookProduct,
-              isLoading: false,
-              onPressed: () {
-                // Handle booking action
+            child: BlocBuilder<ShoppingCubit, ShoppingState>(
+              buildWhen: (previous, current) {
+                if(previous.quantity != current.quantity) return true;
+                if(previous.orderResource != current.orderResource) return true;
+                return false;
+              },
+              builder: (context, state) {
+                return PrimaryButton(
+                  title: context.l10n.action_bookProduct,
+                  isLoading: state.orderResource.isLoading,
+                  onPressed: () async {
+                    if (state.quantity == 0) {
+                      ScaffoldMessenger.of(globalKey.currentContext!).showSnackBar(
+                        SnackBar(
+                          content: Text(globalKey.currentContext!.l10n.message_quantityZero),
+                          backgroundColor: Colors.red,
+                        ),
+                      );
+                      return;
+                    }
+                    final createOrder = await shoppingCubit.bookProduct(widget.product);
+                    if (createOrder) {
+                      ScaffoldMessenger.of(globalKey.currentContext!).showSnackBar(
+                        SnackBar(
+                          content: Text(globalKey.currentContext!.l10n.message_orderSuccess),
+                          backgroundColor: Colors.green,
+                        ),
+                      );
+                      if(context.mounted) Navigator.pop(context);
+                    } else {
+                      ScaffoldMessenger.of(globalKey.currentContext!).showSnackBar(
+                        SnackBar(
+                          content: Text(globalKey.currentContext!.l10n.message_orderFailed),
+                          backgroundColor: Colors.red,
+                        ),
+                      );
+                    }
+                  },
+                );
               },
             ),
           ),

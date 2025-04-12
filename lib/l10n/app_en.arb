@@ -38,5 +38,11 @@
   "currency": "EGP",
   "label_totalPrice": "Total Price",
   "action_bookProduct": "Book Product",
-  "label_quantity": "Quantity"
+  "label_quantity": "Quantity",
+  "message_orderSuccess": "Order placed successfully",
+  "message_orderFailed": "Order placement failed",
+  "message_quantityZero": "Quantity must be greater than zero",
+  "message_reportGenerated": "Report generated successfully",
+  "message_reportFailed": "Report generation failed",
+  "message_noOrders": "No orders available yet"
 }

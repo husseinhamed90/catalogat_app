@@ -53,6 +53,9 @@ dependencies:
   flutter_localizations:
       sdk: flutter
   flutter_screenutil: ^5.9.3
+  pdf: ^3.11.3
+  path_provider: ^2.1.5
+  open_file: ^3.5.10
 
 dev_dependencies:
   retrofit_generator:
@@ -83,6 +86,7 @@ flutter:
   assets:
     - assets/icons/
     - assets/images/
+    - assets/fonts/Cairo-Regular.ttf
 
   fonts:
     - family: Tajawal

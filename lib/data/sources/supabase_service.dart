@@ -36,4 +36,12 @@ abstract class SupabaseService {
   //delete_product
   @POST('delete_product')
   Future<ApiResult<ProductModel>> deleteProduct(@Body() DeleteProductParams deleteProductParams);
+
+  //createOrder
+  @POST('create_order')
+  Future<ApiResult<OrderModel>> createOrder(@Body() CreateOrderParams orderRequest);
+
+  //getOrders
+  @GET('get_orders')
+  Future<ApiResult<List<OrderModel>>> getOrders();
 }

@@ -1,7 +1,7 @@
 import 'package:catalogat_app/core/dependencies.dart';
 
 class PrimaryButton extends StatelessWidget {
-  const PrimaryButton({super.key, required this.title, this.onPressed, required this.isLoading});
+  const PrimaryButton({super.key, required this.title, this.onPressed, this.isLoading = false});
 
   final String title;
   final bool isLoading;

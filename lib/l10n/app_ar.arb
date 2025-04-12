@@ -38,5 +38,11 @@
   "currency": "ج.م",
   "label_totalPrice": "السعر الكلي",
   "action_bookProduct": "حجز المنتج",
-  "label_quantity": "الكمية"
+  "label_quantity": "الكمية",
+  "message_orderSuccess": "تم حجز المنتج بنجاح",
+  "message_orderFailed": "فشل حجز المنتج",
+  "message_quantityZero": "الكمية يجب أن تكون أكبر من 0",
+  "message_reportGenerated": "تم إنشاء التقرير بنجاح",
+  "message_reportFailed" : "فشل إنشاء التقرير",
+  "message_noOrders": "لا توجد طلبات حتي الآن"
 }
