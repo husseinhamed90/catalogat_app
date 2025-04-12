@@ -28,15 +28,46 @@ class _BrandsProductsScreenState extends State<BrandsProductsScreen> {
       child: Scaffold(
         backgroundColor: AppColors.background,
         appBar: PrimaryAppBar(
+          color: Colors.white,
           isCenterTitle: false,
           showBackButton: false,
+          actions: [
+            IconButton(
+              icon: SvgPicture.asset(
+                Assets.icons.icGeneratePdf,
+                color: Colors.black,
+              ),
+              onPressed: () async{
+                final generatedFile = await sl<ShoppingCubit>().generateOrdersReport();
+                if(!context.mounted) return;
+                final path = generatedFile.$1;
+                final message = generatedFile.$2;
+                if(path != null && path.isNotEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      backgroundColor: Colors.green,
+                      content: Text(context.l10n.message_reportGenerated),
+                      duration: Duration(seconds: 2),
+                    ),
+                  );
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(message),
+                      duration: Duration(seconds: 2),
+                    ),
+                  );
+                }
+              },
+            ),
+            Gap(Dimens.horizontalSemiSmall),
+          ],
           titleStyle: TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.bold,
               fontSize: FontSize.extraLarge
           ),
           title: context.l10n.title_brandsAndProducts,
-          color: Color(0xffFFFFFB),
         ),
         floatingActionButton: BlocBuilder<BrandsCubit,BrandsState>(
             buildWhen: (state, previous) {
