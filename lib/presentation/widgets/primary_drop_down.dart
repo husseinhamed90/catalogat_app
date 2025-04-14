@@ -34,13 +34,16 @@ class PrimaryDropDown<T> extends StatelessWidget {
           borderSide: BorderSide(color: AppColors.blue),
         ),
       ),
-      items: items.map((item) => DropdownMenuItem<T>(
+      items: items.map((item) {
+        print(displayValue(item));
+        return DropdownMenuItem<T>(
         value: item,
         child: Text(
           overflow: TextOverflow.ellipsis,
           displayValue(item),
         ),
-      )).toList(),
+      );
+      }).toList(),
       onChanged: onChanged,
     );
   }

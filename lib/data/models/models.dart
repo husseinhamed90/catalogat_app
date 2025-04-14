@@ -15,3 +15,9 @@ export 'delete_product_params.dart';
 export 'customer_model.dart';
 export 'create_customer_params.dart';
 
+export 'add_customer_params.dart';
+
+export 'company_model.dart';
+export 'update_company_info_params.dart';
+
+export 'product_cart_item.dart';

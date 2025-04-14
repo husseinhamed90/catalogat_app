@@ -2,16 +2,19 @@
 import 'dart:io';
 
 import 'package:catalogat_app/core/dependencies.dart';
+import 'package:catalogat_app/data/models/models.dart';
 import 'package:catalogat_app/domain/entities/entities.dart';
-import 'package:catalogat_app/domain/use_cases/upload_file_to_storage_use_case.dart';
+import 'package:catalogat_app/domain/use_cases/use_cases.dart';
 
 part 'company_state.dart';
 
 class CompanyCubit extends Cubit<CompanyState> {
-  CompanyCubit(this._uploadFileToStorageUseCase) : super(CompanyState()){
+  CompanyCubit(this._uploadFileToStorageUseCase, this._fetchCompanyInfoUseCase, this._updateCompanyInfoUseCase) : super(CompanyState()){
     getCompany();
   }
 
+  final FetchCompanyInfoUseCase _fetchCompanyInfoUseCase;
+  final UpdateCompanyInfoUseCase _updateCompanyInfoUseCase;
   final UploadFileToStorageUseCase _uploadFileToStorageUseCase;
 
   void updateCompanyName(String name) {
@@ -23,21 +26,31 @@ class CompanyCubit extends Cubit<CompanyState> {
   }
 
   void updateLogoFile(File? logoFile) {
-    emit(state.copyWith(logoFile: logoFile));
+    emit(state.copyWith(logoFile: Optional(logoFile)));
   }
 
   Future<void> getCompany() async {
-
+    emit(state.copyWith(companyResource: Resource.loading()));
+    final companyResource = await _fetchCompanyInfoUseCase();
+    if (companyResource.isSuccess) {
+      emit(state.copyWith(
+        logoFile: null,
+        company: companyResource.data,
+        companyRepresentativeName: companyResource.data?.representativeName,
+        companyName: companyResource.data?.name,
+      ));
+    } else {
+      emit(state.copyWith(companyResource: Resource.failure(companyResource.message ?? "")));
+    }
   }
 
   Future<bool> saveCompany() async {
     emit(state.copyWith(saveCompanyResource: Resource.loading()));
     CompanyEntity company = CompanyEntity(
       name: state.companyName,
+      logoUrl: state.company?.logoUrl ?? "",
       representativeName: state.companyRepresentativeName,
     );
-    print("company name: ${company.name}");
-    print("company representative name: ${company.representativeName}");
     if(state.logoFile != null) {
       final Resource<String> uploadFileResource = await _uploadFileToStorageUseCase(
         state.logoFile?.path ?? "",
@@ -49,15 +62,16 @@ class CompanyCubit extends Cubit<CompanyState> {
         return false;
       }
     }
-    await Future.delayed(const Duration(seconds: 2));
-    print("-- Company info saved --");
-    print("Company name: ${company.name}");
-    print("Company representative name: ${company.representativeName}");
-    print("Company logo url: ${company.logoUrl}");
+    final Resource<CompanyEntity> companyResource = await _updateCompanyInfoUseCase(UpdateCompanyInfoParams(
+      companyName: state.companyName,
+      representativeName: state.companyRepresentativeName,
+      logoUrl: company.logoUrl,
+    ));
     emit(state.copyWith(
+        logoFile: Optional(null),
         company: company.copyWith(logoUrl: company.logoUrl),
-        saveCompanyResource: Resource.success(company))
-    );
-    return true;
+        saveCompanyResource: companyResource
+    ));
+    return companyResource.isSuccess;
   }
 }

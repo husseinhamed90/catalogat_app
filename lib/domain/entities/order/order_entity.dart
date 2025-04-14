@@ -1,9 +1,9 @@
 import 'package:catalogat_app/core/dependencies.dart';
-import 'package:catalogat_app/domain/entities/order/customer_entity.dart';
-import 'package:catalogat_app/domain/entities/shopping/product_cart_item_entity.dart';
+import 'package:catalogat_app/domain/entities/entities.dart';
 
 class OrderEntity extends Equatable {
   final double totalPrice;
+  final String? customerId;
   final String companyName;
   final String customerName;
   final DateTime? createdAt;
@@ -11,6 +11,7 @@ class OrderEntity extends Equatable {
   final List<ProductCartItemEntity> products;
 
   const OrderEntity({
+    this.customerId,
     this.totalPrice = 0.0,
     this.companyName = '',
     this.customerName = '',

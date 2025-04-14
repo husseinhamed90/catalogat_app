@@ -30,7 +30,7 @@ part of 'company_cubit.dart';
   ];
 
   CompanyState copyWith({
-    File? logoFile,
+    Optional<File>? logoFile,
     String? companyName,
     CompanyEntity? company,
     String? companyRepresentativeName,
@@ -39,9 +39,9 @@ part of 'company_cubit.dart';
   }) {
     return CompanyState(
       company: company ?? this.company,
-      logoFile: logoFile ?? this.logoFile,
       companyName: companyName ?? this.companyName,
       companyResource: companyResource ?? this.companyResource,
+      logoFile: logoFile != null ? logoFile.value : this.logoFile,
       saveCompanyResource: saveCompanyResource ?? this.saveCompanyResource,
       companyRepresentativeName: companyRepresentativeName ?? this.companyRepresentativeName,
     );

@@ -1,8 +1,8 @@
+import 'package:image_picker/image_picker.dart';
 import 'package:catalogat_app/core/dependencies.dart';
 import 'package:catalogat_app/data/models/models.dart';
 import 'package:catalogat_app/domain/entities/entities.dart';
 import 'package:catalogat_app/domain/use_cases/use_cases.dart';
-import 'package:image_picker/image_picker.dart';
 
 part 'brands_state.dart';
 

@@ -1,11 +1,10 @@
-import 'package:catalogat_app/core/constants/app_constants.dart';
+import 'package:flutter/services.dart';
 import 'package:catalogat_app/core/dependencies.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:catalogat_app/domain/entities/entities.dart';
-import 'package:catalogat_app/domain/entities/shopping/product_cart_item_entity.dart';
 import 'package:catalogat_app/presentation/blocs/blocs.dart';
 import 'package:catalogat_app/presentation/widgets/widgets.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:catalogat_app/core/constants/app_constants.dart';
 
 class ShoppingScreen extends StatefulWidget {
   const ShoppingScreen({super.key, required this.product, required this.productCartItem});
@@ -60,6 +59,8 @@ class _ShoppingScreenState extends State<ShoppingScreen> {
                       id: widget.product.id,
                       price: widget.product.price2,
                       quantity: shoppingCubit.state.quantity,
+                      productCode: widget.product.productCode,
+                      productName: widget.product.name,
                       totalPrice: shoppingCubit.getTotalPrice(widget.product.price2 ?? 0),
                     ));
                   },
@@ -81,11 +82,23 @@ class _ShoppingScreenState extends State<ShoppingScreen> {
                     padding: EdgeInsets.only(
                       bottom: Dimens.verticalMedium,
                     ),
-                    child: Image.network(
-                      width: double.infinity,
-                      widget.product.imageUrl ?? "",
-                      height: 300.w,
-                      fit: BoxFit.contain,
+                    child: Builder(
+                      builder: (context) {
+                        if (widget.product.imageUrl == null || widget.product.imageUrl!.isEmpty) {
+                          return Image.asset(
+                            Assets.images.imgPlaceholder.path,
+                            width: double.infinity,
+                            height: 300.w,
+                            fit: BoxFit.contain,
+                          );
+                        }
+                        return Image.network(
+                          width: double.infinity,
+                          widget.product.imageUrl ?? "",
+                          height: 300.w,
+                          fit: BoxFit.contain,
+                        );
+                      }
                     ),
                   ),
                   Expanded(

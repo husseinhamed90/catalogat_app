@@ -259,12 +259,6 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
                           onChanged: (value) {
                             _brandsCubit.setProductPrice1(value);
                           },
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return context.l10n.error_requiredField;
-                            }
-                            return null;
-                          },
                         );
                       },
                     ),
@@ -282,12 +276,6 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
                           hint: context.l10n.label_price2Hint,
                           onChanged: (value) {
                             _brandsCubit.setProductPrice2(value);
-                          },
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return context.l10n.error_requiredField;
-                            }
-                            return null;
                           },
                         );
                       },

@@ -1,11 +1,12 @@
 import 'package:catalogat_app/core/dependencies.dart';
-import 'package:catalogat_app/domain/entities/order/customer_entity.dart';
+import 'package:catalogat_app/domain/entities/entities.dart';
 
 part 'customer_model.g.dart';
 
 @JsonSerializable()
 class CustomerModel implements EntityConverter<CustomerModel, CustomerEntity> {
   String? id;
+  @JsonKey(name: 'customer_name')
   String? name;
 
   CustomerModel({

@@ -1,7 +1,6 @@
 import 'package:catalogat_app/core/constants/app_constants.dart';
 import 'package:catalogat_app/core/dependencies.dart';
-import 'package:catalogat_app/data/models/create_order_params.dart';
-import 'package:catalogat_app/data/models/product_cart_item.dart';
+import 'package:catalogat_app/data/models/models.dart';
 import 'package:catalogat_app/presentation/blocs/blocs.dart';
 import 'package:catalogat_app/presentation/widgets/widgets.dart';
 import 'package:catalogat_app/presentation/ui/brands/widgets/widgets.dart';
@@ -82,26 +81,12 @@ class _BrandsProductsScreenState extends State<BrandsProductsScreen> {
                 color: Colors.black,
               ),
               onPressed: () async{
-                final generatedFile = await _orderCubit.generateOrdersReport();
-                if(!context.mounted) return;
-                final path = generatedFile.$1;
-                final message = generatedFile.$2;
-                if(path != null && path.isNotEmpty) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      backgroundColor: Colors.green,
-                      content: Text(context.l10n.message_reportGenerated),
-                      duration: Duration(seconds: 2),
-                    ),
-                  );
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(message),
-                      duration: Duration(seconds: 2),
-                    ),
-                  );
-                }
+                Navigator.of(context).pushNamed(Routes.orders,
+                  arguments: {
+                    ArgumentsNames.orderCubit: _orderCubit,
+                    ArgumentsNames.companyName: _companyCubit.state.company?.name ?? context.l10n.label_companyName,
+                    ArgumentsNames.representativeName: _companyCubit.state.company?.representativeName ?? context.l10n.label_representativeName,
+                  });
               },
             ),
             Gap(Dimens.horizontalSemiSmall),
@@ -118,13 +103,19 @@ class _BrandsProductsScreenState extends State<BrandsProductsScreen> {
             BlocBuilder<OrderCubit,OrderState>(
                 buildWhen: (state, previous) {
                   if(state.totalPrice != previous.totalPrice) return true;
+                  if(state.orderResource != previous.orderResource) return true;
                   if(state.cartProducts != previous.cartProducts) return true;
                   return false;
                 },
                 builder: (context,state) {
                   if(state.totalPrice == 0) return SizedBox.shrink();
                   return PrimaryFloatingActionButton(
-                    icon: Icon(Icons.save_rounded, color: Colors.white, size: FontSize.large,),
+                    icon: Builder(builder: (context) {
+                      if(state.orderResource.isLoading) {
+                        return SizedBox.square(dimension: FontSize.large,child: CircularProgressIndicator());
+                      }
+                      return Icon(Icons.save_rounded, color: Colors.white, size: FontSize.large);
+                    },),
                     onPressed: () async{
                       if(_customersCubit.state.selectedCustomer == null) {
                         ScaffoldMessenger.of(globalKey.currentContext!).showSnackBar(
@@ -153,9 +144,9 @@ class _BrandsProductsScreenState extends State<BrandsProductsScreen> {
                               id: product.id,
                               price: product.price,
                               quantity: product.quantity,
+                              totalPrice: product.totalPrice,
                               productName: product.productName,
                               productCode: product.productCode,
-                              totalPrice: product.totalPrice,
                             )
                           ).toList(),
                           customerName: _customersCubit.state.selectedCustomer?.name,
@@ -169,6 +160,7 @@ class _BrandsProductsScreenState extends State<BrandsProductsScreen> {
                             backgroundColor: Colors.green,
                           ),
                         );
+                        _customersCubit.clearSelectedCustomer();
                       }
                       else {
                         ScaffoldMessenger.of(globalKey.currentContext!).showSnackBar(

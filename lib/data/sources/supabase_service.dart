@@ -44,4 +44,20 @@ abstract class SupabaseService {
   //getOrders
   @GET('get_orders')
   Future<ApiResult<List<OrderModel>>> getOrders();
+
+  //getCustomers
+  @GET('get_customers')
+  Future<ApiResult<List<CustomerModel>>> getCustomers();
+
+  //addCustomer
+  @POST('add_customer')
+  Future<ApiResult<CustomerModel>> addCustomer(@Body() AddCustomerParams customerRequest);
+
+  //updateCompanyInfo
+  @POST('set_company_info')
+  Future<ApiResult<CompanyModel>> updateCompanyInfo(@Body() UpdateCompanyInfoParams companyRequest);
+
+  //getCompany
+  @GET('get_company_info')
+  Future<ApiResult<CompanyModel>> getCompany();
 }

@@ -1,7 +1,7 @@
+import 'package:dio/dio.dart';
+import 'package:get_it/get_it.dart';
 import 'package:catalogat_app/core/constants/app_constants.dart';
 import 'package:catalogat_app/data/sources/supabase_service.dart';
-import 'package:get_it/get_it.dart';
-import 'package:dio/dio.dart';
 import 'package:catalogat_app/domain/use_cases/use_cases.dart';
 import 'package:catalogat_app/presentation/blocs/blocs.dart';
 import 'package:catalogat_app/data/repositories/repositories.dart';
@@ -25,23 +25,31 @@ void setupLocator() {
 
   sl.registerFactory<CompanyCubit>(() => CompanyCubit(
     sl<UploadFileToStorageUseCase>(),
+    sl<FetchCompanyInfoUseCase>(),
+    sl<UpdateCompanyInfoUseCase>(),
   ));
 
-  sl.registerFactory<CustomersCubit>(() => CustomersCubit(sl<FetchCustomerUseCase>()));
+  sl.registerFactory<CustomersCubit>(() => CustomersCubit(
+      sl<FetchCustomerUseCase>(),
+      sl<SaveNewCustomerUseCase>(),
+  ));
 
   sl.registerFactory<ShoppingCubit>(() => ShoppingCubit());
 
   sl.registerFactory<OrderCubit>(() => OrderCubit(
     sl<CreateOrderUseCase>(),
     sl<FetchOrdersUseCase>(),
-    sl<GenerateOrdersReportUseCase>(),
+    sl<GenerateOrderReportUseCase>(),
   ));
 
   /// Repositories
   sl.registerLazySingleton<BrandsRepo>(() => BrandsRepoImpl(sl<SupabaseService>()));
   sl.registerLazySingleton<StorageRepo>(() => StorageRepoImpl());
   sl.registerLazySingleton<ProductsRepo>(() => ProductsRepoImpl(sl<SupabaseService>()));
+  sl.registerLazySingleton<CustomerRepository>(() => CustomersRepoImpl(sl<SupabaseService>()));
   sl.registerLazySingleton<OrdersRepository>(() => OrdersRepositoryImpl(sl<SupabaseService>()));
+  sl.registerLazySingleton<CompanyRepository>(() => CompanyRepositoryImpl(sl<SupabaseService>()));
+
   /// Use Cases
   sl.registerFactory<AddBrandUseCase>(() => AddBrandUseCase(sl<BrandsRepo>()));
   sl.registerFactory<UpdateBrandUseCase>(() => UpdateBrandUseCase(sl<BrandsRepo>()));
@@ -56,8 +64,13 @@ void setupLocator() {
 
   sl.registerFactory<FetchOrdersUseCase>(() => FetchOrdersUseCase(sl<OrdersRepository>()));
   sl.registerFactory<CreateOrderUseCase>(() => CreateOrderUseCase(sl<OrdersRepository>()));
-  sl.registerFactory<GenerateOrdersReportUseCase>(() => GenerateOrdersReportUseCase(sl<FetchOrdersUseCase>()));
-  sl.registerFactory<FetchCustomerUseCase>(() => FetchCustomerUseCase());
+  sl.registerFactory<GenerateOrderReportUseCase>(() => GenerateOrderReportUseCase());
+  sl.registerFactory<FetchCustomerUseCase>(() => FetchCustomerUseCase(sl<CustomerRepository>()));
+  sl.registerFactory<SaveNewCustomerUseCase>(() => SaveNewCustomerUseCase(sl<CustomerRepository>()));
+  sl.registerFactory<UpdateCompanyInfoUseCase>(() => UpdateCompanyInfoUseCase(sl<CompanyRepository>()));
+  sl.registerFactory<FetchCompanyInfoUseCase>(() => FetchCompanyInfoUseCase(sl<CompanyRepository>()));
+
+
   sl.registerLazySingleton<Dio>(() => Dio(
     BaseOptions(
       connectTimeout: const Duration(seconds: 30),

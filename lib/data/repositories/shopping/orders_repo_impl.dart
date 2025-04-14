@@ -1,8 +1,7 @@
+import 'package:catalogat_app/data/models/models.dart';
 import 'package:catalogat_app/core/helpers/resource.dart';
-import 'package:catalogat_app/data/models/api_result.dart';
-import 'package:catalogat_app/data/models/create_order_params.dart';
+import 'package:catalogat_app/domain/entities/entities.dart';
 import 'package:catalogat_app/data/sources/supabase_service.dart';
-import 'package:catalogat_app/domain/entities/shopping/order_entity.dart';
 import 'package:catalogat_app/domain/repositories/repositories.dart';
 
 class OrdersRepositoryImpl implements OrdersRepository {

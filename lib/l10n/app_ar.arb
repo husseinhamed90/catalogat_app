@@ -72,5 +72,15 @@
   "action_addToCart": "إضافة إلى السلة",
   "message_itemAddedToCart": "تمت إضافة المنتج إلى السلة",
   "message_selectCustomer": "الرجاء اختيار عميل",
-  "message_invalidCompanyData": "برجاء تحديد اسم المندوب و اسم الشركة"
+  "message_invalidCompanyData": "برجاء تحديد اسم المندوب و اسم الشركة",
+  "message_customerAddedSuccessfully": "تم إضافة العميل بنجاح",
+  "message_customerAddedFailed": "فشل إضافة العميل",
+  "action_view_pdf": "عرض",
+  "created_at_value": "بتاريخ : {date}",
+  "customer_name_value": "اسم العميل : {name}",
+  "total_price_value": "قيمة الطلب : {total} ج.م",
+  "title_orders_screen": "الأوردرات",
+  "empty_orders_list": "لا توجد أوردرات حتي الآن",
+  "message_companyLogoRequired": "شعار الشركة مطلوب",
+  "error_invalidPrice": "الرجاء إدخال سعر صالح"
 }

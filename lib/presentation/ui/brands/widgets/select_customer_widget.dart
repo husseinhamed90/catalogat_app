@@ -1,9 +1,8 @@
 import 'package:catalogat_app/core/dependencies.dart';
-import 'package:catalogat_app/domain/entities/order/customer_entity.dart';
-import 'package:catalogat_app/presentation/blocs/blocs.dart';
-import 'package:catalogat_app/presentation/widgets/primary_add_item_widget.dart';
-import 'package:catalogat_app/presentation/widgets/primary_drop_down.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:catalogat_app/domain/entities/entities.dart';
+import 'package:catalogat_app/presentation/blocs/blocs.dart';
+import 'package:catalogat_app/presentation/widgets/widgets.dart';
 
 class SelectCustomerWidget extends StatelessWidget {
   const SelectCustomerWidget({super.key, required this.customersCubit});
@@ -38,6 +37,7 @@ class SelectCustomerWidget extends StatelessWidget {
                 child: BlocBuilder<CustomersCubit,CustomersState>(
                   buildWhen: (previousState, currentState) {
                     if(previousState.customersResource != currentState.customersResource) return true;
+                    if(previousState.selectedCustomer != currentState.selectedCustomer) return true;
                     return false;
                   },
                   builder: (context, state) {

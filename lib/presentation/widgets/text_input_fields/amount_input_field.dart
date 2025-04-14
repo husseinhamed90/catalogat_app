@@ -59,17 +59,23 @@ class AmountInputField extends StatelessWidget {
             ),
           ),
           inputFormatters: [
-            FilteringTextInputFormatter.allow(RegExp(r'[\u0660-\u06690-9]')),
             LengthLimitingTextInputFormatter(14),
           ],
-          validator: validator,
+          validator: validator ?? (value) {
+            if (value == null || value.isEmpty) {
+              return context.l10n.error_requiredField;
+            }
+            if (double.tryParse(value) == null) {
+              return context.l10n.error_invalidPrice;
+            }
+            return null;
+          },
           onChanged: (v) {
             final String value = v.convertDigitsLangToEnglish;
             controller.value = controller.value.copyWith(text: value);
 
             ///formatter
             if (value.isNotEmpty && value[0] == '0') controller.text = '';
-            controller.text = controller.text.amountFormatter;
 
             ///action callback
             controller.selection = TextSelection.fromPosition(TextPosition(offset: controller.text.length));

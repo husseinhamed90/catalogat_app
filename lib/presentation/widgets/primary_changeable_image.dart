@@ -36,7 +36,7 @@ class PrimaryChangeableImage extends StatelessWidget {
                 ),
               );
             }
-            if (imageUrl != null) {
+            if (imageUrl != null && imageUrl!.isNotEmpty) {
               return ClipRRect(
                 borderRadius: BorderRadius.circular(90),
                 child: Image.network(

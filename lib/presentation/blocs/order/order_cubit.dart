@@ -1,9 +1,8 @@
 import 'dart:io';
 
 import 'package:catalogat_app/core/dependencies.dart';
-import 'package:catalogat_app/data/models/create_order_params.dart';
+import 'package:catalogat_app/data/models/models.dart';
 import 'package:catalogat_app/domain/entities/entities.dart';
-import 'package:catalogat_app/domain/entities/shopping/product_cart_item_entity.dart';
 import 'package:catalogat_app/domain/use_cases/use_cases.dart';
 
 part 'order_state.dart';
@@ -13,7 +12,7 @@ class OrderCubit extends Cubit<OrderState> {
 
   final CreateOrderUseCase _createOrderUseCase;
   final FetchOrdersUseCase _fetchOrdersUseCase;
-  final GenerateOrdersReportUseCase _generateOrdersReportUseCase;
+  final GenerateOrderReportUseCase _generateOrdersReportUseCase;
 
   Future<bool> createOrder(CreateOrderParams createOrderParams) async{
     emit(state.copyWith(orderResource: Resource.loading()));
@@ -32,9 +31,8 @@ class OrderCubit extends Cubit<OrderState> {
     emit(state.copyWith(ordersResource: ordersResource));
   }
 
-  Future<(String?,String)> generateOrdersReport() async {
-    emit(state.copyWith(generateOrdersReportResource: Resource.loading()));
-    final pdfResource = await _generateOrdersReportUseCase();
+  Future<(String?,String)> generateOrderReport(OrderPdfFileEntity orderPdfFileEntity) async {
+    final pdfResource = await _generateOrdersReportUseCase(orderPdfFileEntity);
     emit(state.copyWith(generateOrdersReportResource: pdfResource));
     if(pdfResource.isSuccess){
       return (pdfResource.data?.path ?? '',pdfResource.message ?? '');

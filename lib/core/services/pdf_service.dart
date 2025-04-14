@@ -1,17 +1,17 @@
 import 'dart:io';
-import 'package:catalogat_app/core/constants/app_constants.dart';
+import 'package:pdf/pdf.dart';
+import 'package:intl/intl.dart';
+import 'package:flutter/services.dart';
+import 'package:pdf/widgets.dart' as pw;
+import 'package:open_file/open_file.dart';
 import 'package:catalogat_app/core/dependencies.dart';
 import 'package:catalogat_app/domain/entities/entities.dart';
-import 'package:flutter/services.dart';
-import 'package:intl/intl.dart';
-import 'package:pdf/pdf.dart';
-import 'package:open_file/open_file.dart';
-import 'package:pdf/widgets.dart' as pw;
+import 'package:catalogat_app/core/constants/app_constants.dart';
 
 class PdfService {
   PdfService._();
 
-  static Future<File?> generateOrdersPdf(List<OrderEntity> orders) async {
+  static Future<File?> generateOrdersPdf(OrderPdfFileEntity order) async {
     final pdf = pw.Document();
 
     final arabicFont = pw.Font.ttf(await rootBundle.load("assets/fonts/Cairo-Regular.ttf"));
@@ -29,11 +29,39 @@ class PdfService {
           return [
             pw.Directionality(
               textDirection: pw.TextDirection.rtl,
+              child: pw.Row(
+                children: [
+                  // Company Name on the Left
+                  pw.Text(
+                    "المندوب : ${order.representativeName}" ,
+                    style: const pw.TextStyle(fontSize: 16),
+                  ),
+                  // Spacer to push the rest of the content to the right if needed
+                  pw.Spacer(),
+                ],
+              ),
+            ),
+            pw.Directionality(
+              textDirection: pw.TextDirection.rtl,
+              child: pw.Row(
+                children: [
+                  pw.Text(
+                    "العميل : ${order.customerName}",
+                    style: const pw.TextStyle(fontSize: 16),
+                  ),
+                  // Spacer to push the rest of the content to the right if needed
+                  pw.Spacer(),
+                ],
+              ),
+            ),
+            pw.SizedBox(height: 10),
+            pw.Directionality(
+              textDirection: pw.TextDirection.rtl,
               child: pw.Table(
                 border: pw.TableBorder.all(),
                 columnWidths: {
                   0: pw.FlexColumnWidth(2),
-                  1: pw.FlexColumnWidth(2),
+                  1: pw.FlexColumnWidth(1),
                   2: pw.FlexColumnWidth(3),
                   3: pw.FlexColumnWidth(2),
                 },
@@ -51,17 +79,25 @@ class PdfService {
                     ],
                   ),
                   // Data rows (RTL order)
-                  ...orders.map((order) {
+                  ...order.products.map((product) {
                     return pw.TableRow(
                       children: [
-                        // _buildArabicCell("${order.totalPrice.formatAsCurrency()} ${globalKey.currentContext!.l10n.currency}"),
-                        // _buildArabicCell(order.quantity.toString()),
-                        // _buildArabicCell(order.productName),
-                        // _buildArabicCell(order.productCode),
+                        _buildArabicCell("${product.totalPrice?.formatAsCurrency()} ${globalKey.currentContext!.l10n.currency}"),
+                        _buildArabicCell(product.quantity.toString()),
+                        _buildArabicCell(product.productName ?? ""),
+                        _buildArabicCell(product.productCode ?? ""),
                       ],
                     );
                   }),
                 ],
+              ),
+            ),
+            pw.SizedBox(height: 15),
+            pw.Directionality(
+              textDirection: pw.TextDirection.rtl,
+              child: pw.Text(
+                "اجمالي قيمة الطلب : ${order.totalPrice.formatAsCurrency()} ${globalKey.currentContext!.l10n.currency}",
+                style: const pw.TextStyle(fontSize: 16),
               ),
             ),
           ];
@@ -75,7 +111,7 @@ class PdfService {
     }
     final arabicFormat = DateFormat('d MMMM y', AppConstants.arabicLanguageCode);
     final formattedDate = arabicFormat.format(DateTime.now());
-    final fullPath = "${downloadsDir.path}/تقرير اوردرات $formattedDate.pdf";
+    final fullPath = "${downloadsDir.path}/${order.customerName} - $formattedDate.pdf";
     final file = File(fullPath);
     await file.writeAsBytes(await pdf.save());
     OpenFile.open(fullPath);

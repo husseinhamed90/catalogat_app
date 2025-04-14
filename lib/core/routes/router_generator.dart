@@ -1,9 +1,7 @@
 import 'package:catalogat_app/core/dependencies.dart';
-import 'package:catalogat_app/domain/entities/shopping/product_cart_item_entity.dart';
 import 'package:catalogat_app/presentation/screens.dart';
 import 'package:catalogat_app/domain/entities/entities.dart';
 import 'package:catalogat_app/presentation/blocs/blocs.dart';
-import 'package:catalogat_app/presentation/ui/products/screens/brand_all_products.dart';
 
 class RouterGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -50,7 +48,11 @@ class RouterGenerator {
         );
       case Routes.orders:
         return MaterialPageRoute(
-            builder: (_) => OrdersScreen()
+            builder: (_) => OrdersScreen(
+              orderCubit: (args as Map<String, dynamic>)[ArgumentsNames.orderCubit] as OrderCubit,
+              companyName: (args)[ArgumentsNames.companyName] as String,
+              representativeName: (args)[ArgumentsNames.representativeName] as String,
+            )
         );
       case Routes.editCompanyInfo:
         return MaterialPageRoute(

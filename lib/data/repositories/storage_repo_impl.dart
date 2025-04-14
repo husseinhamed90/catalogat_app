@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:catalogat_app/core/dependencies.dart';
-import 'package:catalogat_app/domain/repositories/storage_repo.dart';
+import 'package:catalogat_app/domain/repositories/repositories.dart';
 
 class StorageRepoImpl implements StorageRepo {
 

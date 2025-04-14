@@ -1,9 +1,8 @@
-import 'package:catalogat_app/core/constants/app_constants.dart';
 import 'package:catalogat_app/core/dependencies.dart';
-import 'package:catalogat_app/domain/entities/entities.dart';
-import 'package:catalogat_app/domain/entities/shopping/product_cart_item_entity.dart';
-import 'package:catalogat_app/presentation/blocs/blocs.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:catalogat_app/domain/entities/entities.dart';
+import 'package:catalogat_app/presentation/blocs/blocs.dart';
+import 'package:catalogat_app/core/constants/app_constants.dart';
 
 class ProductItemWidget extends StatefulWidget {
   final ProductEntity item;

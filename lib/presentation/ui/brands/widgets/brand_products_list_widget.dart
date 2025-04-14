@@ -19,7 +19,9 @@ class BrandProductsListWidget extends StatelessWidget {
         final brand = brands[index];
         final products = brand.products;
         return Padding(
-          padding: EdgeInsets.only(bottom: Dimens.verticalXXLarge),
+          padding: EdgeInsets.only(
+            bottom: index == brands.length - 1 ? 140.h : Dimens.verticalXXLarge,
+          ),
           child: Container(
             padding: EdgeInsets.only(top: Dimens.verticalMedium),
             color: Colors.white,

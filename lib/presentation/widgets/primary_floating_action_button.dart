@@ -11,7 +11,7 @@ class PrimaryFloatingActionButton extends StatelessWidget {
   final EdgeInsetsGeometry? padding;
 
   final VoidCallback onPressed;
-  final Icon? icon;
+  final Widget? icon;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,12 @@ class PrimaryFloatingActionButton extends StatelessWidget {
               ),
             ],
           ),
-          child: icon ?? Icon(Icons.add, color: Colors.white, size: FontSize.large,)
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              icon ?? Icon(Icons.add, color: Colors.white, size: FontSize.large,)
+            ],
+          )
       ),
     );
   }

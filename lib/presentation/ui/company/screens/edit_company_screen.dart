@@ -52,30 +52,42 @@ class _EditCompanyScreenState extends State<EditCompanyScreen> {
                   return PrimaryButton(
                     isLoading: state.saveCompanyResource.isLoading,
                     onPressed: () async {
-                      if (_formKey.currentState!.validate()) {
-                        final companyInfoSaved = await widget.companyCubit
-                            .saveCompany();
-                        if (companyInfoSaved) {
-                          if (context.mounted) {
-                            Navigator.of(context).pop();
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text(
-                                    context.l10n.message_companyInfoSaved),
-                                duration: const Duration(seconds: 2),
-                              ),
-                            );
+                      if((state.company?.logoUrl ?? "").isNotEmpty || (state.logoFile != null && state.logoFile!.path.isNotEmpty) ){
+                        if (_formKey.currentState!.validate()) {
+                          final companyInfoSaved = await widget.companyCubit.saveCompany();
+                          if (companyInfoSaved) {
+                            if (context.mounted) {
+                              Navigator.of(context).pop();
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                      context.l10n.message_companyInfoSaved),
+                                  duration: const Duration(seconds: 2),
+                                ),
+                              );
+                            }
+                          } else {
+                            if (context.mounted) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                      context.l10n.message_companyInfoNotSaved),
+                                  duration: const Duration(seconds: 2),
+                                ),
+                              );
+                            }
                           }
-                        } else {
-                          if (context.mounted) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text(
-                                    context.l10n.message_companyInfoNotSaved),
-                                duration: const Duration(seconds: 2),
-                              ),
-                            );
-                          }
+                        }
+                      }
+                      else{
+                        if (context.mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                  context.l10n.message_companyLogoRequired),
+                              duration: const Duration(seconds: 2),
+                            ),
+                          );
                         }
                       }
                     },
@@ -130,6 +142,12 @@ class _EditCompanyScreenState extends State<EditCompanyScreen> {
                       onChanged: (value) {
                         widget.companyCubit.updateCompanyName(value,);
                       },
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return context.l10n.error_requiredField;
+                        }
+                        return null;
+                      },
                     );
                   },
                 ),
@@ -146,6 +164,12 @@ class _EditCompanyScreenState extends State<EditCompanyScreen> {
                       focusNode: _representativeNameFocusNode,
                       onChanged: (value) {
                         widget.companyCubit.updateCompanyRepresentative(value);
+                      },
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return context.l10n.error_requiredField;
+                        }
+                        return null;
                       },
                     );
                   },

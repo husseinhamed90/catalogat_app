@@ -9,8 +9,12 @@ export 'products/update_product_use_case.dart';
 
 export 'upload_file_to_storage_use_case.dart';
 
-export 'shopping/create_order_use_case.dart';
-export 'shopping/fetch_orders_use_case.dart';
-export 'shopping/generate_orders_report_use_case.dart';
+export 'order/create_order_use_case.dart';
+export 'order/fetch_orders_use_case.dart';
+export 'order/generate_order_report_use_case.dart';
 
-export 'order/fetch_customer_use_case.dart';
+export 'customers/fetch_customer_use_case.dart';
+export 'customers/save_new_customer_use_case.dart';
+
+export 'company/update_company_info_use_case.dart';
+export 'company/fetch_company_info_use_case.dart';

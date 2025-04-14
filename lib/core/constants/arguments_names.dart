@@ -6,4 +6,6 @@ class ArgumentsNames {
   static String customersCubit = 'customersCubit';
   static String orderCubit = 'orderCubit';
   static String productCartItemEntity = 'productCartItem';
+  static String companyName = 'companyName';
+  static String representativeName = 'representativeName';
 }

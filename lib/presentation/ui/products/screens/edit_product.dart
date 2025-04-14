@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:catalogat_app/core/constants/app_constants.dart';
 import 'package:catalogat_app/core/services/photo_picker.dart';
-import 'package:catalogat_app/data/models/update_product_params.dart';
+import 'package:catalogat_app/data/models/models.dart';
 import 'package:catalogat_app/domain/entities/entities.dart';
 import 'package:catalogat_app/presentation/blocs/blocs.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -296,12 +296,6 @@ class _EditProductScreenState extends State<EditProductScreen> {
                           onChanged: (value) {
                             _brandsCubit.setProductPrice1(value);
                           },
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return context.l10n.error_requiredField;
-                            }
-                            return null;
-                          },
                         );
                       },
                     ),
@@ -319,12 +313,6 @@ class _EditProductScreenState extends State<EditProductScreen> {
                           hint: context.l10n.label_price2Hint,
                           onChanged: (value) {
                             _brandsCubit.setProductPrice2(value);
-                          },
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return context.l10n.error_requiredField;
-                            }
-                            return null;
                           },
                         );
                       },

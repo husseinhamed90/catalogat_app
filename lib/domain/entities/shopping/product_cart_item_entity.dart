@@ -19,11 +19,6 @@ class ProductCartItemEntity extends Equatable {
   });
 
   @override
-  String toString() {
-    return 'ProductCartItemEntity{id: $id, price: $price, quantity: $quantity, productCode: $productCode, productName: $productName, totalPrice: $totalPrice}';
-  }
-
-  @override
   List<Object?> get props => [
         id,
         price,
