@@ -81,5 +81,7 @@
   "title_orders_screen": "Orders",
   "empty_orders_list": "No orders available",
   "message_companyLogoRequired": "Company logo is required",
-  "error_invalidPrice": "Price must be a number"
+  "error_invalidPrice": "Price must be a number",
+  "error_customerNameAlreadyExists": "Customer name already exists",
+  "error_brandNameAlreadyExists": "Brand name already exists"
 }

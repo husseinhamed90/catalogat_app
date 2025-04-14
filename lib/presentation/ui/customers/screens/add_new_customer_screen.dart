@@ -37,6 +37,17 @@ class _AddNewCustomerScreenState extends State<AddNewCustomerScreen> {
                     isLoading: state.customerResource.isLoading,
                     onPressed: () async{
                       if (_formKey.currentState!.validate()) {
+                        /// check if customer name is not already exists
+                        final isExists = widget.customersCubit.checkIfCustomerNameExists(_customerNameController.text.trim());
+                        if (isExists) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(context.l10n.error_customerNameAlreadyExists),
+                              duration: const Duration(seconds: 2),
+                            ),
+                          );
+                          return;
+                        }
                         final customerName = _customerNameController.text;
                         final isSuccess = await widget.customersCubit.saveNewCustomer(customerName);
                         if (!context.mounted) return;

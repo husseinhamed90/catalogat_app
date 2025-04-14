@@ -62,6 +62,16 @@ class _EditBrandScreenState extends State<EditBrandScreen> {
                       ),
                     ),
                     onPressed: () async {
+                      final isExists = widget.brandsCubit.checkIfBrandNameExists(_brandNameController.text.trim());
+                      if (isExists) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(context.l10n.error_brandNameAlreadyExists),
+                            duration: const Duration(seconds: 2),
+                          ),
+                        );
+                        return;
+                      }
                       if (_formKey.currentState!.validate()) {
                         final updateBrandSuccess = await widget.brandsCubit.updateBrand(
                           UpdateBrandParams(

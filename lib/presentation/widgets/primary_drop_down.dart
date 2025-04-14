@@ -35,7 +35,6 @@ class PrimaryDropDown<T> extends StatelessWidget {
         ),
       ),
       items: items.map((item) {
-        print(displayValue(item));
         return DropdownMenuItem<T>(
         value: item,
         child: Text(

@@ -9,13 +9,6 @@ class FetchOrdersUseCase {
 
   Future<Resource<List<OrderEntity>>> call() async {
     final result = await _ordersRepository.getOrders();
-    if (result.isSuccess) {
-      result.data?.forEach((order) {
-        for (var product in order.products) {
-          print('Product: ${product.productName}, Price: ${product.totalPrice}, Quantity: ${product.quantity}');
-        }
-      });
-    }
     return result;
   }
 }

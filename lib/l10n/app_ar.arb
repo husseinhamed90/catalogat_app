@@ -82,5 +82,7 @@
   "title_orders_screen": "الأوردرات",
   "empty_orders_list": "لا توجد أوردرات حتي الآن",
   "message_companyLogoRequired": "شعار الشركة مطلوب",
-  "error_invalidPrice": "الرجاء إدخال سعر صالح"
+  "error_invalidPrice": "الرجاء إدخال سعر صالح",
+  "error_customerNameAlreadyExists": "اسم العميل موجود بالفعل",
+  "error_brandNameAlreadyExists": "اسم البراند موجود بالفعل"
 }

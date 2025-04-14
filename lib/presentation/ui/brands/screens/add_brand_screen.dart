@@ -59,6 +59,18 @@ class _AddBrandScreenState extends State<AddBrandScreen> {
                       ),
                     ),
                     onPressed: () async {
+                      /// check if brand name is not already exists
+                      final isExists = widget.brandsCubit.checkIfBrandNameExists(_brandNameController.text.trim());
+                      if (isExists) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(context.l10n.error_brandNameAlreadyExists),
+                            duration: const Duration(seconds: 2),
+                          ),
+                        );
+                        return;
+                      }
+                      return;
                       if (_formKey.currentState!.validate()) {
                         final addBrandSuccess = await widget.brandsCubit.addBrand(
                           requestModel: AddBrandParams(

@@ -34,4 +34,9 @@ class CustomersCubit extends Cubit<CustomersState> {
   void clearSelectedCustomer() {
     emit(state.copyWith(selectedCustomer: Optional<CustomerEntity>(null)));
   }
+
+  bool checkIfCustomerNameExists(String text) {
+    final customers = (state.customersResource.data ?? []).where((customer) => customer.name == text);
+    return customers.isNotEmpty;
+  }
 }

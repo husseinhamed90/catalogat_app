@@ -156,4 +156,9 @@ class BrandsCubit extends Cubit<BrandsState> {
   void setProductCode(String value) {
     emit(state.copyWith(productCode: value));
   }
+
+  bool checkIfBrandNameExists(String brand) {
+    final brands = state.brandsResource.data?.where((brandEntity) => brandEntity.name == brand);
+    return brands != null && brands.isNotEmpty;
+  }
 }
