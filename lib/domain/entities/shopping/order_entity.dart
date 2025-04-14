@@ -1,32 +1,50 @@
 import 'package:catalogat_app/core/dependencies.dart';
+import 'package:catalogat_app/domain/entities/order/customer_entity.dart';
+import 'package:catalogat_app/domain/entities/shopping/product_cart_item_entity.dart';
 
 class OrderEntity extends Equatable {
-  final String productCode;
-  final String productName;
-  final int quantity;
   final double totalPrice;
+  final String companyName;
+  final String customerName;
+  final DateTime? createdAt;
+  final String representativeName;
+  final List<ProductCartItemEntity> products;
 
-  OrderEntity({
-    required this.productCode,
-    required this.productName,
-    required this.quantity,
-    required this.totalPrice,
+  const OrderEntity({
+    this.totalPrice = 0.0,
+    this.companyName = '',
+    this.customerName = '',
+    this.createdAt,
+    this.representativeName = '',
+    this.products = const [],
   });
 
   @override
-  List<Object?> get props => [productCode, productName, quantity, totalPrice];
+  List<Object?> get props => [
+        totalPrice,
+        companyName,
+        customerName,
+        createdAt,
+        representativeName,
+        products,
+  ];
 
   OrderEntity copyWith({
-    String? productCode,
-    String? productName,
-    int? quantity,
     double? totalPrice,
+    String? companyName,
+    String? customerName,
+    DateTime? createdAt,
+    String? representativeName,
+    List<ProductCartItemEntity>? products,
+    CustomerEntity? customer,
   }) {
     return OrderEntity(
-      productCode: productCode ?? this.productCode,
-      productName: productName ?? this.productName,
-      quantity: quantity ?? this.quantity,
       totalPrice: totalPrice ?? this.totalPrice,
+      companyName: companyName ?? this.companyName,
+      customerName: customerName ?? this.customerName,
+      createdAt: createdAt ?? this.createdAt,
+      representativeName: representativeName ?? this.representativeName,
+      products: products ?? this.products,
     );
   }
 }

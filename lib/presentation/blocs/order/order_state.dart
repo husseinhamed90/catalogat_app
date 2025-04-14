@@ -1,37 +1,48 @@
 part of 'order_cubit.dart';
 
 class OrderState extends Equatable {
-  final String customerName;
-  final int currentTabIndex;
-  final CustomerEntity? selectedCustomer;
-  final Resource<List<CustomerEntity>> customersResource;
+
+  final double totalPrice;
+  final Resource<OrderEntity> orderResource;
+  final Resource<OrderEntity> createOrderResource;
+  final Resource<List<OrderEntity>> ordersResource;
+  final Resource<File> generateOrdersReportResource;
+  final Map<String, ProductCartItemEntity> cartProducts;
 
   const OrderState({
-    this.customerName = '',
-    this.selectedCustomer,
-    this.currentTabIndex = 0,
-    this.customersResource = const Resource.initial(),
+    this.totalPrice = 0.0,
+    this.cartProducts = const {},
+    this.orderResource = const Resource.initial(),
+    this.ordersResource = const Resource.initial(),
+    this.createOrderResource = const Resource.initial(),
+    this.generateOrdersReportResource = const Resource.initial(),
   });
 
   @override
   List<Object?> get props => [
-    customerName,
-    currentTabIndex,
-    selectedCustomer,
-    customersResource,
+    totalPrice,
+    orderResource,
+    ordersResource,
+    cartProducts,
+    createOrderResource,
+    generateOrdersReportResource,
   ];
 
   OrderState copyWith({
-    int? currentTabIndex,
-    String? customerName,
-    CustomerEntity? selectedCustomer,
-    Resource<List<CustomerEntity>>? customersResource,
+    double? totalPrice,
+    Resource<OrderEntity>? orderResource,
+    Map<String, ProductCartItemEntity>? cartProducts,
+    Resource<OrderEntity>? createOrderResource,
+    Resource<List<OrderEntity>>? ordersResource,
+    Resource<File>? generateOrdersReportResource,
   }) {
     return OrderState(
-      customerName: customerName ?? this.customerName,
-      currentTabIndex: currentTabIndex ?? this.currentTabIndex,
-      selectedCustomer: selectedCustomer ?? this.selectedCustomer,
-      customersResource: customersResource ?? this.customersResource,
+      totalPrice: totalPrice ?? this.totalPrice,
+      cartProducts: cartProducts ?? this.cartProducts,
+      orderResource: orderResource ?? this.orderResource,
+      ordersResource: ordersResource ?? this.ordersResource,
+      createOrderResource: createOrderResource ?? this.createOrderResource,
+      generateOrdersReportResource: generateOrdersReportResource ?? this.generateOrdersReportResource,
     );
   }
 }

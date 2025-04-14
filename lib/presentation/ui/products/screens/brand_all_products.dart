@@ -6,10 +6,11 @@ import 'package:catalogat_app/presentation/widgets/widgets.dart';
 import 'package:catalogat_app/presentation/ui/products/widgets/widgets.dart';
 
 class BrandAllProducts extends StatelessWidget {
-  const BrandAllProducts({super.key, required this.brand, required this.brandsCubit});
+  const BrandAllProducts({super.key, required this.brand, required this.brandsCubit, required this.orderCubit});
 
   final BrandEntity brand;
   final BrandsCubit brandsCubit;
+  final OrderCubit orderCubit;
 
   @override
   Widget build(BuildContext context) {
@@ -73,6 +74,7 @@ class BrandAllProducts extends StatelessWidget {
                       ),
                       itemBuilder: (context, index) {
                         return ProductItemWidget(
+                          orderCubit: orderCubit,
                           item: brand.products[index],
                         );
                       },

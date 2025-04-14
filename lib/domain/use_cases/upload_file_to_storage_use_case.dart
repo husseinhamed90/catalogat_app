@@ -6,7 +6,7 @@ class UploadFileToStorageUseCase {
 
   UploadFileToStorageUseCase(this._storageRepository);
 
-  Future<Resource<String>?> call(String fileLocalPath) async {
+  Future<Resource<String>> call(String fileLocalPath) async {
     return await _storageRepository.uploadFile(fileLocalPath);
   }
 }

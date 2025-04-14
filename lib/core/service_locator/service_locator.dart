@@ -23,13 +23,19 @@ void setupLocator() {
     sl<UploadFileToStorageUseCase>()
   ));
 
-  sl.registerFactory<ShoppingCubit>(() => ShoppingCubit(
+  sl.registerFactory<CompanyCubit>(() => CompanyCubit(
+    sl<UploadFileToStorageUseCase>(),
+  ));
+
+  sl.registerFactory<CustomersCubit>(() => CustomersCubit(sl<FetchCustomerUseCase>()));
+
+  sl.registerFactory<ShoppingCubit>(() => ShoppingCubit());
+
+  sl.registerFactory<OrderCubit>(() => OrderCubit(
     sl<CreateOrderUseCase>(),
     sl<FetchOrdersUseCase>(),
     sl<GenerateOrdersReportUseCase>(),
   ));
-
-  sl.registerFactory<OrderCubit>(() => OrderCubit(sl<FetchCustomerUseCase>()));
 
   /// Repositories
   sl.registerLazySingleton<BrandsRepo>(() => BrandsRepoImpl(sl<SupabaseService>()));

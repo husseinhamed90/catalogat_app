@@ -1,14 +1,15 @@
 import 'package:catalogat_app/core/constants/app_constants.dart';
 import 'package:catalogat_app/presentation/blocs/blocs.dart';
-import 'package:dotted_border/dotted_border.dart';
+import 'package:catalogat_app/presentation/widgets/widgets.dart';
 import 'package:catalogat_app/core/dependencies.dart';
 import 'package:catalogat_app/presentation/ui/brands/widgets/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BrandsListWidget extends StatelessWidget {
   final BrandsCubit brandsCubit;
+  final OrderCubit orderCubit;
 
-  const BrandsListWidget({super.key, required this.brandsCubit});
+  const BrandsListWidget({super.key, required this.brandsCubit, required this.orderCubit});
 
   @override
   Widget build(BuildContext context) {
@@ -36,41 +37,24 @@ class BrandsListWidget extends StatelessWidget {
               itemCount: brands.length + 1,
               itemBuilder: (context, index) {
                 if(index == 0) {
-                  return InkWell(
-                    onTap: () {
-                      Navigator.of(context).pushNamed(Routes.addBrand,arguments: {
-                        ArgumentsNames.brandsCubit: brandsCubit,
-                      });
-                    },
-                    child: Container(
-                      padding: EdgeInsetsDirectional.only(start: Dimens.horizontalMedium),
-                      color: Colors.white,
-                      child: Column(
-                        children: [
-                          Center(
-                            child: DottedBorder(
-                              padding: EdgeInsets.zero,
-                              borderType: BorderType.Circle,
-                              dashPattern: [6, 3],
-                              color: AppColors.blue,
-                              child: CircleAvatar(
-                                radius: 40.r,
-                                backgroundColor: Colors.transparent,
-                                child: Icon(Icons.add, color: AppColors.blue, size: 30),
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: 10.h),
-                          AutoSizeText(context.l10n.add_brand, style: TextStyle(color: AppColors.blue, fontWeight: FontWeight.w500, fontSize: FontSize.xSmall)),
-                        ],
-                      ),
-                    ),
+                  return PrimaryAddItemWidget(
+                    text: context.l10n.add_brand,
+                     onTap: () {
+                       Navigator.of(context).pushNamed(
+                           Routes.addBrand, arguments: {
+                         ArgumentsNames.brandsCubit: brandsCubit,
+                       });
+                     }
                   );
                 }
                 final brand = brands[index - 1];
                 final child = Stack(
                   children: [
-                    BrandItemWidget(brand: brand, isLastItem: index == brands.length),
+                    BrandItemWidget(
+                        brand: brand,
+                        isLastItem: index == brands.length,
+                        orderCubit: orderCubit
+                    ),
                     PositionedDirectional(
                         end: index == brands.length ? 14 : 0,
                         child: CircleAvatar(

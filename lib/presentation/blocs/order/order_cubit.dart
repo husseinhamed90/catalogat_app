@@ -1,31 +1,63 @@
+import 'dart:io';
+
 import 'package:catalogat_app/core/dependencies.dart';
-import 'package:catalogat_app/domain/entities/order/customer_entity.dart';
+import 'package:catalogat_app/data/models/create_order_params.dart';
+import 'package:catalogat_app/domain/entities/entities.dart';
+import 'package:catalogat_app/domain/entities/shopping/product_cart_item_entity.dart';
 import 'package:catalogat_app/domain/use_cases/use_cases.dart';
 
 part 'order_state.dart';
 
 class OrderCubit extends Cubit<OrderState> {
-  OrderCubit(this._fetchCustomerUseCase) : super(OrderState()){
-    fetchCustomers();
+  OrderCubit(this._createOrderUseCase,this._fetchOrdersUseCase, this._generateOrdersReportUseCase) : super(OrderState());
+
+  final CreateOrderUseCase _createOrderUseCase;
+  final FetchOrdersUseCase _fetchOrdersUseCase;
+  final GenerateOrdersReportUseCase _generateOrdersReportUseCase;
+
+  Future<bool> createOrder(CreateOrderParams createOrderParams) async{
+    emit(state.copyWith(orderResource: Resource.loading()));
+    final orderResource = await _createOrderUseCase(createOrderParams);
+    emit(state.copyWith(
+        totalPrice: 0.0,
+        cartProducts: {},
+        orderResource: orderResource,
+    ));
+    return orderResource.isSuccess;
   }
 
-  final FetchCustomerUseCase _fetchCustomerUseCase;
-
-  void updateCustomerName(String name) {
-    emit(state.copyWith(customerName: name));
+  Future<void> fetchOrders() async {
+    emit(state.copyWith(ordersResource: Resource.loading()));
+    final ordersResource = await _fetchOrdersUseCase();
+    emit(state.copyWith(ordersResource: ordersResource));
   }
 
-  void selectCustomer(CustomerEntity customer) {
-    emit(state.copyWith(selectedCustomer: customer));
+  Future<(String?,String)> generateOrdersReport() async {
+    emit(state.copyWith(generateOrdersReportResource: Resource.loading()));
+    final pdfResource = await _generateOrdersReportUseCase();
+    emit(state.copyWith(generateOrdersReportResource: pdfResource));
+    if(pdfResource.isSuccess){
+      return (pdfResource.data?.path ?? '',pdfResource.message ?? '');
+    }
+    return (null,pdfResource.message ?? 'Error generating report');
   }
 
-  Future<void> fetchCustomers () async {
-    emit(state.copyWith(customersResource: Resource.loading()));
-    final customersResource = await _fetchCustomerUseCase();
-    emit(state.copyWith(customersResource: customersResource));
+  double getTotalPrice(List<ProductCartItemEntity> products) {
+    return products.fold(0.0, (previousValue, element) {
+      return previousValue + (element.price ?? 0) * (element.quantity ?? 1);
+    });
   }
 
-  void changeTabIndex(int index) {
-    emit(state.copyWith(currentTabIndex: index));
+  void updateCartProducts (ProductCartItemEntity product) {
+    final cartProducts = Map<String, ProductCartItemEntity>.from(state.cartProducts);
+    if (cartProducts.containsKey(product.id)) {
+      cartProducts[product.id ?? ""] = product;
+    } else {
+      cartProducts[product.id ?? ""] = product;
+    }
+    emit(state.copyWith(
+        cartProducts: cartProducts,
+        totalPrice: getTotalPrice(cartProducts.values.toList()),
+    ));
   }
 }

@@ -42,6 +42,7 @@ class BrandProductsListWidget extends StatelessWidget {
                             onTap: () {
                               Navigator.of(context).pushNamed(Routes.productsList, arguments: {
                                 ArgumentsNames.brand: brand,
+                                ArgumentsNames.orderCubit: context.read<OrderCubit>(),
                                 ArgumentsNames.brandsCubit: context.read<BrandsCubit>(),
                               });
                             },
@@ -67,7 +68,10 @@ class BrandProductsListWidget extends StatelessWidget {
                           return Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              ProductItemWidget(item: item),
+                              ProductItemWidget(
+                                item: item,
+                                orderCubit: context.read<OrderCubit>(),
+                              ),
                               if(index != products.length - 1) Gap(4.w),
                             ],
                           );

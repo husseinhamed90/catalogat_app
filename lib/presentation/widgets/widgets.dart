@@ -8,3 +8,6 @@ export 'text_input_fields/amount_input_field.dart';
 export 'primary_button.dart';
 
 export 'primary_drop_down.dart';
+export 'primary_add_item_widget.dart';
+export 'primary_floating_action_button.dart';
+export 'primary_changeable_image.dart';

@@ -54,10 +54,10 @@ class PdfService {
                   ...orders.map((order) {
                     return pw.TableRow(
                       children: [
-                        _buildArabicCell("${order.totalPrice.formatAsCurrency()} ${globalKey.currentContext!.l10n.currency}"),
-                        _buildArabicCell(order.quantity.toString()),
-                        _buildArabicCell(order.productName),
-                        _buildArabicCell(order.productCode),
+                        // _buildArabicCell("${order.totalPrice.formatAsCurrency()} ${globalKey.currentContext!.l10n.currency}"),
+                        // _buildArabicCell(order.quantity.toString()),
+                        // _buildArabicCell(order.productName),
+                        // _buildArabicCell(order.productCode),
                       ],
                     );
                   }),

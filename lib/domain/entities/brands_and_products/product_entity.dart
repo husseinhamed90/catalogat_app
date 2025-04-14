@@ -3,10 +3,12 @@ import 'package:equatable/equatable.dart';
 class ProductEntity extends Equatable {
   final String? id;
   final String? name;
+  final int? quantity;
   final double? price1;
   final double? price2;
   final String? brandId;
   final String? imageUrl;
+  final double? totalPrice;
   final String? productCode;
 
   const ProductEntity({
@@ -15,7 +17,9 @@ class ProductEntity extends Equatable {
     this.price1,
     this.price2,
     this.brandId,
+    this.quantity,
     this.imageUrl,
+    this.totalPrice,
     this.productCode,
   });
 
@@ -26,17 +30,21 @@ class ProductEntity extends Equatable {
     price1,
     price2,
     brandId,
+    quantity,
     imageUrl,
+    totalPrice,
     productCode,
   ];
 
   ProductEntity copyWith({
     String? id,
     String? name,
+    int? quantity,
     double? price1,
     double? price2,
     String? brandId,
     String? imageUrl,
+    double? totalPrice,
     String? productCode,
   }) {
     return ProductEntity(
@@ -45,7 +53,9 @@ class ProductEntity extends Equatable {
       price1: price1 ?? this.price1,
       price2: price2 ?? this.price2,
       brandId: brandId ?? this.brandId,
+      quantity: quantity ?? this.quantity,
       imageUrl: imageUrl ?? this.imageUrl,
+      totalPrice: totalPrice ?? this.totalPrice,
       productCode: productCode ?? this.productCode,
     );
   }

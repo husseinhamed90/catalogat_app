@@ -6,8 +6,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class BrandItemWidget extends StatelessWidget {
   final BrandEntity brand;
   final bool isLastItem;
+  final OrderCubit orderCubit;
 
-  const BrandItemWidget({super.key, required this.brand, required this.isLastItem});
+  const BrandItemWidget({super.key, required this.brand, required this.isLastItem, required this.orderCubit});
 
   @override
   Widget build(BuildContext context) {
@@ -15,6 +16,7 @@ class BrandItemWidget extends StatelessWidget {
       onTap: () {
         Navigator.pushNamed(context, Routes.productsList, arguments: {
           ArgumentsNames.brand: brand,
+          ArgumentsNames.orderCubit: orderCubit,
           ArgumentsNames.brandsCubit: context.read<BrandsCubit>(),
         });
       },

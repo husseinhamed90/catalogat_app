@@ -6,3 +6,5 @@ export 'optional_entity.dart';
 export 'shopping/order_entity.dart';
 
 export 'order/customer_entity.dart';
+
+export 'company/company_entity.dart';

@@ -12,3 +12,6 @@ export 'add_product_params.dart';
 export 'update_product_params.dart';
 export 'delete_product_params.dart';
 
+export 'customer_model.dart';
+export 'create_customer_params.dart';
+

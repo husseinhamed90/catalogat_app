@@ -1,13 +1,15 @@
 import 'package:catalogat_app/core/constants/app_constants.dart';
 import 'package:catalogat_app/core/dependencies.dart';
 import 'package:catalogat_app/domain/entities/entities.dart';
+import 'package:catalogat_app/domain/entities/shopping/product_cart_item_entity.dart';
 import 'package:catalogat_app/presentation/blocs/blocs.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProductItemWidget extends StatefulWidget {
   final ProductEntity item;
+  final OrderCubit orderCubit;
 
-  const ProductItemWidget({super.key, required this.item});
+  const ProductItemWidget({super.key, required this.item, required this.orderCubit});
 
   @override
   State<ProductItemWidget> createState() => _ProductItemWidgetState();
@@ -184,7 +186,14 @@ class _ProductItemWidgetState extends State<ProductItemWidget> {
                           else if(value == 3) {
                             Navigator.pushNamed(context, Routes.shopping, arguments: {
                               ArgumentsNames.product: widget.item,
-                            });
+                              ArgumentsNames.productCartItemEntity: widget.orderCubit.state.cartProducts[widget.item.id],
+                            }).then(
+                              (value) {
+                                if(value != null && value is ProductCartItemEntity) {
+                                  widget.orderCubit.updateCartProducts(value);
+                                }
+                              }
+                            );
                           }
                         },
                       ),

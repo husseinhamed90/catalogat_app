@@ -7,16 +7,21 @@ part of 'order_model.dart';
 // **************************************************************************
 
 OrderModel _$OrderModelFromJson(Map<String, dynamic> json) => OrderModel(
-  productCode: json['product_code'] as String?,
-  productName: json['product_name'] as String?,
-  quantity: (json['quantity'] as num?)?.toInt(),
   totalPrice: (json['total_price'] as num?)?.toDouble(),
+  companyName: json['company_name'] as String?,
+  representativeName: json['representative_name'] as String?,
+  customerName: json['customer_name'] as String?,
+  createdAt:
+      json['createdAt'] == null
+          ? null
+          : DateTime.parse(json['createdAt'] as String),
 );
 
 Map<String, dynamic> _$OrderModelToJson(OrderModel instance) =>
     <String, dynamic>{
-      'product_code': instance.productCode,
-      'product_name': instance.productName,
-      'quantity': instance.quantity,
       'total_price': instance.totalPrice,
+      'company_name': instance.companyName,
+      'representative_name': instance.representativeName,
+      'customer_name': instance.customerName,
+      'createdAt': instance.createdAt?.toIso8601String(),
     };

@@ -6,7 +6,7 @@ class FetchCustomerUseCase {
   FetchCustomerUseCase();
 
   Future<Resource<List<CustomerEntity>>> call() async {
-    await Future.delayed(const Duration(seconds: 4));
+    await Future.delayed(const Duration(seconds: 2));
     return Resource.success([
       CustomerEntity(
         id: '1',

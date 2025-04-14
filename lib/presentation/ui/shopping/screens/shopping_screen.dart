@@ -1,15 +1,17 @@
 import 'package:catalogat_app/core/constants/app_constants.dart';
 import 'package:catalogat_app/core/dependencies.dart';
 import 'package:catalogat_app/domain/entities/entities.dart';
+import 'package:catalogat_app/domain/entities/shopping/product_cart_item_entity.dart';
 import 'package:catalogat_app/presentation/blocs/blocs.dart';
 import 'package:catalogat_app/presentation/widgets/widgets.dart';
-import 'package:flutter/services.dart' show FilteringTextInputFormatter;
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ShoppingScreen extends StatefulWidget {
-  const ShoppingScreen({super.key, required this.product});
+  const ShoppingScreen({super.key, required this.product, required this.productCartItem});
 
   final ProductEntity product;
+  final ProductCartItemEntity productCartItem;
 
   @override
   State<ShoppingScreen> createState() => _ShoppingScreenState();
@@ -23,8 +25,8 @@ class _ShoppingScreenState extends State<ShoppingScreen> {
   @override
   void initState() {
     super.initState();
-    _quantityController.text = "1";
-    shoppingCubit = sl<ShoppingCubit>();
+    _quantityController.text = "0";
+    shoppingCubit = sl<ShoppingCubit>()..setQuantity(widget.productCartItem.quantity ?? 0);
   }
 
   @override
@@ -45,41 +47,30 @@ class _ShoppingScreenState extends State<ShoppingScreen> {
               },
               builder: (context, state) {
                 return PrimaryButton(
-                  title: context.l10n.action_bookProduct,
+                  title: context.l10n.action_save,
                   isLoading: state.orderResource.isLoading,
                   onPressed: () async {
-                    if (state.quantity == 0) {
-                      ScaffoldMessenger.of(globalKey.currentContext!).showSnackBar(
-                        SnackBar(
-                          content: Text(globalKey.currentContext!.l10n.message_quantityZero),
-                          backgroundColor: Colors.red,
-                        ),
-                      );
-                      return;
-                    }
-                    final createOrder = await shoppingCubit.bookProduct(widget.product);
-                    if (createOrder) {
-                      ScaffoldMessenger.of(globalKey.currentContext!).showSnackBar(
-                        SnackBar(
-                          content: Text(globalKey.currentContext!.l10n.message_orderSuccess),
-                          backgroundColor: Colors.green,
-                        ),
-                      );
-                      if(context.mounted) Navigator.pop(context);
-                    } else {
-                      ScaffoldMessenger.of(globalKey.currentContext!).showSnackBar(
-                        SnackBar(
-                          content: Text(globalKey.currentContext!.l10n.message_orderFailed),
-                          backgroundColor: Colors.red,
-                        ),
-                      );
-                    }
+                    ScaffoldMessenger.of(globalKey.currentContext!).showSnackBar(
+                      SnackBar(
+                        content: Text(globalKey.currentContext!.l10n.message_itemAddedToCart),
+                        backgroundColor: Colors.green,
+                      ),
+                    );
+                    Navigator.pop(context,widget.productCartItem.copyWith(
+                      id: widget.product.id,
+                      price: widget.product.price2,
+                      quantity: shoppingCubit.state.quantity,
+                      totalPrice: shoppingCubit.getTotalPrice(widget.product.price2 ?? 0),
+                    ));
                   },
                 );
               },
             ),
           ),
-          appBar: PrimaryAppBar(title: context.l10n.title_shopping_screen, color: AppColors.background),
+          appBar: PrimaryAppBar(
+              title: context.l10n.title_shopping_screen,
+              color: AppColors.background
+          ),
           body: SafeArea(
             child: SizedBox(
               width: double.infinity,
@@ -179,14 +170,20 @@ class _ShoppingScreenState extends State<ShoppingScreen> {
                                               keyboardType: TextInputType.number,
                                               onChanged: (v) {
                                                 if(v.isEmpty) {
-                                                  _quantityController.text = '1';
-                                                  shoppingCubit.setQuantity(1);
+                                                  _quantityController.text = '0';
+                                                  shoppingCubit.setQuantity(0);
                                                   return;
                                                 }
                                                 final String value = v.convertDigitsLangToEnglish;
                                                 _quantityController.value = _quantityController.value.copyWith(text: value);
                                                 bool isValid = int.tryParse(value) != null;
-                                                if (value.isNotEmpty && (value[0] == '0' || !isValid)) _quantityController.text = '1';
+                                                if (!isValid) _quantityController.text = '0';
+                                                int quantity = int.tryParse(value) ?? 0;
+                                                if (quantity < 0) {
+                                                  _quantityController.text = '0';
+                                                  shoppingCubit.setQuantity(0);
+                                                  return;
+                                                }
                                                 _quantityController.text = _quantityController.text.amountFormatter;
                                                 _quantityController.selection = TextSelection.fromPosition(TextPosition(offset: _quantityController.text.length));
                                                 if(!isValid) {

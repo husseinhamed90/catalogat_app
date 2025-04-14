@@ -8,16 +8,22 @@ part of 'create_order_params.dart';
 
 CreateOrderParams _$CreateOrderParamsFromJson(Map<String, dynamic> json) =>
     CreateOrderParams(
-      productCode: json['product_code'] as String?,
-      productName: json['product_name'] as String?,
-      quantity: (json['quantity'] as num?)?.toInt(),
       totalPrice: (json['total_price'] as num?)?.toDouble(),
+      companyName: json['company_name'] as String?,
+      customerName: json['customer_name'] as String?,
+      representativeName: json['representative_name'] as String?,
+      products:
+          (json['products'] as List<dynamic>?)
+              ?.map((e) => ProductCartItem.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
     );
 
 Map<String, dynamic> _$CreateOrderParamsToJson(CreateOrderParams instance) =>
     <String, dynamic>{
-      'product_code': instance.productCode,
-      'product_name': instance.productName,
-      'quantity': instance.quantity,
+      'company_name': instance.companyName,
+      'representative_name': instance.representativeName,
+      'customer_name': instance.customerName,
       'total_price': instance.totalPrice,
+      'products': instance.products,
     };

@@ -38,7 +38,7 @@ abstract class SupabaseService {
   Future<ApiResult<ProductModel>> deleteProduct(@Body() DeleteProductParams deleteProductParams);
 
   //createOrder
-  @POST('create_order')
+  @POST('create_full_order')
   Future<ApiResult<OrderModel>> createOrder(@Body() CreateOrderParams orderRequest);
 
   //getOrders

@@ -263,7 +263,7 @@ class _SupabaseService implements SupabaseService {
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'create_order',
+            'create_full_order',
             queryParameters: queryParameters,
             data: _data,
           )

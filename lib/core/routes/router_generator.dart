@@ -1,4 +1,5 @@
 import 'package:catalogat_app/core/dependencies.dart';
+import 'package:catalogat_app/domain/entities/shopping/product_cart_item_entity.dart';
 import 'package:catalogat_app/presentation/screens.dart';
 import 'package:catalogat_app/domain/entities/entities.dart';
 import 'package:catalogat_app/presentation/blocs/blocs.dart';
@@ -9,7 +10,7 @@ class RouterGenerator {
     final args = settings.arguments;
     switch (settings.name) {
       case Routes.home:
-        return MaterialPageRoute(builder: (_) => CreateOrderScreen());
+        return MaterialPageRoute(builder: (_) => BrandsProductsScreen());
       case Routes.brandsAndProducts:
         return MaterialPageRoute(builder: (_) => BrandsProductsScreen());
       case Routes.addBrand:
@@ -37,17 +38,31 @@ class RouterGenerator {
             builder: (_) => BrandAllProducts(
               brand: (args as Map<String, dynamic>)[ArgumentsNames.brand] as BrandEntity,
               brandsCubit: (args)[ArgumentsNames.brandsCubit] as BrandsCubit,
+              orderCubit: (args)[ArgumentsNames.orderCubit] as OrderCubit,
             )
         );
       case Routes.shopping:
         return MaterialPageRoute(
             builder: (_) => ShoppingScreen(
               product: (args as Map<String, dynamic>)[ArgumentsNames.product] as ProductEntity,
+              productCartItem: (args)[ArgumentsNames.productCartItemEntity] as ProductCartItemEntity ? ?? ProductCartItemEntity(),
             )
         );
       case Routes.orders:
         return MaterialPageRoute(
             builder: (_) => OrdersScreen()
+        );
+      case Routes.editCompanyInfo:
+        return MaterialPageRoute(
+            builder: (_) => EditCompanyScreen(
+              companyCubit: (args as Map<String, dynamic>)[ArgumentsNames.companyCubit] as CompanyCubit,
+            )
+        );
+      case Routes.addNewCustomer:
+        return MaterialPageRoute(
+            builder: (_) => AddNewCustomerScreen(
+              customersCubit: (args as Map<String, dynamic>)[ArgumentsNames.customersCubit] as CustomersCubit,
+            )
         );
       default:
         return _errorRoute();
