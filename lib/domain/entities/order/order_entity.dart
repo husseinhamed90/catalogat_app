@@ -2,6 +2,7 @@ import 'package:catalogat_app/core/dependencies.dart';
 import 'package:catalogat_app/domain/entities/entities.dart';
 
 class OrderEntity extends Equatable {
+  final String id;
   final double totalPrice;
   final String? customerId;
   final String companyName;
@@ -11,6 +12,7 @@ class OrderEntity extends Equatable {
   final List<ProductCartItemEntity> products;
 
   const OrderEntity({
+    this.id = '',
     this.customerId,
     this.totalPrice = 0.0,
     this.companyName = '',
@@ -22,6 +24,7 @@ class OrderEntity extends Equatable {
 
   @override
   List<Object?> get props => [
+        id,
         totalPrice,
         companyName,
         customerName,
@@ -31,6 +34,7 @@ class OrderEntity extends Equatable {
   ];
 
   OrderEntity copyWith({
+    String? id,
     double? totalPrice,
     String? companyName,
     String? customerName,
@@ -40,6 +44,7 @@ class OrderEntity extends Equatable {
     CustomerEntity? customer,
   }) {
     return OrderEntity(
+      id: id ?? this.id,
       totalPrice: totalPrice ?? this.totalPrice,
       companyName: companyName ?? this.companyName,
       customerName: customerName ?? this.customerName,

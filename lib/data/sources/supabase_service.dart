@@ -60,4 +60,12 @@ abstract class SupabaseService {
   //getCompany
   @GET('get_company_info')
   Future<ApiResult<CompanyModel>> getCompany();
+
+  //deleteCustomers
+  @POST('delete_customers')
+  Future<ApiResult<DeletedItemsModel>> deleteCustomers(@Body() DeleteItemsRequest deleteItemsRequest);
+
+  //deleteOrders
+  @POST('delete_orders')
+  Future<ApiResult<DeletedItemsModel>> deleteOrders(@Body() DeleteItemsRequest deleteItemsRequest);
 }

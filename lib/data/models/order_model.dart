@@ -7,6 +7,8 @@ part 'order_model.g.dart';
 @JsonSerializable()
 class OrderModel extends EntityConverter<OrderModel, OrderEntity> {
 
+  @JsonKey(name: 'id')
+  final String id;
   @JsonKey(name: 'customer_id')
   final String? customerId;
   @JsonKey(name: 'total_price')
@@ -21,6 +23,7 @@ class OrderModel extends EntityConverter<OrderModel, OrderEntity> {
   final List<ProductCartItem>? products;
 
   OrderModel({
+    this.id = '',
     this.customerId,
     this.totalPrice,
     this.companyName,
@@ -39,6 +42,7 @@ class OrderModel extends EntityConverter<OrderModel, OrderEntity> {
   @override
   OrderEntity toEntity() {
     return OrderEntity(
+      id: id,
       customerId: customerId,
       totalPrice: totalPrice ?? 0.0,
       companyName: companyName ?? "",

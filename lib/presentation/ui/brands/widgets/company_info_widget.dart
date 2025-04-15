@@ -20,7 +20,7 @@ class CompanyInfoWidget extends StatelessWidget {
           color: Colors.white,
         ),
         padding: EdgeInsets.symmetric(
-          vertical: Dimens.verticalMedium,
+          vertical: Dimens.verticalSemiSmall,
           horizontal: Dimens.horizontalLarge,
         ),
         child: Row(
@@ -40,8 +40,8 @@ class CompanyInfoWidget extends StatelessWidget {
                 }
                 return Image.network(
                   state.company?.logoUrl ?? "",
-                  width: 80.w,
-                  height: 80.w,
+                  width: 100.w,
+                  height: 60.w,
                   fit: BoxFit.contain,
                 );
               },
@@ -49,7 +49,7 @@ class CompanyInfoWidget extends StatelessWidget {
             Gap(Dimens.horizontalMedium),
             Expanded(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   BlocBuilder<CompanyCubit,CompanyState>(
@@ -85,8 +85,8 @@ class CompanyInfoWidget extends StatelessWidget {
                         maxLines: 1,
                         style: TextStyle(
                           fontSize: FontSize.medium,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xff666666),
+                          fontWeight: FontWeight.bold,
+                          color: Colors.red,
                         ),
                       );
                     },

@@ -453,6 +453,72 @@ class _SupabaseService implements SupabaseService {
     return _value;
   }
 
+  @override
+  Future<ApiResult<DeletedItemsModel>> deleteCustomers(
+    DeleteItemsRequest deleteItemsRequest,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(deleteItemsRequest.toJson());
+    final _options = _setStreamType<ApiResult<DeletedItemsModel>>(
+      Options(method: 'POST', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            'delete_customers',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late ApiResult<DeletedItemsModel> _value;
+    try {
+      _value = ApiResult<DeletedItemsModel>.fromJson(
+        _result.data!,
+        (json) => DeletedItemsModel.fromJson(json as Map<String, dynamic>),
+      );
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<ApiResult<DeletedItemsModel>> deleteOrders(
+    DeleteItemsRequest deleteItemsRequest,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(deleteItemsRequest.toJson());
+    final _options = _setStreamType<ApiResult<DeletedItemsModel>>(
+      Options(method: 'POST', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            'delete_orders',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late ApiResult<DeletedItemsModel> _value;
+    try {
+      _value = ApiResult<DeletedItemsModel>.fromJson(
+        _result.data!,
+        (json) => DeletedItemsModel.fromJson(json as Map<String, dynamic>),
+      );
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
         !(requestOptions.responseType == ResponseType.bytes ||

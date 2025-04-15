@@ -28,7 +28,7 @@ class BrandItemWidget extends StatelessWidget {
         child: Column(
           children: [
             CircleAvatar(
-              radius: 40.r,
+              radius: 32.r,
               backgroundImage: brand.logoUrl != null
                   ? NetworkImage(brand.logoUrl ?? "")
                   : AssetImage(Assets.images.imgPlaceholder.path),

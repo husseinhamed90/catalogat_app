@@ -30,4 +30,14 @@ class OrdersRepositoryImpl implements OrdersRepository {
       return Resource.failure("Failed to get orders");
     }
   }
+
+  @override
+  Future<Resource<int>> deleteSelectedOrders(List<String> ids) async {
+    try {
+      final apiResponse = await _supabaseService.deleteOrders(DeleteItemsRequest(ids: ids));
+      return apiResponse.toResource((data) => data.toEntity());
+    } catch (e) {
+      return Resource.failure("Failed to delete orders");
+    }
+  }
 }

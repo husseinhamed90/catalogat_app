@@ -81,7 +81,7 @@ class _ProductItemWidgetState extends State<ProductItemWidget> {
                                     FittedBox(
                                         child: Text(
                                             maxLines: 1,
-                                            style: TextStyle(color: AppColors.textColor, fontWeight: FontWeight.w600, fontSize: FontSize.xSmall),
+                                            style: TextStyle(color: AppColors.textColor, fontWeight: FontWeight.w600, fontSize: 15.sp),
                                             widget.item.productCode ?? "",
                                         )
                                     )

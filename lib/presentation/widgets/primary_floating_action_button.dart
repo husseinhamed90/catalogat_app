@@ -35,7 +35,7 @@ class PrimaryFloatingActionButton extends StatelessWidget {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              icon ?? Icon(Icons.add, color: Colors.white, size: FontSize.large,)
+              icon ?? Icon(Icons.add, color: Colors.white, size: Dimens.horizontalLarge,)
             ],
           )
       ),

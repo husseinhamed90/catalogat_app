@@ -30,4 +30,14 @@ class CustomersRepoImpl implements CustomerRepository {
     }
   }
 
+  @override
+  Future<Resource<int>> deleteSelectedCustomers(List<String> ids) async {
+    try {
+      final response = await _supabaseService.deleteCustomers(DeleteItemsRequest(ids: ids));
+      return response.toResource((data) => data.toEntity());
+    } catch (e) {
+      return Resource.failure("Failed to delete customers");
+    }
+  }
+
 }

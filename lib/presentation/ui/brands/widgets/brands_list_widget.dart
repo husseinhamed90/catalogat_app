@@ -16,8 +16,11 @@ class BrandsListWidget extends StatelessWidget {
     return BlocProvider.value(
       value: brandsCubit,
       child: Container(
-        height: 145.h,
-        padding: EdgeInsets.symmetric(vertical: Dimens.horizontalMedium),
+        height: 120.h,
+        padding: EdgeInsets.only(
+          top: Dimens.horizontalSmall,
+          bottom: Dimens.verticalSemiSmall
+        ),
         width: double.infinity,
         color: Colors.white,
         child: BlocBuilder<BrandsCubit, BrandsState>(

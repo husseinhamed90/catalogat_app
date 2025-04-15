@@ -10,4 +10,5 @@ class Routes {
   static const String orders = '/orders';
   static const String editCompanyInfo = '/edit_company_info';
   static const String addNewCustomer = '/add_new_customer';
+  static const String customers = '/customers';
 }

@@ -82,8 +82,8 @@ class _AddNewProductScreenState extends State<AddNewProductScreen> {
                             name: _productNameController.text,
                             brandId: state.selectedBrand?.id,
                             productCode: _productCodeController.text,
-                            price1: double.tryParse(_productPrice1Controller.text.removeNonNumber),
-                            price2: double.tryParse(_productPrice2Controller.text.removeNonNumber),
+                            price1: double.tryParse(_productPrice1Controller.text),
+                            price2: double.tryParse(_productPrice2Controller.text),
                           ),
                         );
                         if(addProductSuccess.$1) {

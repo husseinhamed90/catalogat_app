@@ -66,6 +66,12 @@ class RouterGenerator {
               customersCubit: (args as Map<String, dynamic>)[ArgumentsNames.customersCubit] as CustomersCubit,
             )
         );
+      case Routes.customers:
+        return MaterialPageRoute(
+            builder: (_) => CustomersScreen(
+              customerCubit: (args as Map<String, dynamic>)[ArgumentsNames.customersCubit] as CustomersCubit,
+            )
+        );
       default:
         return _errorRoute();
     }

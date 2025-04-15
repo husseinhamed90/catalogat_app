@@ -28,7 +28,7 @@ class PrimaryAddItemWidget extends StatelessWidget {
                 dashPattern: [6, 3],
                 color: Colors.grey,
                 child: CircleAvatar(
-                  radius: 40.r,
+                  radius: 32.r,
                   backgroundColor: Colors.transparent,
                   child: icon ?? Icon(Icons.add, color: Colors.grey, size: 30),
                 ),

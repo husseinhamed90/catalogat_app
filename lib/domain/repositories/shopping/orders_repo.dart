@@ -5,4 +5,5 @@ import 'package:catalogat_app/domain/entities/entities.dart';
 abstract class OrdersRepository {
   Future<Resource<List<OrderEntity>>> getOrders();
   Future<Resource<OrderEntity>> createOrder(CreateOrderParams orderRequest);
+  Future<Resource<int>> deleteSelectedOrders(List<String> ids);
 }

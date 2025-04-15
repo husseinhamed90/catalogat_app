@@ -21,3 +21,6 @@ export 'company_model.dart';
 export 'update_company_info_params.dart';
 
 export 'product_cart_item.dart';
+
+export 'deleted_items_model.dart';
+export 'delete_items_request.dart';

@@ -14,25 +14,41 @@ class SelectCustomerWidget extends StatelessWidget {
     return Container(
       color: Colors.white,
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          PrimaryAddItemWidget(
-            onTap: (){
-              Navigator.of(context).pushNamed(
-                Routes.addNewCustomer,
-                arguments: {
-                  ArgumentsNames.customersCubit: customersCubit,
-                },
-              );
-            },
-            text: context.l10n.label_addCustomer,
+          Gap(Dimens.horizontalSmall),
+          PrimaryFloatingActionButton(onPressed: (){
+            Navigator.of(context).pushNamed(
+              Routes.addNewCustomer,
+              arguments: {
+                ArgumentsNames.customersCubit: customersCubit,
+              },
+            );
+          }),
+          Gap(Dimens.horizontalSmall),
+          PrimaryFloatingActionButton(
+              onPressed: (){
+                Navigator.of(context).pushNamed(
+                  Routes.customers,
+                  arguments: {
+                    ArgumentsNames.customersCubit: customersCubit,
+                  },
+                );
+              },
+              icon: SvgPicture.asset(
+                Assets.icons.icUsers,
+                color: Colors.white,
+                height: Dimens.horizontalLarge,
+                width: Dimens.horizontalLarge,
+              ),
           ),
           Expanded(
             child: Container(
               padding: EdgeInsets.symmetric(
                 horizontal: Dimens.horizontalXSmall,
               ),
-              height: 80.h,
+              height: 62.h,
               child: Center(
                 child: BlocBuilder<CustomersCubit,CustomersState>(
                   buildWhen: (previousState, currentState) {

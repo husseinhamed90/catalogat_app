@@ -2,44 +2,30 @@ import 'package:intl/intl.dart';
 
 extension NumberFormattingExtension on num {
   String formatAsCurrency() {
+    // Convert the number to a string to analyze its decimal part
+    final String stringValue = toString();
 
-    final NumberFormat formatterWithoutDecimal = NumberFormat('#,##0', 'en_US');
+    // Check if the number has a decimal part
+    final bool hasDecimal = stringValue.contains('.');
 
-    // Convert num to a string with up to two decimal places without rounding beyond the second decimal place
-    final String stringWithUpToTwoDecimals = _truncateToTwoDecimalsWithoutRounding(this);
-
-    // Parse the string back to a double for formatting
-    final num formattedNumber = num.parse(stringWithUpToTwoDecimals);
-
-    // Determine if the formatted number is an integer (no decimal part) or not
-    if (formattedNumber is int || formattedNumber == formattedNumber.roundToDouble()) {
-      return formatterWithoutDecimal.format(formattedNumber);
+    if (!hasDecimal || this == roundToDouble()) {
+      // Format as integer if no decimal or decimal is all zeros
+      return NumberFormat('#,##0', 'en_US').format(this);
     } else {
-      // Use dynamic formatter for numbers with decimal part
-      final NumberFormat formatterWithDecimal = NumberFormat('#,##0.##', 'en_US');
-      return formatterWithDecimal.format(formattedNumber);
+      // Count significant decimal digits
+      final decimalDigits = stringValue.split('.')[1].replaceAll(RegExp(r'0*$'), '').length;
+
+      // Create formatter with exactly the needed decimal places
+      final pattern = '#,##0.${'#' * decimalDigits}';
+      return NumberFormat(pattern, 'en_US').format(this);
     }
   }
 
   String get finalTotal {
-    if(isNaN || isInfinite) {
+    if (isNaN || isInfinite) {
       return " - ";
     } else {
       return formatAsCurrency();
     }
   }
-
-  String _truncateToTwoDecimalsWithoutRounding(num value) {
-    final String stringValue = value.toString();
-    final int dotIndex = stringValue.indexOf('.');
-    if (dotIndex != -1) {
-      final int end = dotIndex + 3; // Keep one decimal point and up to two decimal places
-      if (stringValue.length > end + 1) { // Check if there's a need to truncate
-        return stringValue.substring(0, end);
-      }
-    }
-    // Return original string if it doesn't have more than two decimal places
-    return stringValue;
-  }
-
 }

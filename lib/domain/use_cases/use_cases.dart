@@ -18,3 +18,6 @@ export 'customers/save_new_customer_use_case.dart';
 
 export 'company/update_company_info_use_case.dart';
 export 'company/fetch_company_info_use_case.dart';
+
+export 'order/delete_selected_orders_use_case.dart';
+export 'customers/delete_selected_customers_use_case.dart';

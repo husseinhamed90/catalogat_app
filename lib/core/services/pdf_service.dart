@@ -14,13 +14,14 @@ class PdfService {
   static Future<File?> generateOrdersPdf(OrderPdfFileEntity order) async {
     final pdf = pw.Document();
 
-    final arabicFont = pw.Font.ttf(await rootBundle.load("assets/fonts/Cairo-Regular.ttf"));
+    final arabicFont = pw.Font.ttf(await rootBundle.load("assets/fonts/Amiri-Regular.ttf"));
 
     pdf.addPage(
       pw.MultiPage(
         theme: pw.ThemeData.withFont(
           base: arabicFont,
           bold: arabicFont,
+          icons: arabicFont,
           italic: arabicFont,
           boldItalic: arabicFont,
         ),

@@ -87,6 +87,7 @@ flutter:
     - assets/icons/
     - assets/images/
     - assets/fonts/Cairo-Regular.ttf
+    - assets/fonts/Amiri-Regular.ttf
 
   fonts:
     - family: Tajawal

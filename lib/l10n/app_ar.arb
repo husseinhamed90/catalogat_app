@@ -84,5 +84,12 @@
   "message_companyLogoRequired": "شعار الشركة مطلوب",
   "error_invalidPrice": "الرجاء إدخال سعر صالح",
   "error_customerNameAlreadyExists": "اسم العميل موجود بالفعل",
-  "error_brandNameAlreadyExists": "اسم البراند موجود بالفعل"
+  "error_brandNameAlreadyExists": "اسم البراند موجود بالفعل",
+  "action_cancel": "إلغاء",
+  "title_customers_screen": "العملاء",
+  "empty_customers_list": "لا توجد عملاء متاحة",
+  "message_customers_deleted_successfully": "تم الحذف بنجاح",
+  "message_customers_deleted_failed": "فشل الحذف",
+  "message_orders_deleted_successfully": "تم الحذف بنجاح",
+  "message_orders_deleted_failed": "فشل الحذف"
 }

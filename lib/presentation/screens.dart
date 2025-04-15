@@ -12,3 +12,4 @@ export 'ui/order/screens/orders_screen.dart';
 export 'ui/company/screens/edit_company_screen.dart';
 
 export 'ui/customers/screens/add_new_customer_screen.dart';
+export 'ui/customers/screens/customers_screen.dart';

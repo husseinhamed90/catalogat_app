@@ -5,4 +5,6 @@ import 'package:catalogat_app/domain/entities/entities.dart';
 abstract class CustomerRepository {
   Future<Resource<List<CustomerEntity>>> getCustomers();
   Future<Resource<CustomerEntity>> addCustomer(AddCustomerParams customerRequest);
+  /// deleteCustomer
+  Future<Resource<int>> deleteSelectedCustomers(List<String> ids);
 }

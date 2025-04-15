@@ -32,6 +32,7 @@ void setupLocator() {
   sl.registerFactory<CustomersCubit>(() => CustomersCubit(
       sl<FetchCustomerUseCase>(),
       sl<SaveNewCustomerUseCase>(),
+      sl<DeleteSelectedCustomersUseCase>(),
   ));
 
   sl.registerFactory<ShoppingCubit>(() => ShoppingCubit());
@@ -40,6 +41,7 @@ void setupLocator() {
     sl<CreateOrderUseCase>(),
     sl<FetchOrdersUseCase>(),
     sl<GenerateOrderReportUseCase>(),
+    sl<DeleteSelectedOrdersUseCase>(),
   ));
 
   /// Repositories
@@ -69,6 +71,8 @@ void setupLocator() {
   sl.registerFactory<SaveNewCustomerUseCase>(() => SaveNewCustomerUseCase(sl<CustomerRepository>()));
   sl.registerFactory<UpdateCompanyInfoUseCase>(() => UpdateCompanyInfoUseCase(sl<CompanyRepository>()));
   sl.registerFactory<FetchCompanyInfoUseCase>(() => FetchCompanyInfoUseCase(sl<CompanyRepository>()));
+  sl.registerFactory<DeleteSelectedOrdersUseCase>(() => DeleteSelectedOrdersUseCase(sl<OrdersRepository>()));
+  sl.registerFactory<DeleteSelectedCustomersUseCase>(() => DeleteSelectedCustomersUseCase(sl<CustomerRepository>()));
 
 
   sl.registerLazySingleton<Dio>(() => Dio(

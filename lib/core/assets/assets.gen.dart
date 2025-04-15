@@ -43,6 +43,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_product.svg
   String get icProduct => 'assets/icons/ic_product.svg';
 
+  /// File path: assets/icons/ic_users.svg
+  String get icUsers => 'assets/icons/ic_users.svg';
+
   /// List of all assets
   List<String> get values => [
     icCamera,
@@ -52,6 +55,7 @@ class $AssetsIconsGen {
     icLeftArrow,
     icMenuList,
     icProduct,
+    icUsers,
   ];
 }
 
