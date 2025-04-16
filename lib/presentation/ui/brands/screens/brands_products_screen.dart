@@ -38,7 +38,7 @@ class _BrandsProductsScreenState extends State<BrandsProductsScreen> {
         BlocProvider(create: (_) => _companyCubit),
         BlocProvider(create: (_) => _customersCubit),
       ],
-      child: Scaffold(
+      child: PrimaryScaffold(
         backgroundColor: AppColors.background,
         appBar: PrimaryAppBar(
           color: Colors.white,

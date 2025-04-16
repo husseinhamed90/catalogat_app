@@ -32,9 +32,8 @@ class _ShoppingScreenState extends State<ShoppingScreen> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => shoppingCubit,
-      child: Scaffold(
+      child: PrimaryScaffold(
           backgroundColor: AppColors.background,
-          resizeToAvoidBottomInset: true,
           bottomNavigationBar: Container(
             color: Colors.white,
             padding: EdgeInsets.symmetric(horizontal: Dimens.horizontalMedium, vertical: Dimens.verticalMedium),

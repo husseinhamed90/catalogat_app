@@ -42,7 +42,7 @@ class _EditBrandScreenState extends State<EditBrandScreen> {
         onTap: () {
           if (_brandNameFocusNode.hasFocus) _brandNameFocusNode.unfocus();
         },
-        child: Scaffold(
+        child: PrimaryScaffold(
           bottomNavigationBar: Padding(
             padding: EdgeInsets.all(Dimens.verticalLarge),
             child: SizedBox(

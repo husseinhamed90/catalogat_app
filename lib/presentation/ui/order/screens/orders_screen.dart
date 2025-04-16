@@ -3,6 +3,7 @@ import 'package:catalogat_app/domain/entities/entities.dart';
 import 'package:catalogat_app/presentation/blocs/order/order_cubit.dart';
 import 'package:catalogat_app/presentation/widgets/primary_app_bar.dart';
 import 'package:catalogat_app/presentation/widgets/primary_floating_action_button.dart';
+import 'package:catalogat_app/presentation/widgets/primary_scaffold.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class OrdersScreen extends StatefulWidget {
@@ -28,7 +29,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
   Widget build(BuildContext context) {
     return BlocProvider.value(
       value: widget.orderCubit,
-      child: Scaffold(
+      child: PrimaryScaffold(
         backgroundColor: Colors.white,
         floatingActionButton: BlocBuilder<OrderCubit, OrderState>(
           buildWhen: (previous, current) {

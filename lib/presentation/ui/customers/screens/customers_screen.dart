@@ -1,5 +1,6 @@
 import 'package:catalogat_app/core/dependencies.dart';
 import 'package:catalogat_app/presentation/widgets/primary_floating_action_button.dart';
+import 'package:catalogat_app/presentation/widgets/primary_scaffold.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:catalogat_app/domain/entities/entities.dart';
 import 'package:catalogat_app/presentation/blocs/blocs.dart';
@@ -26,7 +27,7 @@ class _CustomersScreenState extends State<CustomersScreen> {
   Widget build(BuildContext context) {
     return BlocProvider.value(
       value: widget.customerCubit,
-      child: Scaffold(
+      child: PrimaryScaffold(
         backgroundColor: Colors.white,
         floatingActionButton: BlocBuilder<CustomersCubit, CustomersState>(
           buildWhen: (previous, current) {

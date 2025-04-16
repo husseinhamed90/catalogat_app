@@ -34,8 +34,7 @@ class _EditCompanyScreenState extends State<EditCompanyScreen> {
   Widget build(BuildContext context) {
     return BlocProvider.value(
       value: widget.companyCubit,
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
+      child: PrimaryScaffold(
         bottomNavigationBar: Padding(
           padding: EdgeInsets.all(Dimens.verticalLarge),
           child: SizedBox(

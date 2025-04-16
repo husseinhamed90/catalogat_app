@@ -23,7 +23,7 @@ class _AddNewCustomerScreenState extends State<AddNewCustomerScreen> {
   Widget build(BuildContext context) {
     return BlocProvider.value(
       value: widget.customersCubit,
-      child: Scaffold(
+      child: PrimaryScaffold(
         bottomNavigationBar: Padding(
           padding: EdgeInsets.all(Dimens.verticalLarge),
           child: SizedBox(

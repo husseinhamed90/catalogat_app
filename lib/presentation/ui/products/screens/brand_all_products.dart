@@ -16,7 +16,7 @@ class BrandAllProducts extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider.value(
       value: brandsCubit,
-      child: Scaffold(
+      child: PrimaryScaffold(
         backgroundColor: AppColors.background,
         appBar: PrimaryAppBar(title: brand.name, color: AppColors.background),
         body: BlocConsumer<BrandsCubit, BrandsState>(

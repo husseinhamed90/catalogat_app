@@ -39,7 +39,7 @@ class _AddBrandScreenState extends State<AddBrandScreen> {
         onTap: () {
           if (_brandNameFocusNode.hasFocus) _brandNameFocusNode.unfocus();
         },
-        child: Scaffold(
+        child: PrimaryScaffold(
           bottomNavigationBar: Padding(
             padding: EdgeInsets.all(Dimens.verticalLarge),
             child: SizedBox(
@@ -70,7 +70,6 @@ class _AddBrandScreenState extends State<AddBrandScreen> {
                         );
                         return;
                       }
-                      return;
                       if (_formKey.currentState!.validate()) {
                         final addBrandSuccess = await widget.brandsCubit.addBrand(
                           requestModel: AddBrandParams(

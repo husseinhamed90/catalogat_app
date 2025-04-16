@@ -29,7 +29,7 @@
   "action_editProduct": "تحديث المنتج",
   "title_edit_product_screen": "تحديث المنتج",
   "price_1_value": "السعر : ",
-  "price_2_value": "سعر الجملة : {price} ج.م",
+  "price_2_value": "الجملة : {price} ج.م",
   "action_addBrand": "إضافة براند",
   "label_productCode": "كود المنتج",
   "label_productCodeHint": "أدخل كود المنتج",
