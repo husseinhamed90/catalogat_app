@@ -24,3 +24,6 @@ export 'product_cart_item.dart';
 
 export 'deleted_items_model.dart';
 export 'delete_items_request.dart';
+
+export 'updated_product_positions_model.dart';
+export 'batch_of_products_positions_model.dart';

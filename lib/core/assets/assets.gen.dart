@@ -12,11 +12,14 @@ import 'package:flutter/widgets.dart';
 class $AssetsFontsGen {
   const $AssetsFontsGen();
 
+  /// File path: assets/fonts/Amiri-Regular.ttf
+  String get amiriRegular => 'assets/fonts/Amiri-Regular.ttf';
+
   /// File path: assets/fonts/Cairo-Regular.ttf
   String get cairoRegular => 'assets/fonts/Cairo-Regular.ttf';
 
   /// List of all assets
-  List<String> get values => [cairoRegular];
+  List<String> get values => [amiriRegular, cairoRegular];
 }
 
 class $AssetsIconsGen {

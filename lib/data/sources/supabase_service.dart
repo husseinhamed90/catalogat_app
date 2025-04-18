@@ -68,4 +68,8 @@ abstract class SupabaseService {
   //deleteOrders
   @POST('delete_orders')
   Future<ApiResult<DeletedItemsModel>> deleteOrders(@Body() DeleteItemsRequest deleteItemsRequest);
+
+  //batch_update_product_position
+  @POST('batch_update_product_position')
+  Future<ApiResult<List<OrderedProduct>>> batchUpdateProductPosition(@Body() BatchOfProductsPositionsModel updatedProductsPositionsModel);
 }

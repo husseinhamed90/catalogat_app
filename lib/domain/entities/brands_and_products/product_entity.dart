@@ -4,6 +4,7 @@ class ProductEntity extends Equatable {
   final String? id;
   final String? name;
   final int? quantity;
+  final int? position;
   final double? price1;
   final double? price2;
   final String? brandId;
@@ -17,6 +18,7 @@ class ProductEntity extends Equatable {
     this.price1,
     this.price2,
     this.brandId,
+    this.position,
     this.quantity,
     this.imageUrl,
     this.totalPrice,
@@ -31,6 +33,7 @@ class ProductEntity extends Equatable {
     price2,
     brandId,
     quantity,
+    position,
     imageUrl,
     totalPrice,
     productCode,
@@ -39,6 +42,7 @@ class ProductEntity extends Equatable {
   ProductEntity copyWith({
     String? id,
     String? name,
+    int? position,
     int? quantity,
     double? price1,
     double? price2,
@@ -54,6 +58,7 @@ class ProductEntity extends Equatable {
       price2: price2 ?? this.price2,
       brandId: brandId ?? this.brandId,
       quantity: quantity ?? this.quantity,
+      position: position ?? this.position,
       imageUrl: imageUrl ?? this.imageUrl,
       totalPrice: totalPrice ?? this.totalPrice,
       productCode: productCode ?? this.productCode,

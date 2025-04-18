@@ -519,6 +519,46 @@ class _SupabaseService implements SupabaseService {
     return _value;
   }
 
+  @override
+  Future<ApiResult<List<OrderedProduct>>> batchUpdateProductPosition(
+    BatchOfProductsPositionsModel updatedProductsPositionsModel,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(updatedProductsPositionsModel.toJson());
+    final _options = _setStreamType<ApiResult<List<OrderedProduct>>>(
+      Options(method: 'POST', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            'batch_update_product_position',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late ApiResult<List<OrderedProduct>> _value;
+    try {
+      _value = ApiResult<List<OrderedProduct>>.fromJson(
+        _result.data!,
+        (json) =>
+            json is List<dynamic>
+                ? json
+                    .map<OrderedProduct>(
+                      (i) => OrderedProduct.fromJson(i as Map<String, dynamic>),
+                    )
+                    .toList()
+                : List.empty(),
+      );
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
         !(requestOptions.responseType == ResponseType.bytes ||

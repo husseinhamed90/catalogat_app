@@ -19,6 +19,9 @@ class ProductModel implements EntityConverter<ProductModel, ProductEntity> {
   @JsonKey(name: 'product_code')
   final String? productCode;
 
+  @JsonKey(name: 'position')
+  final int? position;
+
   ProductModel({
     this.id,
     this.name,
@@ -26,6 +29,7 @@ class ProductModel implements EntityConverter<ProductModel, ProductEntity> {
     this.price2,
     this.brandId,
     this.imageUrl,
+    this.position,
     this.productCode,
   });
 
@@ -36,13 +40,16 @@ class ProductModel implements EntityConverter<ProductModel, ProductEntity> {
 
   @override
   ProductEntity toEntity() {
+    print("id : $id");
+    print("position : $position");
     return ProductEntity(
       id: id,
       name: name,
-      imageUrl: imageUrl,
       price1: price1,
       price2: price2,
       brandId: brandId,
+      position: position,
+      imageUrl: imageUrl,
       productCode: productCode,
     );
   }

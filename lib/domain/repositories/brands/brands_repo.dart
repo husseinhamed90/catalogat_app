@@ -7,4 +7,5 @@ abstract class BrandsRepo {
   Future<Resource<BrandEntity>> addBrand(AddBrandParams brandRequest);
   Future<Resource<BrandEntity>> updateBrand(UpdateBrandParams updateBrandParams);
   Future<Resource<BrandEntity>> deleteBrand(String brandId);
+  Future<Resource<bool>> reorderBrandProducts(List<OrderedProduct> products);
 }

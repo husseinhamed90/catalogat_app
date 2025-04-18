@@ -48,4 +48,16 @@ class BrandsRepoImpl extends BrandsRepo {
       return Resource.failure("Failed to update brand");
     }
   }
+
+  @override
+  Future<Resource<bool>> reorderBrandProducts(List<OrderedProduct> products) async {
+    try {
+      final response = await _supabaseService.batchUpdateProductPosition(BatchOfProductsPositionsModel(products: products));
+      return response.toResource().isSuccess
+          ? Resource.success(true)
+          : Resource.failure("Failed to update product positions");
+    } catch (e) {
+      return Resource.failure("Failed to update product positions");
+    }
+  }
 }

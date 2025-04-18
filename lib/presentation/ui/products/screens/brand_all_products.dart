@@ -1,3 +1,5 @@
+import 'package:animated_reorderable_list/animated_reorderable_list.dart';
+import 'package:catalogat_app/core/constants/app_constants.dart';
 import 'package:catalogat_app/core/dependencies.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:catalogat_app/domain/entities/entities.dart';
@@ -5,7 +7,7 @@ import 'package:catalogat_app/presentation/blocs/blocs.dart';
 import 'package:catalogat_app/presentation/widgets/widgets.dart';
 import 'package:catalogat_app/presentation/ui/products/widgets/widgets.dart';
 
-class BrandAllProducts extends StatelessWidget {
+class BrandAllProducts extends StatefulWidget {
   const BrandAllProducts({super.key, required this.brand, required this.brandsCubit, required this.orderCubit});
 
   final BrandEntity brand;
@@ -13,12 +15,104 @@ class BrandAllProducts extends StatelessWidget {
   final OrderCubit orderCubit;
 
   @override
+  State<BrandAllProducts> createState() => _BrandAllProductsState();
+}
+
+class _BrandAllProductsState extends State<BrandAllProducts> {
+
+  final List <Widget> generatedChildren = [];
+
+  List<ProductEntity> _products = [];
+
+  @override
+  void initState() {
+    _products = widget.brand.products;
+    _pendingProducts = List.from(_products);
+    super.initState();
+    _generateImageData();
+  }
+
+  void _showConfirmationDialog() {
+    showDialog(
+      context: globalKey.currentContext!,
+      barrierDismissible: false,
+      builder: (context) => AlertDialog(
+        title: Text(
+            globalKey.currentContext?.l10n.popUp_title_applyChanges ?? "",
+            style: TextStyle(
+                fontSize: FontSize.large,
+                fontWeight: FontWeight.w600,
+                color: AppColors.textColor
+            )
+        ),
+        content: Text(
+            globalKey.currentContext?.l10n.popUp_confirmation ?? "",
+            style: TextStyle(
+                fontSize: FontSize.medium,
+                fontWeight: FontWeight.w400,
+                color: AppColors.textColor
+            )
+        ),
+        actions: [
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+              _discardChanges();
+            },
+            child: Text(
+                globalKey.currentContext?.l10n.action_ignore ?? "",
+                style: TextStyle(
+                    fontSize: FontSize.medium,
+                    fontWeight: FontWeight.w400,
+                    color: AppColors.textColor
+                )
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+              _applyChanges();
+            },
+            child: Text(
+                globalKey.currentContext?.l10n.action_yes ?? "",
+                style: TextStyle(
+                    fontSize: FontSize.medium,
+                    fontWeight: FontWeight.w400,
+                    color: AppColors.textColor
+                )
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  List<ProductEntity> _pendingProducts = [];
+
+  void _applyChanges() {
+    for(int i = 0; i < _pendingProducts.length; i++) {
+      _pendingProducts[i] = _pendingProducts[i].copyWith(position: i);
+    }
+    setState(() {
+      _products = List.from(_pendingProducts);
+    });
+    widget.brandsCubit.reorderBrandProducts(_products, widget.brand.id ?? "");
+  }
+
+  void _discardChanges() {
+    setState(() {
+      _pendingProducts = List.from(_products);
+    });
+  }
+
+
+  @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
-      value: brandsCubit,
+      value: widget.brandsCubit,
       child: PrimaryScaffold(
         backgroundColor: AppColors.background,
-        appBar: PrimaryAppBar(title: brand.name, color: AppColors.background),
+        appBar: PrimaryAppBar(title: widget.brand.name, color: AppColors.background),
         body: BlocConsumer<BrandsCubit, BrandsState>(
           listenWhen: (previous, current) {
             if(current.deleteProductResource.isSuccess) return true;
@@ -27,7 +121,7 @@ class BrandAllProducts extends StatelessWidget {
           listener: (context, state) {
             if (state.deleteProductResource.isSuccess) {
               if(state.brandsResource.data != null) {
-                final brand = state.brandsResource.data!.firstWhere((element) => element.id == this.brand.id);
+                final brand = state.brandsResource.data!.firstWhere((element) => element.id == widget.brand.id);
                 if(brand.products.isEmpty) {
                   if(context.mounted) Navigator.of(context).pop();
                 }
@@ -42,13 +136,12 @@ class BrandAllProducts extends StatelessWidget {
             if (state.brandsResource.isLoading) {
               return const Center(child: CircularProgressIndicator());
             }
-            final brand = (state.brandsResource.data ?? []).firstWhere((element) => element.id == this.brand.id);
             return SafeArea(
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: Dimens.horizontalSemiSmall),
                 child: Builder(
                   builder: (context) {
-                    if(brand.products.isEmpty) {
+                    if(_products.isEmpty) {
                       return Center(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -64,20 +157,36 @@ class BrandAllProducts extends StatelessWidget {
                         ),
                       );
                     }
-                    return GridView.builder(
-                      padding: EdgeInsets.zero,
-                      itemCount: brand.products.length,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    return AnimatedReorderableGridView(
+                      items: _pendingProducts,
+                      itemBuilder: (BuildContext context, int index) {
+                        final product = _pendingProducts[index];
+                        return ProductItemWidget(
+                          key: ValueKey(product.id),
+                          orderCubit: widget.orderCubit,
+                          item: product,
+                        );
+                      },
+                      sliverGridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
                         mainAxisExtent: 330.h,
                         crossAxisSpacing: 4.w,
                       ),
-                      itemBuilder: (context, index) {
-                        return ProductItemWidget(
-                          orderCubit: orderCubit,
-                          item: brand.products[index],
-                        );
+                      enterTransition: [FlipInX(), ScaleIn()],
+                      exitTransition: [SlideInLeft()],
+                      insertDuration: const Duration(milliseconds: 300),
+                      removeDuration: const Duration(milliseconds: 300),
+                      onReorder: (oldIndex, newIndex) {
+                        setState(() {
+                          final product = _pendingProducts.removeAt(oldIndex);
+                          _pendingProducts.insert(newIndex, product);
+                        });
+                        WidgetsBinding.instance.addPostFrameCallback((_) {
+                          _showConfirmationDialog();
+                        });
                       },
+                      dragStartDelay: const Duration(milliseconds: 300),
+                      isSameItem: (a, b) => a.id == b.id,
                     );
                   }
                 ),
@@ -88,4 +197,19 @@ class BrandAllProducts extends StatelessWidget {
       ),
     );
   }
+  void _generateImageData() {
+    generatedChildren.clear();
+    for (var product in _pendingProducts) {
+      generatedChildren.add(
+          KeyedSubtree(
+              key: Key(product.id ?? ""),
+              child:ProductItemWidget(
+                  orderCubit: widget.orderCubit,
+                  item: product
+              )
+          )
+      );
+    }
+  }
 }
+

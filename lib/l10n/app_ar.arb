@@ -91,5 +91,9 @@
   "message_customers_deleted_successfully": "تم الحذف بنجاح",
   "message_customers_deleted_failed": "فشل الحذف",
   "message_orders_deleted_successfully": "تم الحذف بنجاح",
-  "message_orders_deleted_failed": "فشل الحذف"
+  "message_orders_deleted_failed": "فشل الحذف",
+  "popUp_title_applyChanges": "حفظ التغييرات",
+  "action_yes": "نعم",
+  "action_ignore": "تجاهل",
+  "popUp_confirmation": "هل تريد حفظ التغيرات  ؟"
 }

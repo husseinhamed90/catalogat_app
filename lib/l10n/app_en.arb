@@ -90,5 +90,9 @@
   "message_customers_deleted_successfully": "Selected Customers deleted successfully",
   "message_customers_deleted_failed": "Failed to delete selected customers",
   "message_orders_deleted_successfully": "Selected Orders deleted successfully",
-  "message_orders_deleted_failed": "Failed to delete selected orders"
+  "message_orders_deleted_failed": "Failed to delete selected orders",
+  "popUp_title_applyChanges": "Apply Changes ?",
+  "action_yes": "Yes",
+  "action_ignore": "No",
+  "popUp_confirmation": "Are you sure you want to apply these changes?"
 }

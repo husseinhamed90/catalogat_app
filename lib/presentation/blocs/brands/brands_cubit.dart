@@ -7,7 +7,7 @@ import 'package:catalogat_app/domain/use_cases/use_cases.dart';
 part 'brands_state.dart';
 
 class BrandsCubit extends Cubit<BrandsState> {
-  BrandsCubit(this._addBrandUseCase, this._deleteBrandUseCase, this._updateBrandUseCase, this._fetchBrandsUseCase, this._addProductUseCase, this._updateProductUseCase, this._deleteProductUseCase, this._uploadFileToStorageUseCase) : super(BrandsState());
+  BrandsCubit(this._addBrandUseCase, this._deleteBrandUseCase, this._updateBrandUseCase, this._fetchBrandsUseCase, this._addProductUseCase, this._updateProductUseCase, this._deleteProductUseCase, this._uploadFileToStorageUseCase, this._reorderBrandProductsUseCase) : super(BrandsState());
 
   final AddBrandUseCase _addBrandUseCase;
   final DeleteBrandUseCase _deleteBrandUseCase;
@@ -17,6 +17,7 @@ class BrandsCubit extends Cubit<BrandsState> {
   final UpdateProductUseCase _updateProductUseCase;
   final DeleteProductUseCase _deleteProductUseCase;
   final UploadFileToStorageUseCase _uploadFileToStorageUseCase;
+  final ReorderBrandProductsUseCase _reorderBrandProductsUseCase;
 
 
   Future<void> getBrands([bool loading = true]) async {
@@ -160,5 +161,25 @@ class BrandsCubit extends Cubit<BrandsState> {
   bool checkIfBrandNameExists(String brand) {
     final brands = state.brandsResource.data?.where((brandEntity) => brandEntity.name == brand);
     return brands != null && brands.isNotEmpty;
+  }
+
+  void reorderBrandProducts(List<ProductEntity> products, String brandId) async{
+    Resource<List<BrandEntity>> brandsResource = state.brandsResource;
+    emit(state.copyWith(
+        brandsResource: Resource.success(state.brandsResource.data?.map((brand) {
+          if (brand.id == brandId) {
+            return brand.copyWith(products: products);
+          }
+          return brand;
+        }).toList() ?? []),
+    ));
+    final resource = await _reorderBrandProductsUseCase(products.map((product) => OrderedProduct(
+      id: product.id ?? "",
+      position: product.position ?? 0
+    )).toList());
+    print("reorderBrandProducts resource: ${resource.isSuccess}");
+    if (!resource.isSuccess) {
+      emit(state.copyWith(brandsResource: brandsResource));
+    }
   }
 }
