@@ -136,12 +136,13 @@ class _BrandAllProductsState extends State<BrandAllProducts> {
             if (state.brandsResource.isLoading) {
               return const Center(child: CircularProgressIndicator());
             }
+            _pendingProducts = state.brandsResource.data?.firstWhere((element) => element.id == widget.brand.id).products ?? [];
             return SafeArea(
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: Dimens.horizontalSemiSmall),
                 child: Builder(
                   builder: (context) {
-                    if(_products.isEmpty) {
+                    if(_pendingProducts.isEmpty) {
                       return Center(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
