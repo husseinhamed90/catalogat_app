@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:image_picker/image_picker.dart';
 import 'package:catalogat_app/core/dependencies.dart';
 import 'package:catalogat_app/data/models/models.dart';
@@ -7,7 +9,7 @@ import 'package:catalogat_app/domain/use_cases/use_cases.dart';
 part 'brands_state.dart';
 
 class BrandsCubit extends Cubit<BrandsState> {
-  BrandsCubit(this._addBrandUseCase, this._deleteBrandUseCase, this._updateBrandUseCase, this._fetchBrandsUseCase, this._addProductUseCase, this._updateProductUseCase, this._deleteProductUseCase, this._uploadFileToStorageUseCase, this._reorderBrandProductsUseCase) : super(BrandsState());
+  BrandsCubit(this._addBrandUseCase, this._deleteBrandUseCase, this._updateBrandUseCase, this._fetchBrandsUseCase, this._addProductUseCase, this._updateProductUseCase, this._deleteProductUseCase, this._uploadFileToStorageUseCase, this._reorderBrandProductsUseCase, this._generateBrandProductsPdfFileUseCase) : super(BrandsState());
 
   final AddBrandUseCase _addBrandUseCase;
   final DeleteBrandUseCase _deleteBrandUseCase;
@@ -18,12 +20,20 @@ class BrandsCubit extends Cubit<BrandsState> {
   final DeleteProductUseCase _deleteProductUseCase;
   final UploadFileToStorageUseCase _uploadFileToStorageUseCase;
   final ReorderBrandProductsUseCase _reorderBrandProductsUseCase;
+  final GenerateBrandProductsPdfFileUseCase _generateBrandProductsPdfFileUseCase;
 
 
   Future<void> getBrands([bool loading = true]) async {
     if (loading) emit(state.copyWith(brandsResource: Resource.loading()));
     final resource = await _fetchBrandsUseCase.call();
     emit(state.copyWith(brandsResource: resource));
+  }
+
+  Future<bool> getBrandProductsPdf(BrandEntity brand) async {
+    emit(state.copyWith(generatePdfFileResource: Resource.loading()));
+    final resource = await _generateBrandProductsPdfFileUseCase(brand);
+    emit(state.copyWith(generatePdfFileResource: resource));
+    return resource.isSuccess;
   }
 
   Future<(bool,String?)> addBrand({required AddBrandParams requestModel}) async {

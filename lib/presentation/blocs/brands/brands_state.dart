@@ -16,6 +16,7 @@ class BrandsState extends Equatable {
   final Resource<List<BrandEntity>> brandsResource;
   final Resource<BrandEntity> addBrandResource;
   final Resource<List<ProductEntity>> fetchBrandProductsResource;
+  final Resource<File> generatePdfFileResource;
 
   const BrandsState({
     this.imageFile,
@@ -31,6 +32,7 @@ class BrandsState extends Equatable {
     this.deleteBrandResource = const Resource.initial(),
     this.deleteProductResource = const Resource.initial(),
     this.updateProductResource = const Resource.initial(),
+    this.generatePdfFileResource = const Resource.initial(),
     this.fetchBrandProductsResource = const Resource.initial(),
   });
 
@@ -49,6 +51,7 @@ class BrandsState extends Equatable {
     addProductResource,
     updateProductResource,
     deleteProductResource,
+    generatePdfFileResource,
     fetchBrandProductsResource,
   ];
 
@@ -65,6 +68,7 @@ class BrandsState extends Equatable {
     Resource<List<BrandEntity>>? brandsResource,
     Resource<ProductEntity>? addProductResource,
     Resource<ProductEntity>? updateProductResource,
+    Resource<File>? generatePdfFileResource,
     Resource<bool>? deleteProductResource,
     Resource<List<ProductEntity>>? fetchBrandProductsResource,
   }) {
@@ -80,6 +84,7 @@ class BrandsState extends Equatable {
       updateBrandResource: updateBrandResource ?? this.updateBrandResource,
       deleteBrandResource: deleteBrandResource ?? this.deleteBrandResource,
       addProductResource: addProductResource ?? this.addProductResource,
+      generatePdfFileResource: generatePdfFileResource ?? this.generatePdfFileResource,
       updateProductResource: updateProductResource ?? this.updateProductResource,
       deleteProductResource: deleteProductResource ?? this.deleteProductResource,
       fetchBrandProductsResource: fetchBrandProductsResource ?? this.fetchBrandProductsResource,

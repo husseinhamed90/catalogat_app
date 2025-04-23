@@ -22,6 +22,7 @@ void setupLocator() {
     sl<DeleteProductUseCase>(),
     sl<UploadFileToStorageUseCase>(),
     sl<ReorderBrandProductsUseCase>(),
+    sl<GenerateBrandProductsPdfFileUseCase>(),
   ));
 
   sl.registerFactory<CompanyCubit>(() => CompanyCubit(
@@ -68,6 +69,7 @@ void setupLocator() {
   sl.registerFactory<FetchOrdersUseCase>(() => FetchOrdersUseCase(sl<OrdersRepository>()));
   sl.registerFactory<CreateOrderUseCase>(() => CreateOrderUseCase(sl<OrdersRepository>()));
   sl.registerFactory<GenerateOrderReportUseCase>(() => GenerateOrderReportUseCase());
+  sl.registerFactory<GenerateBrandProductsPdfFileUseCase>(() => GenerateBrandProductsPdfFileUseCase());
   sl.registerFactory<FetchCustomerUseCase>(() => FetchCustomerUseCase(sl<CustomerRepository>()));
   sl.registerFactory<SaveNewCustomerUseCase>(() => SaveNewCustomerUseCase(sl<CustomerRepository>()));
   sl.registerFactory<UpdateCompanyInfoUseCase>(() => UpdateCompanyInfoUseCase(sl<CompanyRepository>()));

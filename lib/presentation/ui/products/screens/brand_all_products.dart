@@ -112,7 +112,40 @@ class _BrandAllProductsState extends State<BrandAllProducts> {
       value: widget.brandsCubit,
       child: PrimaryScaffold(
         backgroundColor: AppColors.background,
-        appBar: PrimaryAppBar(title: widget.brand.name, color: AppColors.background),
+        appBar: PrimaryAppBar(
+            actions: [
+              BlocBuilder<BrandsCubit, BrandsState>(
+                buildWhen: (previous, current) {
+                  if (previous.generatePdfFileResource != current.generatePdfFileResource) return true;
+                  return false;
+                },
+                builder: (context, state) {
+                  if (state.generatePdfFileResource.isLoading) {
+                    return Center(child: Container(
+                      width: 30.w,
+                      height: 30.w,
+                      padding: EdgeInsets.all(4.0),
+                      child: CircularProgressIndicator(
+                        color: Colors.black,
+                      ),
+                    ));
+                  }
+                  return IconButton(
+                    icon: SvgPicture.asset(
+                      Assets.icons.icGeneratePdf,
+                      color: Colors.black,
+                    ),
+                    onPressed: () async{
+                      widget.brandsCubit.getBrandProductsPdf(widget.brand);
+                    },
+                  );
+                },
+              ),
+              Gap(Dimens.horizontalSemiSmall),
+            ],
+            title: widget.brand.name,
+            color: AppColors.background
+        ),
         body: BlocConsumer<BrandsCubit, BrandsState>(
           listenWhen: (previous, current) {
             if(current.deleteProductResource.isSuccess) return true;
